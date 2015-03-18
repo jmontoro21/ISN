@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">Inftel Social Network</string>
-    <string name="title_activity_create_group">CreateGroupActivity</string>
-
+    <string name="title_activity_create_post">CreatePostActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="write_your_entry_here">Write your entry here...</string>
+    <string name="add_multimedia">Add multimedia</string>
+    <string name="post">Post</string>
+    <string name="title_activity_create_group">CreateGroupActivity</string>
 </resources>
