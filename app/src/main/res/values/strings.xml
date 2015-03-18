@@ -7,6 +7,6 @@
     <string name="write_your_entry_here">Write your entry here...</string>
     <string name="add_multimedia">Add multimedia</string>
     <string name="post">Post</string>
-    <string name="multimedia_url">Insert Youtube or image URL</string>
-    <string name="image_url">Invalid image URL</string>
+    <string name="youtube_url">Insert Youtube URL</string>
+    <string name="image_url">Insert image URL</string>
 </resources>

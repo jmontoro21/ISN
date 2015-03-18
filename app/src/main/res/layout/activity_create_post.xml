@@ -8,27 +8,26 @@
     android:orientation="vertical">
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="@string/write_your_entry_here"
         android:id="@+id/postContent"
-
         android:editable="true"
         android:inputType="text|textMultiLine"
         android:lines="8"
         android:gravity="start" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="@string/image_url"
         android:id="@+id/imageURL"
         android:editable="true"
         android:inputType="textUri" />
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/multimedia_url"
+        android:hint="@string/youtube_url"
         android:id="@+id/youtube"
         android:editable="true"
         android:inputType="text" />
