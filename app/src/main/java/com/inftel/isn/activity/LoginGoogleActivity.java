@@ -1,4 +1,4 @@
-package com.inftel.isn;
+package com.inftel.isn.activity;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -11,8 +11,8 @@ import android.util.Log;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
-
 import com.google.android.gms.plus.Plus;
+import com.inftel.isn.activity.MenuActivity;
 
 public class LoginGoogleActivity extends Activity implements
         GoogleApiClient.ConnectionCallbacks,
@@ -119,7 +119,7 @@ public class LoginGoogleActivity extends Activity implements
     public void onConnected(Bundle connectionHint) {
         Log.i(TAG, "GoogleApiClient connected");
         System.out.println("Conectado");
-        Intent i = new Intent(this, MainActivity.class);
+        Intent i = new Intent(this, MenuActivity.class);
         startActivity(i);
     }
 
