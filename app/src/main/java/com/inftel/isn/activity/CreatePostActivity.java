@@ -1,16 +1,16 @@
 package com.inftel.isn.activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
 import com.inftel.isn.R;
 
-public class CreatePostActivity extends ActionBarActivity {
+public class CreatePostActivity extends Activity {
     private final static String EMPTY_CONTENT_ALERT = "POST NEEDS TO HAVE SOME CONTENT...";
     private final static String CANT_POST_ALERT = "Can't post!";
 
