@@ -89,11 +89,7 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuItem itemBlog = menu.add(Menu.NONE, // Group ID
-                R.id.qr_reader, // Item ID
-                1, // Order
-                "QR Reader"); // Title
-        // To showAsAction attribute, use MenuItemCompat (set to always)
+        MenuItem itemBlog = menu.add(Menu.NONE, R.id.qr_reader, 1, "QR Reader");
         MenuItemCompat.setShowAsAction(itemBlog, MenuItem.SHOW_AS_ACTION_ALWAYS);
         itemBlog.setIcon(R.drawable.qr);
         getMenuInflater().inflate(R.menu.menu, menu);
@@ -102,20 +98,28 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
         switch (item.getItemId()) {
             case R.id.qr_reader:
                 try {
-                    Intent intent = new Intent(ACTION_SCAN);
+                    intent = new Intent(ACTION_SCAN);
                     intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
                     startActivityForResult(intent, 0);
                 } catch (ActivityNotFoundException anfe) {
                     showDialog(MenuActivity.this, "No Scanner Found", "Download a scanner code activity?", "Yes", "No").show();
                 }
                 return true;
-            case R.id.loginGoogle:
-                Intent i = new Intent(this, LoginGoogleActivity.class);
-                startActivity(i);
+
+            case R.id.createGroup:
+                intent = new Intent(this, CreateGroupActivity.class);
+                startActivity(intent);
                 return true;
+
+            case R.id.loginGoogle:
+                intent = new Intent(this, LoginGoogleActivity.class);
+                startActivity(intent);
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
