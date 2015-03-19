@@ -9,4 +9,7 @@
     <string name="post">Post</string>
     <string name="youtube_url">Insert Youtube URL</string>
     <string name="image_url">Insert image URL</string>
+    <string name="title_activity_create_group">CreateGroupActivity</string>
+    <string name="createGroup">Por favor, proporciona un asunto para el grupo y un icono opcional</string>
+    <string name="title_activity_add_users_group">AddUsersGroup</string>
 </resources>
