@@ -12,27 +12,30 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.inftel.isn.R;
+import com.inftel.isn.model.Comment;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CreatePostActivity extends Activity {
+public class CreateCommentActivity extends Activity {
     private final static String EMPTY_CONTENT_ALERT = "Post entry is too short.";
     private final static String CANT_POST_ALERT = "Can't post!";
     private final static String INVALID_IMAGE_URL = "Image URL invalid";
     private final static String INVALID_YOUTUBE = "Invalid Youtube link";
     private final static String NOT_AN_IMAGE = "URL is not a valid image";
-    private final static String CREATE_PUBLIC_POST_URL = "hhtp://192.......meh";
+    private final static String CREATE_PROFILE_POST_URL = "http://192.168.183.24/InftelSocialNetwork-web/webresources/profilecomments/insertcomment/userEmail/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_post);
+
     }
 
     @Override
@@ -65,6 +68,7 @@ public class CreatePostActivity extends Activity {
         String entryContent = content.getText().toString();
         String image = imageURL.getText().toString();
         String youtube = youtubeURL.getText().toString();
+        Comment comment = null;
         if(!entryContent.isEmpty() && entryContent.length()>9) {
             //save post to database via async REST (on postExecute reload postList)
             Log.i("db","user <USUARIO> saving post content:\n"+entryContent);
@@ -82,6 +86,7 @@ public class CreatePostActivity extends Activity {
                             image.toLowerCase().endsWith(".gif") ||image.toLowerCase().endsWith(".jpg")
                             || image.toLowerCase().endsWith("jpeg")){
                         Log.i("db","user " + " <USUARIO> " + " saving image URL "+image);
+                        comment.setImageUrl(image);
                     }else{
                         showDialog(CANT_POST_ALERT, NOT_AN_IMAGE);
                     }
@@ -101,6 +106,7 @@ public class CreatePostActivity extends Activity {
                 }
                 if(vId != null){
                     Log.i("db","user " + " <USUARIO> " + " saving youtube video "+vId);
+                    comment.setVideoUrl(vId);
                 }else{
                     showDialog(CANT_POST_ALERT, INVALID_YOUTUBE);
                 }
@@ -109,6 +115,10 @@ public class CreatePostActivity extends Activity {
             //show alert dialog
             showDialog(CANT_POST_ALERT, EMPTY_CONTENT_ALERT);
         }
+        comment.setText(entryContent);
+        comment.setCreationDate(new Date());
+        HttpRequestTask hrt = new HttpRequestTask();
+        hrt.execute(comment);
     }
 
 
@@ -124,23 +134,24 @@ public class CreatePostActivity extends Activity {
                 }).show();
     }
 
-    private class HttpRequestTask extends AsyncTask<Void, Void, Void> {
+    private class HttpRequestTask extends AsyncTask<Comment, Void, Void> {
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Void doInBackground(Comment... params) {
             try {
-                final String url = CREATE_PUBLIC_POST_URL;
+                final String url = CREATE_PROFILE_POST_URL+"eduard@tatopagao.es"+"/newComment/";
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-                restTemplate.put(url,"");
+                Comment micomentario = params[0];
+                restTemplate.postForEntity(url, micomentario, Comment.class);
             } catch (Exception e) {
-                Log.e("MainActivity", e.getMessage(), e);
+                Log.e("CreatePostActivity", e.getMessage(), e);
             }
+
             return null;
         }
 
-        @Override
         protected void onPostExecute(Void nothing) {
-            Log.i("async","http request finished");
+            Log.i("async","done");
         }
 
     }
