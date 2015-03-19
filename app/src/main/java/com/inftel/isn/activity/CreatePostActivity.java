@@ -18,10 +18,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CreatePostActivity extends Activity {
-    private final static String EMPTY_CONTENT_ALERT = "POST NEEDS TO HAVE SOME CONTENT...";
+    private final static String EMPTY_CONTENT_ALERT = "Post entry is too short.";
     private final static String CANT_POST_ALERT = "Can't post!";
     private final static String INVALID_IMAGE_URL = "Image URL invalid";
     private final static String INVALID_YOUTUBE = "Invalid Youtube link";
+    private final static String NOT_AN_IMAGE = "URL is not a valid image";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,21 +63,30 @@ public class CreatePostActivity extends Activity {
         String youtube = youtubeURL.getText().toString();
         if(!entryContent.isEmpty() && entryContent.length()>9) {
             //save post to database via async REST (on postExecute reload postList)
+            Log.i("db","user <USUARIO> saving post content:\n"+entryContent);
             if(!image.isEmpty()) {
                 if((image.substring(0,3)).equalsIgnoreCase("www")) {
                     // por si un usuario mete la URL sin http:// (si es https que lo ponga...)
                     image = "http://"+image;
-                    Log.i("url-replaced",image);
                 }
 
                 try {
                     URL url = new URL(image);
+
                     //guardar el campo image
+                    if(image.toLowerCase().endsWith(".bmp") || image.toLowerCase().endsWith(".png") ||
+                            image.toLowerCase().endsWith(".gif") ||image.toLowerCase().endsWith(".jpg")
+                            || image.toLowerCase().endsWith("jpeg")){
+                        Log.i("db","user " + " <USUARIO> " + " saving image URL "+image);
+                    }else{
+                        showDialog(CANT_POST_ALERT, NOT_AN_IMAGE);
+                    }
                 }
                 catch (MalformedURLException e) {
                     //mandar campo image al carajo
                     showDialog(CANT_POST_ALERT, INVALID_IMAGE_URL);
                 }
+
             }
             if(!youtube.isEmpty()) {
                 String vId = null;
@@ -86,7 +96,7 @@ public class CreatePostActivity extends Activity {
                     vId = matcher.group(1);
                 }
                 if(vId != null){
-                    //guardar campo
+                    Log.i("db","user " + " <USUARIO> " + " saving youtube video "+vId);
                 }else{
                     showDialog(CANT_POST_ALERT, INVALID_YOUTUBE);
                 }
