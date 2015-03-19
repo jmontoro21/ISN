@@ -20,7 +20,6 @@ public class CreatePostActivity extends Activity {
         setContentView(R.layout.activity_create_post);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

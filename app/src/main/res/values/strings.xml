@@ -7,4 +7,5 @@
     <string name="add_multimedia">Add multimedia</string>
     <string name="post">Post</string>
     <string name="title_activity_create_group">CreateGroupActivity</string>
+    <string name="createGroup">Por favor, proporciona un asunto para el grupo y un icono opcional</string>
 </resources>
