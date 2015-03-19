@@ -3,6 +3,7 @@ package com.inftel.isn.activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -11,6 +12,9 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.inftel.isn.R;
+
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -23,6 +27,7 @@ public class CreatePostActivity extends Activity {
     private final static String INVALID_IMAGE_URL = "Image URL invalid";
     private final static String INVALID_YOUTUBE = "Invalid Youtube link";
     private final static String NOT_AN_IMAGE = "URL is not a valid image";
+    private final static String CREATE_PUBLIC_POST_URL = "hhtp://192.......meh";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,5 +123,26 @@ public class CreatePostActivity extends Activity {
                     public void onClick(DialogInterface dialog, int whichButton) {
                     }
                 }).show();
+    }
+
+    private class HttpRequestTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                final String url = CREATE_PUBLIC_POST_URL;
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                restTemplate.put(url,"");
+            } catch (Exception e) {
+                Log.e("MainActivity", e.getMessage(), e);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void nothing) {
+            Log.i("async","http request finished");
+        }
+
     }
 }
