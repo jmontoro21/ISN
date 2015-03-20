@@ -12,4 +12,7 @@
     <string name="title_activity_create_group">CreateGroupActivity</string>
     <string name="createGroup">Por favor, proporciona un asunto para el grupo y un icono opcional</string>
     <string name="title_activity_add_users_group">AddUsersGroup</string>
+    <string name="no_results">no-results</string>
+    <string name="action_search">action-search</string>
+    <string name="search_bar_hint">Search bar</string>
 </resources>
