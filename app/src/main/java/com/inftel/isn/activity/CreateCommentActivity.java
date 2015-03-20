@@ -68,10 +68,12 @@ public class CreateCommentActivity extends Activity {
         String entryContent = content.getText().toString();
         String image = imageURL.getText().toString();
         String youtube = youtubeURL.getText().toString();
-        Comment comment = null;
+        Comment comment = new Comment();
         if(!entryContent.isEmpty() && entryContent.length()>9) {
             //save post to database via async REST (on postExecute reload postList)
             Log.i("db","user <USUARIO> saving post content:\n"+entryContent);
+            comment.setText(entryContent);
+            comment.setCreationDate(new Date());
             if(!image.isEmpty()) {
                 if((image.substring(0,3)).equalsIgnoreCase("www")) {
                     // por si un usuario mete la URL sin http:// (si es https que lo ponga...)
@@ -115,8 +117,6 @@ public class CreateCommentActivity extends Activity {
             //show alert dialog
             showDialog(CANT_POST_ALERT, EMPTY_CONTENT_ALERT);
         }
-        comment.setText(entryContent);
-        comment.setCreationDate(new Date());
         HttpRequestTask hrt = new HttpRequestTask();
         hrt.execute(comment);
     }
