@@ -16,31 +16,37 @@
         android:inputType="text|textMultiLine"
         android:lines="8"
         android:gravity="start" />
-
-    <EditText
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/image_url"
-        android:id="@+id/imageURL"
-        android:editable="true"
-        android:inputType="textUri" />
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/youtube_url"
-        android:id="@+id/youtube"
-        android:editable="true"
-        android:inputType="text" />
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:id="@+id/addImageToComment"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/addimage"
+            android:clickable="true"
+            android:onClick="changeImage"/>
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:id="@+id/addYoutubeVideoToComment"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/youtube"
+            android:clickable="true"
+            android:onClick="changeYoutube"/>
+    </LinearLayout>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/post"
-            android:id="@+id/button2"
-            android:onClick="doPost"/>
-    <Spinner
-        android:id="@+id/spinner2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/post"
+        android:id="@+id/button2"
+        android:onClick="doPost"/>
+
 
 </LinearLayout>
