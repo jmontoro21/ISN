@@ -6,19 +6,17 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.support.v7.widget.SearchView;
 
 import com.inftel.isn.R;
 import com.inftel.isn.model.User;
@@ -97,39 +95,17 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
+        MenuItem search = menu.add(Menu.NONE, R.id.action_search, 1, "Search");
+        MenuItemCompat.setShowAsAction(search, MenuItem.SHOW_AS_ACTION_ALWAYS);
+        search.setIcon(R.drawable.ic_action_search);
+        getMenuInflater().inflate(R.menu.menu, menu);
 
-        MenuItem searchMenuItem = menu.findItem(R.id.action_search);
-
-        SearchView searchView = (SearchView) searchMenuItem.getActionView();
-        searchView.setQueryHint(getString(R.string.search_bar_hint));
-
-        final Context context = this;
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                Intent intent = new Intent(context, SearchActivity.class);
-                intent.putExtra("query", s);
-                startActivity(intent);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                return false;
-            }
-        });
-
-        return super.onCreateOptionsMenu(menu);
-    }/*
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        // If the nav drawer is open, hide action items related to the content view
-        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        menu.findItem(R.id.action_search).setVisible(!drawerOpen);
-        return super.onPrepareOptionsMenu(menu);
-    }*/
+        MenuItem itemBlog = menu.add(Menu.NONE, R.id.qr_reader, 1, "QR Reader");
+        MenuItemCompat.setShowAsAction(itemBlog, MenuItem.SHOW_AS_ACTION_ALWAYS);
+        itemBlog.setIcon(R.drawable.qr);
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
 
 
 
