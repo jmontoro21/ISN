@@ -156,8 +156,8 @@ public class LoginGoogleActivity extends Activity implements
         //System.out.println("resultado " + isEmailInserted);
 
 
-        //Intent i = new Intent(this, ListPublicCommentActivity.class);
-        //startActivity(i);
+        Intent i = new Intent(this, ListPublicCommentActivity.class);
+        startActivity(i);
     }
 
     /**
