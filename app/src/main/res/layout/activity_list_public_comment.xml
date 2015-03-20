@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="75dp">
+
+            <ImageView
+                android:layout_width="55dp"
+                android:scaleType="centerCrop"
+                android:layout_height="55dp"
+                android:layout_marginLeft="20dp"
+
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/ProfileImg"
+                android:id="@+id/PublicCommentImgProfile"
+                 />
+
+            <TextView
+                android:layout_width="280dp"
+                android:layout_height="55dp"
+                android:textSize="20sp"
+                android:textIsSelectable="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/PublicCommentNameProfile"
+                android:gravity="left|center" />
+
+           </LinearLayout>
+
+
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ListaDEMensajes"
+        android:textSize="25sp"
+        android:textIsSelectable="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="0dp"
+        android:id="@+id/PublicCommentLabelList"/>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ListView
+            android:id="@+id/itemList"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:padding="4dp"
+            android:scrollbars="none"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="5.0sp"
+            android:layout_gravity="left|center_vertical" />
+    </FrameLayout>
+</LinearLayout>
