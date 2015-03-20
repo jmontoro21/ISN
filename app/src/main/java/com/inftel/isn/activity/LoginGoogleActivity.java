@@ -145,13 +145,13 @@ public class LoginGoogleActivity extends Activity implements
         e.putString(USER_URL, imgUrl);
         e.commit();
 
-        //String formatEmail = email.;
+        String formatEmail = email.replaceAll("\\.", "___") ;
 
         // Compruebo si el usuario está en la bd y sino, lo inserto.
 
 
 
-        new RestServiceGet().execute("http://192.168.183.83:8080/InftelSocialNetwork-web/webresources/users/" + email);
+        new RestServiceGet().execute("http://192.168.1.123:8080/InftelSocialNetwork-web/webresources/users/" + formatEmail);
 
         //System.out.println("resultado " + isEmailInserted);
 

@@ -22,20 +22,15 @@ public class RestServiceGet extends AsyncTask<String, Integer, String> {
 
     protected String doInBackground(String... urls) {
 
-        //urls[0] = urls[0].replaceAll(".","___");
-
-        //URI uri = new URI(urls[0], null);
-        URL url = null;
-        try {
-            url = new URL(urls[0]);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
 
 
-        System.out.println("url antes " + url);
+
         HttpClient httpClient = new DefaultHttpClient();
-        HttpGet g = new HttpGet(url.toString());
+
+        System.out.println("dir " + urls[0]);
+
+
+        HttpGet g = new HttpGet(urls[0]);
         g.setHeader("Accept", "application/json");
         g.setHeader("Content-type", "application/json");
         try
@@ -54,7 +49,7 @@ public class RestServiceGet extends AsyncTask<String, Integer, String> {
                 // otra llamada asincrona
             }
 
-            return respStr;
+            return null;
            /* for(i=0; i<respJSON.length(); i++){
                 JSONObject object = respJSON.getJSONObject(i);
                 String title = object.getString("title");
