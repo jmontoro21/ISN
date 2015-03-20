@@ -156,16 +156,11 @@ public class CreateCommentActivity extends Activity {
         @Override
         protected Void doInBackground(Comment... params) {
             try {
-                //final String url = CREATE_PROFILE_POST_URL+"eduard@tatopagao.es"+"/newComment/";
-                //RestTemplate restTemplate = new RestTemplate();
-                //restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-
-               // restTemplate.postForEntity(url, micomentario, Comment.class);
                 Comment micomentario = params[0];
                 Gson gson = new Gson();
                 String json = gson.toJson(micomentario, Comment.class);
 
-                HttpPost httpPost = new HttpPost(CREATE_PROFILE_POST_URL+"soyeldirector@mepagastutodo.es"+"/newComment/");
+                HttpPost httpPost = new HttpPost(CREATE_PROFILE_POST_URL+"un@email.es"+"/newComment/");
                 httpPost.setEntity(new StringEntity(json,"UTF-8"));
                 new DefaultHttpClient().execute(httpPost);
 
