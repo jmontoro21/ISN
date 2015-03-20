@@ -36,7 +36,9 @@ public class CreateCommentActivity extends Activity {
     private final static String NOT_AN_IMAGE = "URL is not a valid image";
     private final static String CREATE_PROFILE_POST_URL = "http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/profilecomments/insertcomment/userEmail/";
     private ImageView addImageView;
+    private ImageView youtubeImage;
     private String image = "";
+    private String youtube = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,9 +72,9 @@ public class CreateCommentActivity extends Activity {
 
     public void doPost(View view){
         EditText content = (EditText) findViewById(R.id.postContent);
-        EditText youtubeURL = (EditText) findViewById(R.id.youtube);
+        //EditText youtubeURL = (EditText) findViewById(R.id.youtube);
         String entryContent = content.getText().toString();
-        String youtube = youtubeURL.getText().toString();
+        //String youtube = youtubeURL.getText().toString();
         Comment comment = new Comment();
         if(!entryContent.isEmpty() && entryContent.length()>9) {
             //save post to database via async REST (on postExecute reload postList)
@@ -131,6 +133,12 @@ public class CreateCommentActivity extends Activity {
         image = "http://www.online-image-editor.com//styles/2014/images/example_image.png";
     }
 
+    public void changeYoutube (View v) throws IOException {
+        youtubeImage = (ImageView) findViewById(R.id.addYoutubeVideoToComment);
+        int id = getResources().getIdentifier("com.inftel.isn:drawable/" + "logo", null, null);
+        youtubeImage.setImageResource(id);
+
+    }
 
     // mostrar mensaje de error
     private void showDialog(String title, String message){
@@ -148,7 +156,7 @@ public class CreateCommentActivity extends Activity {
         @Override
         protected Void doInBackground(Comment... params) {
             try {
-                final String url = CREATE_PROFILE_POST_URL+"eduard@tatopagao.es"+"/newComment/";
+                //final String url = CREATE_PROFILE_POST_URL+"eduard@tatopagao.es"+"/newComment/";
                 //RestTemplate restTemplate = new RestTemplate();
                 //restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
@@ -157,7 +165,7 @@ public class CreateCommentActivity extends Activity {
                 Gson gson = new Gson();
                 String json = gson.toJson(micomentario, Comment.class);
 
-                HttpPost httpPost = new HttpPost(CREATE_PROFILE_POST_URL+"rafi@pagoto.es"+"/newComment/");
+                HttpPost httpPost = new HttpPost(CREATE_PROFILE_POST_URL+"soyeldirector@mepagastutodo.es"+"/newComment/");
                 httpPost.setEntity(new StringEntity(json,"UTF-8"));
                 new DefaultHttpClient().execute(httpPost);
 

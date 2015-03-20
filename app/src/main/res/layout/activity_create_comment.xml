@@ -16,32 +16,37 @@
         android:inputType="text|textMultiLine"
         android:lines="8"
         android:gravity="start" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:id="@+id/addImageToComment"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/addimage"
+            android:clickable="true"
+            android:onClick="changeImage"/>
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:id="@+id/addYoutubeVideoToComment"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/youtube"
+            android:clickable="true"
+            android:onClick="changeYoutube"/>
+    </LinearLayout>
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/addImageToComment"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/addimage"
-        android:clickable="true"
-        android:onClick="changeImage"/>
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/addYoutubeVideoToComment"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/youtube"
-        android:clickable="true"
-        android:onClick="changeImage"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/post"
-            android:id="@+id/button2"
-            android:onClick="doPost"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/post"
+        android:id="@+id/button2"
+        android:onClick="doPost"/>
 
 
 </LinearLayout>
