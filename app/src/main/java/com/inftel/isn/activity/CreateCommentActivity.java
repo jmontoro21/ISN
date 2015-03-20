@@ -10,13 +10,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 
+import com.google.gson.Gson;
 import com.inftel.isn.R;
 import com.inftel.isn.model.Comment;
+import com.inftel.isn.request.DownloadImageTask;
 
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
@@ -29,12 +34,13 @@ public class CreateCommentActivity extends Activity {
     private final static String INVALID_IMAGE_URL = "Image URL invalid";
     private final static String INVALID_YOUTUBE = "Invalid Youtube link";
     private final static String NOT_AN_IMAGE = "URL is not a valid image";
-    private final static String CREATE_PROFILE_POST_URL = "http://192.168.183.24/InftelSocialNetwork-web/webresources/profilecomments/insertcomment/userEmail/";
-
+    private final static String CREATE_PROFILE_POST_URL = "http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/profilecomments/insertcomment/userEmail/";
+    private ImageView addImageView;
+    private String image = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_post);
+        setContentView(R.layout.activity_create_comment);
 
     }
 
@@ -42,6 +48,7 @@ public class CreateCommentActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
+        addImageView = (ImageView) findViewById(R.id.addImageToComment);
         return true;
     }
 
@@ -63,10 +70,8 @@ public class CreateCommentActivity extends Activity {
 
     public void doPost(View view){
         EditText content = (EditText) findViewById(R.id.postContent);
-        EditText imageURL = (EditText) findViewById(R.id.imageURL);
         EditText youtubeURL = (EditText) findViewById(R.id.youtube);
         String entryContent = content.getText().toString();
-        String image = imageURL.getText().toString();
         String youtube = youtubeURL.getText().toString();
         Comment comment = new Comment();
         if(!entryContent.isEmpty() && entryContent.length()>9) {
@@ -121,6 +126,11 @@ public class CreateCommentActivity extends Activity {
         hrt.execute(comment);
     }
 
+    public void changeImage (View v) throws IOException {
+        new DownloadImageTask((ImageView) findViewById(R.id.addImageToComment)).execute("http://www.online-image-editor.com//styles/2014/images/example_image.png");
+        image = "http://www.online-image-editor.com//styles/2014/images/example_image.png";
+    }
+
 
     // mostrar mensaje de error
     private void showDialog(String title, String message){
@@ -139,10 +149,18 @@ public class CreateCommentActivity extends Activity {
         protected Void doInBackground(Comment... params) {
             try {
                 final String url = CREATE_PROFILE_POST_URL+"eduard@tatopagao.es"+"/newComment/";
-                RestTemplate restTemplate = new RestTemplate();
-                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                //RestTemplate restTemplate = new RestTemplate();
+                //restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+
+               // restTemplate.postForEntity(url, micomentario, Comment.class);
                 Comment micomentario = params[0];
-                restTemplate.postForEntity(url, micomentario, Comment.class);
+                Gson gson = new Gson();
+                String json = gson.toJson(micomentario, Comment.class);
+
+                HttpPost httpPost = new HttpPost(CREATE_PROFILE_POST_URL+"rafi@pagoto.es"+"/newComment/");
+                httpPost.setEntity(new StringEntity(json,"UTF-8"));
+                new DefaultHttpClient().execute(httpPost);
+
             } catch (Exception e) {
                 Log.e("CreatePostActivity", e.getMessage(), e);
             }
