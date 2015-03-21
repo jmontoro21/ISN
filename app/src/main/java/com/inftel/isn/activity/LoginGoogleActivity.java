@@ -15,7 +15,12 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
-import com.inftel.isn.request.RestServiceGet;
+import com.google.gson.Gson;
+import com.inftel.isn.model.User;
+import com.inftel.isn.request.RestServicePost;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class LoginGoogleActivity extends Activity implements
         GoogleApiClient.ConnectionCallbacks,
@@ -145,19 +150,63 @@ public class LoginGoogleActivity extends Activity implements
         e.putString(USER_URL, imgUrl);
         e.commit();
 
-        String formatEmail = email.replaceAll("\\.", "___") ;
+        try {
+
+        User userData = new User();
+        //userData.setId(null);
+        userData.setEmail(email);
+        userData.setGoogleId(googleId);
+        userData.setName(name);
+        userData.setImageUrl(imgUrl);
+
+
+
+
+        Gson gson = new Gson();
+        String json = gson.toJson(userData, User.class);
+
+            System.out.println("gson " + json);
+
+            JSONObject user = new JSONObject(json);
+
+            new RestServicePost(user).execute("http://192.168.1.117:8080/InftelSocialNetwork-web/webresources/users/create");
+        } catch (JSONException eq) {
+            eq.printStackTrace();
+        }
+
+
+
+
+
+
+       // String formatEmail = email.replaceAll("\\.", "___") ;
+
+
+
+
+
+
+
+
 
         // Compruebo si el usuario está en la bd y sino, lo inserto.
 
 
 
-        new RestServiceGet().execute("http://192.168.1.123:8080/InftelSocialNetwork-web/webresources/users/" + formatEmail);
+
+
+
+
+
+
+
+        //new RestServiceGet().execute("http://192.168.1.117:8080/InftelSocialNetwork-web/webresources/users/" + formatEmail);
 
         //System.out.println("resultado " + isEmailInserted);
 
 
-        Intent i = new Intent(this, ListPublicCommentActivity.class);
-        startActivity(i);
+        //Intent i = new Intent(this, ListPublicCommentActivity.class);
+        //startActivity(i);
     }
 
     /**
@@ -248,7 +297,7 @@ public class LoginGoogleActivity extends Activity implements
         String json;
         json = createJson(je, googleId);
         JSONObject dato = new JSONObject(json);
-        new RestServiceCreate(dato).execute(CREATE_EVENT_URL);
+        new RestServicePost(dato).execute(CREATE_EVENT_URL);
     }
 
     public String createJson(JournalEntry je, String googleId){

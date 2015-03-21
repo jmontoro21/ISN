@@ -28,6 +28,9 @@ public class RestServiceCreateUser extends AsyncTask<String, Integer, String> {
         HttpPost httpPost = new HttpPost(urls[0]);
         httpPost.setHeader("content-type", "application/json");
         StringEntity entity;
+
+        System.out.println("post-->    " + urls[0] + "  json post " + json.toString() );
+
         try {
             entity = new StringEntity(json.toString());
             httpPost.setEntity(entity);

@@ -6,6 +6,7 @@ import java.util.Objects;
  * Created by inftel13 on 19/03/15.
  */
 public class User {
+
     private String id;
     private String googleId;
     private String email;
