@@ -1,5 +1,6 @@
 package com.inftel.isn.model;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -7,7 +8,7 @@ import java.util.Objects;
  * Created by inftel13 on 19/03/15.
  */
 
-public class Group {
+public class Group implements Serializable{
 
 
     private String id;

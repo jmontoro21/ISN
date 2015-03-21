@@ -9,15 +9,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.inftel.isn.R;
 import com.inftel.isn.model.Group;
-import com.inftel.isn.request.DownloadImageTask;
 import com.inftel.isn.request.DownloadDropboxTask;
+import com.inftel.isn.request.DownloadImageTask;
 import com.inftel.isn.request.UploadDropboxTask;
 import com.inftel.isn.utility.DropboxConnection;
 import com.squareup.picasso.Picasso;
@@ -32,6 +35,7 @@ public class CreateGroupActivity extends Activity implements DownloadDropboxTask
     EditText editText;
     ImageView imageView;
     DropboxConnection dc;
+    Button button;
     View loadingPanel;
     View imagePanel;
     File outFile;
@@ -46,10 +50,26 @@ public class CreateGroupActivity extends Activity implements DownloadDropboxTask
         imageView = (ImageView) findViewById(R.id.imageView);
         loadingPanel = findViewById(R.id.loadingPanel);
         imagePanel = findViewById(R.id.imagePanel);
+        button = (Button) findViewById(R.id.button);
         downloading(false);
 
         dc = new DropboxConnection(this);
         dc.connect();
+
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.toString().equals("")) {
+                    button.setEnabled(false);
+                } else {
+                    button.setEnabled(true);
+                }
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
     }
 
     @Override
@@ -202,7 +222,7 @@ public class CreateGroupActivity extends Activity implements DownloadDropboxTask
         group.setAdmin("currentLogin");
 
         Intent i = new Intent(this, AddUsersGroupActivity.class);
-
+        i.putExtra("group", group);
         startActivity(i);
     }
 }

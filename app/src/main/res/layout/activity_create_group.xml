@@ -57,7 +57,8 @@
         android:id="@+id/button"
         android:onClick="createGroup"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/editText" />
+        android:layout_below="@+id/editText"
+        android:enabled="false"/>
 
     <EditText
         android:layout_width="wrap_content"

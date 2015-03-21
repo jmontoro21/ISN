@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.inftel.isn.R;
 import com.inftel.isn.adapter.UsersListAdapter;
@@ -31,6 +32,12 @@ public class AddUsersGroupActivity extends Activity {
 
         adapter = new UsersListAdapter(objetos, this);
         listView.setAdapter(adapter);
+
+        group = (Group) getIntent().getSerializableExtra("group");
+
+        //Toast provisional
+        Toast data = Toast.makeText(this, group.getName(), Toast.LENGTH_LONG);
+        data.show();
     }
 
     public void deleteItem(View v) {
