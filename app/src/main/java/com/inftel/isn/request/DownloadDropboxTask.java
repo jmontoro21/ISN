@@ -11,14 +11,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-public class ImageDropboxTask extends AsyncTask<String, Void, File> {
+public class DownloadDropboxTask extends AsyncTask<String, Void, File> {
     private DropboxAPI<?> dropbox;
     private String path;
     private ImageView imageview;
     private Context context;
     OnAsyncRequestComplete caller;
 
-    public ImageDropboxTask(Context context, DropboxAPI<?> dropbox, ImageView imageview) {
+    public DownloadDropboxTask(Context context, DropboxAPI<?> dropbox, ImageView imageview) {
         this.dropbox = dropbox;
         this.imageview = imageview;
         this.context = context;

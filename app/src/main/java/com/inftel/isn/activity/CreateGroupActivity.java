@@ -17,8 +17,8 @@ import android.widget.ImageView;
 import com.inftel.isn.R;
 import com.inftel.isn.model.Group;
 import com.inftel.isn.request.DownloadImageTask;
-import com.inftel.isn.request.ImageDropboxTask;
-import com.inftel.isn.request.UploadPicture;
+import com.inftel.isn.request.DownloadDropboxTask;
+import com.inftel.isn.request.UploadDropboxTask;
 import com.inftel.isn.utility.DropboxConnection;
 import com.squareup.picasso.Picasso;
 
@@ -28,7 +28,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class CreateGroupActivity extends Activity implements ImageDropboxTask.OnAsyncRequestComplete{
+public class CreateGroupActivity extends Activity implements DownloadDropboxTask.OnAsyncRequestComplete{
     EditText editText;
     ImageView imageView;
     DropboxConnection dc;
@@ -58,6 +58,10 @@ public class CreateGroupActivity extends Activity implements ImageDropboxTask.On
         dc.resume();
     }
 
+    public void setUrlImage(String urlImage){
+        this.urlImage = urlImage;
+    }
+
     public void openAddPhoto(View v) {
 
         String[] addPhoto=new String[]{ "Cámara", "Galería", "URL"};
@@ -71,7 +75,7 @@ public class CreateGroupActivity extends Activity implements ImageDropboxTask.On
 
                     Date date = new Date();
                     DateFormat df = new SimpleDateFormat("kk-mm-ss");
-                    String newPicFile = "ISN_Camera_" + df.format(date) + ".jpg";
+                    String newPicFile = "ISN-Inftel_Camera_" + df.format(date) + ".jpg";
 
                     String outPath = Environment.getExternalStorageDirectory() + "/imgInftel/" + newPicFile;
                     outFile = new File(outPath);
@@ -94,13 +98,14 @@ public class CreateGroupActivity extends Activity implements ImageDropboxTask.On
                     alertDialogBuilder.setView(promptsView);
 
                     final EditText userInput = (EditText) promptsView.findViewById(R.id.editTextDialogUserInput);
+                    urlImage = userInput.getText().toString();
 
                     // set dialog message
                     alertDialogBuilder
                             .setCancelable(false)
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog,int id) {
-                                    new DownloadImageTask(imageView).execute(userInput.getText().toString());
+                                    new DownloadImageTask(imageView).execute(urlImage);
                                 }
                             })
                             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -142,7 +147,7 @@ public class CreateGroupActivity extends Activity implements ImageDropboxTask.On
 
                         Date date = new Date();
                         DateFormat df = new SimpleDateFormat("kk-mm-ss");
-                        String newPicFile = "ISN_Gallery_" + df.format(date) + ".jpg";
+                        String newPicFile = "ISN-Inftel_Gallery_" + df.format(date) + ".jpg";
 
                         String file_path = Environment.getExternalStorageDirectory() + "/imgInftel/";
                         File dir = new File(file_path);
@@ -175,7 +180,7 @@ public class CreateGroupActivity extends Activity implements ImageDropboxTask.On
 
     public void downloadImageDropbox(String imageName) {
         downloading(true);
-        ImageDropboxTask list = new ImageDropboxTask(this, dc.getDropboxApi(), imageView);
+        DownloadDropboxTask list = new DownloadDropboxTask(this, dc.getDropboxApi(), imageView);
         list.execute(imageName);
     }
 
@@ -186,7 +191,7 @@ public class CreateGroupActivity extends Activity implements ImageDropboxTask.On
     }
 
     private void uploadPictureDropbox(File image) {
-        UploadPicture upload = new UploadPicture(this, dc.getDropboxApi(), image);
+        UploadDropboxTask upload = new UploadDropboxTask(this, dc.getDropboxApi(), image);
         upload.execute();
     }
 
@@ -197,6 +202,7 @@ public class CreateGroupActivity extends Activity implements ImageDropboxTask.On
         group.setAdmin("currentLogin");
 
         Intent i = new Intent(this, AddUsersGroupActivity.class);
+
         startActivity(i);
     }
 }

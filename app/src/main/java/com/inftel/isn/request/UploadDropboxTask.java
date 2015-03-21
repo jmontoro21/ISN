@@ -14,7 +14,7 @@ import com.inftel.isn.activity.CreateGroupActivity;
 import java.io.File;
 import java.io.FileInputStream;
 
-public class UploadPicture extends AsyncTask<Void, Long, Boolean> {
+public class UploadDropboxTask extends AsyncTask<Void, Long, Boolean> {
 
     private DropboxAPI<?> mApi;
     private String mPath;
@@ -23,7 +23,7 @@ public class UploadPicture extends AsyncTask<Void, Long, Boolean> {
     public CreateGroupActivity mContext;
     private final ProgressDialog mDialog;
 
-    public UploadPicture(CreateGroupActivity context, DropboxAPI<?> api, File file) {
+    public UploadDropboxTask(CreateGroupActivity context, DropboxAPI<?> api, File file) {
         mContext = context;
         mApi = api;
         mPath = "/images/";
@@ -85,6 +85,7 @@ public class UploadPicture extends AsyncTask<Void, Long, Boolean> {
 
         //Funcion provisional de descarga desde Dropbox, mFIle.getName() es lo que debo guardar en la BD
         mContext.downloadImageDropbox(mFile.getName());
+        mContext.setUrlImage(mFile.getName());
         mFile.delete();
     }
 

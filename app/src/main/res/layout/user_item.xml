@@ -36,7 +36,7 @@
         android:id="@+id/deleteImg"
         android:contentDescription="Delete user"
         android:layout_marginRight="5dp"
-        android:background="@drawable/delete"
+        android:background="@drawable/button"
         android:layout_alignParentEnd="true"
         android:onClick="deleteItem"/>
 </RelativeLayout>
