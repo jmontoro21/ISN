@@ -22,10 +22,7 @@
             android:name="com.dropbox.client2.android.AuthActivity"
             android:configChanges="orientation|keyboard"
             android:launchMode="singleTask" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".activity.MenuActivity"
@@ -44,6 +41,10 @@
         <activity
             android:name=".activity.CreateCommentActivity"
             android:label="@string/title_activity_create_post" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
         <activity

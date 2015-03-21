@@ -63,7 +63,9 @@ public class CreateCommentActivity extends Activity {
             e.printStackTrace();
         }
 
-        new RestServicePost(comment).execute("http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/profilecomments/insert/alfredo.gallego.gonzalez@gmail.com");
+        String email="alfredo.gallego.gonzalez@gmail.com";
+        String formatem = email.replaceAll("\\.", "___");
+        new RestServicePost(comment).execute("http://192.168.1.123:8080/InftelSocialNetwork-web/webresources/profilecomments/insert/userEmail/"+ formatem);
         System.out.println("parate");
 
 
