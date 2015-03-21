@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.ListView;
 
 import com.inftel.isn.R;
-import com.inftel.isn.adapter.UserListAdapter;
+import com.inftel.isn.adapter.UsersListAdapter;
 import com.inftel.isn.model.Group;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class AddUsersGroup extends Activity {
         ArrayList objetos = new ArrayList<String>();
         objetos.add("paco");objetos.add("hola");objetos.add("hola");objetos.add("hola");objetos.add("paco");objetos.add("paco");
 
-        UserListAdapter adapter = new UserListAdapter(objetos, this);
+        UsersListAdapter adapter = new UsersListAdapter(objetos, this);
         listView.setAdapter(adapter);
     }
 
