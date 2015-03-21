@@ -35,6 +35,7 @@ public class CreateGroupActivity extends Activity implements ImageDropboxTask.On
     View loadingPanel;
     View imagePanel;
     File outFile;
+    String urlImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -192,7 +193,7 @@ public class CreateGroupActivity extends Activity implements ImageDropboxTask.On
     public void createGroup(View v) {
         Group group = new Group();
         group.setName(editText.getText().toString());
-        group.setImageUrl("imageURL");
+        if(urlImage!=null) group.setImageUrl(urlImage);
         group.setAdmin("currentLogin");
 
         Intent i = new Intent(this, AddUsersGroupActivity.class);
