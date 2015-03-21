@@ -72,7 +72,7 @@ public class SearchActivity extends ActionBarActivity {
     private void searchBar(String name) {
         ListView lvDetail = (ListView) findViewById(R.id.lvCustomListSearch);
         TextView tvNoResult = (TextView) findViewById(R.id.noResults);
-        //new SearchBarAsyncTask(this, lvDetail, user, tvNoResult).execute(DeBares.Bares.CONTENT_URI_BAR.toString().concat("/name/" + name.replace(" ", "%20")));
+        //new SearchUserAsyncTask(this, lvDetail, user, tvNoResult).execute(http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/profilecomments);
     }
 
 }

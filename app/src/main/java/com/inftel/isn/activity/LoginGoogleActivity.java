@@ -16,6 +16,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 import com.google.gson.Gson;
+import com.inftel.isn.model.Comment;
 import com.inftel.isn.model.User;
 import com.inftel.isn.request.RestServicePost;
 
@@ -158,8 +159,6 @@ public class LoginGoogleActivity extends Activity implements
         userData.setGoogleId(googleId);
         userData.setName(name);
         userData.setImageUrl(imgUrl);
-
-
 
 
         Gson gson = new Gson();
