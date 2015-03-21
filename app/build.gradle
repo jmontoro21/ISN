@@ -36,4 +36,6 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.0'
     compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.3.2'
+    compile files('lib/dropbox-android-sdk-1.6.3.jar')
+    compile files('lib/json_simple-1.1.jar')
 }

@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.widget.ListView;
 
 import com.inftel.isn.R;
+import com.inftel.isn.adapter.UserListAdapter;
 import com.inftel.isn.model.Group;
+
+import java.util.ArrayList;
 
 public class AddUsersGroup extends Activity {
 
@@ -17,11 +20,14 @@ public class AddUsersGroup extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_users_group);
 
-        listView = (ListView)findViewById(R.id.itemList);
-    }
+        listView = (ListView)findViewById(R.id.userList);
 
-    private void addUser() {
+        //Array estatico provisional
+        ArrayList objetos = new ArrayList<String>();
+        objetos.add("paco");objetos.add("hola");objetos.add("hola");objetos.add("hola");objetos.add("paco");objetos.add("paco");
 
+        UserListAdapter adapter = new UserListAdapter(objetos, this);
+        listView.setAdapter(adapter);
     }
 
 }
