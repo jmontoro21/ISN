@@ -16,6 +16,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 import com.google.gson.Gson;
+import com.inftel.isn.model.Comment;
 import com.inftel.isn.model.User;
 import com.inftel.isn.request.RestServicePost;
 
@@ -162,6 +163,18 @@ public class LoginGoogleActivity extends Activity implements
 
 
 
+
+
+            /*
+            Comment com1 = new Comment();
+            com1.setImageUrl();
+            com1.setAuthor();
+            com1.setCreationDate();
+            com1.setText();
+            com1.setVideoUrl();
+*/
+
+
         Gson gson = new Gson();
         String json = gson.toJson(userData, User.class);
 
@@ -169,7 +182,23 @@ public class LoginGoogleActivity extends Activity implements
 
             JSONObject user = new JSONObject(json);
 
-            new RestServicePost(user).execute("http://192.168.1.117:8080/InftelSocialNetwork-web/webresources/users/create");
+           // new RestServicePost(user).execute("http://192.168.1.117:8080/InftelSocialNetwork-web/webresources/users/create");
+
+
+
+            // comentario
+            String nuevo = "{ \"text\" : \"privado nuevo\" , \"creationDate\" : { \"$date\" : \"2015-02-19T11:00:53.967Z\"} , \"author\" : { \"_id\" : \"5509b11dbfcba77ba8877e14\" , \"googleId\" : \"104611636054460643894\" , \"email\" : \"jmontoro21@gmail.com\" , \"name\" : \"josé Fernández Montoro\" , \"imageUrl\" : \"https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg?sz=250\"} , \"imageUrl\" : \"\" , \"videoUrl\" : \"\"}";
+
+            JSONObject coment = new JSONObject(nuevo);
+
+            String formatEmail = email.replaceAll("\\.", "___") ;
+
+            new RestServicePost(coment).execute("http://192.168.1.117:8080/InftelSocialNetwork-web/webresources//insert/userEmail/"+ formatEmail );
+
+
+
+
+
         } catch (JSONException eq) {
             eq.printStackTrace();
         }
@@ -179,7 +208,7 @@ public class LoginGoogleActivity extends Activity implements
 
 
 
-       // String formatEmail = email.replaceAll("\\.", "___") ;
+        // String formatEmail = email.replaceAll("\\.", "___") ;
 
 
 
