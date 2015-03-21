@@ -12,4 +12,24 @@
     <string name="title_activity_create_group">CreateGroupActivity</string>
     <string name="createGroup">Por favor, proporciona un asunto para el grupo y un icono opcional</string>
     <string name="title_activity_add_users_group">AddUsersGroup</string>
+
+
+    <string name="title_activity_profile">ProfileActivity</string>
+
+    <string name="ProfileImg"></string>
+    <string name="name_user">NOMBRE DE USUARIO</string>
+
+    <string name="title_activity_new_private_comment">NewPrivateCommentActivity</string>
+    <string name="title_activity_list_private_comment">ListPrivateCommentActivity</string>
+    <string name="title_activity_google_play_services_activity1111">GooglePlayServicesActivity1111
+    </string>
+    <string name="title_activity_login_google_activity">LoginGoogleActivity</string>
+    <string name="ListaDEMensajes">Lista de Comentarios</string>
+    <string name="NombrePerfil">Lista de mensajes</string>
+    <string name="xffxfd">fddf</string>
+
+
+
+
+
 </resources>
