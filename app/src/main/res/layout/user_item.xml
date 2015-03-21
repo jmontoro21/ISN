@@ -38,5 +38,5 @@
         android:layout_marginRight="5dp"
         android:background="@drawable/delete"
         android:layout_alignParentEnd="true"
-        android:clickable="true"/>
+        android:onClick="deleteItem"/>
 </RelativeLayout>

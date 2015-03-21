@@ -50,7 +50,7 @@
         </activity>
 
         <activity
-            android:name=".activity.AddUsersGroup"
+            android:name=".activity.AddUsersGroupActivity"
             android:label="@string/title_activity_add_users_group" >
         </activity>
     </application>

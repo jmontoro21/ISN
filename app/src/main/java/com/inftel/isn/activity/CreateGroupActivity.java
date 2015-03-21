@@ -195,7 +195,7 @@ public class CreateGroupActivity extends Activity implements ImageDropboxTask.On
         group.setImageUrl("imageURL");
         group.setAdmin("currentLogin");
 
-        Intent i = new Intent(this, AddUsersGroup.class);
+        Intent i = new Intent(this, AddUsersGroupActivity.class);
         startActivity(i);
     }
 }

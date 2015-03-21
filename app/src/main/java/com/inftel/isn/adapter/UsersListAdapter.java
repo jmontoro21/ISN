@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,9 +46,11 @@ public class UsersListAdapter extends BaseAdapter {
         TextView textTitulo = (TextView) itemView.findViewById(R.id.name);
         TextView textDescription = (TextView) itemView.findViewById(R.id.description);
         ImageView imageView = (ImageView) itemView.findViewById(R.id.userImg);
+        ImageButton imageButton = (ImageButton) itemView.findViewById(R.id.deleteImg);
+        imageButton.setTag(position);
 
         Picasso.with(activity).load(R.drawable.user).into(imageView);
-        textTitulo.setText("Paco Martín Sandoval");
+        textTitulo.setText("Usuario " + objects.get(position));
         textDescription.setText("El más pro del barrio");
         return itemView;
     }
