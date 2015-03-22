@@ -10,7 +10,14 @@ import android.widget.TextView;
 
 import com.inftel.isn.R;
 import com.inftel.isn.request.DownloadImageTask;
+import com.inftel.isn.request.RestServiceGet;
 import com.inftel.isn.request.RestServiceGetUserData;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
 
 
 public class ListPublicCommentActivity extends Activity {
@@ -61,8 +68,24 @@ public class ListPublicCommentActivity extends Activity {
                 new DownloadImageTask(imgProfile).execute(prefs.getString(LoginGoogleActivity.USER_URL, ""));
             }
         } else {
-            String formatEmail = emailProfile.replaceAll("\\.", "___") ;
-            //userName.setText(new RestServiceGet().execute("http://192.168.1.123:8080/InftelSocialNetwork-web/webresources/users/" + emailProfile) );
+            try {
+                String formatEmail = emailProfile.replaceAll("\\.", "___") ;
+                JSONArray userGet = new RestServiceGet().execute("http://192.168.1.123:8080/InftelSocialNetwork-web/webresources/users/" + emailProfile).get() ;
+
+                if (userGet.length() != 0) {
+                    for (int i = 0; i < userGet.length(); i++) {
+                        JSONObject object = userGet.getJSONObject(i);
+                        userName.setText(object.getString("name"));
+                    }
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
         }
 
 

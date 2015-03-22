@@ -18,16 +18,36 @@
                 android:layout_marginTop="10dp"
                 android:id="@+id/PublicCommentImgProfile"/>
 
-            <TextView
-                android:layout_width="280dp"
-                android:layout_height="55dp"
-                android:textSize="20sp"
-                android:textIsSelectable="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:id="@+id/PublicCommentNameProfile"
-                android:gravity="left|center" />
-           </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:textSize="20sp"
+                    android:textIsSelectable="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/PublicCommentNameProfile"
+                    android:gravity="left|center"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="20dp" />
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/Seguir"
+                    android:id="@+id/Seguir"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="20dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
 
     <TextView
         android:layout_width="match_parent"
