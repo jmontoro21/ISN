@@ -33,6 +33,9 @@ public class RestServicePost extends AsyncTask<String, Integer, String> {
     protected String doInBackground(String... urls) {
         try {
 
+            System.out.println("djdjjd " + json);
+
+
             HttpClient httpClient = new DefaultHttpClient();
 
             HttpPost httpPost = new HttpPost(urls[0]);
@@ -42,7 +45,11 @@ public class RestServicePost extends AsyncTask<String, Integer, String> {
 
             httpPost.setEntity(entity);
             httpPost.setHeader("Content-type", "application/json");
-            httpClient.execute(httpPost);
+
+            HttpResponse d= httpClient.execute(httpPost);
+
+
+            System.out.println("kdkdkdkd");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             Log.e("HTTP", "Error in http connection1 " + e.toString());
