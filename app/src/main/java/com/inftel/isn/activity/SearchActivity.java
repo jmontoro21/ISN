@@ -1,8 +1,7 @@
 package com.inftel.isn.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,7 +13,7 @@ import com.inftel.isn.R;
 import com.inftel.isn.model.User;
 
 
-public class SearchActivity extends ActionBarActivity {
+public class SearchActivity extends Activity {
 
     private User user;
 
@@ -22,10 +21,6 @@ public class SearchActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_user);
-
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
 
        // user = getIntent().getExtras().getParcelable("user");
 

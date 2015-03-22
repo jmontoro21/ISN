@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_toRightOf="@+id/userImg"
+        android:layout_toLeftOf="@+id/deleteImg"
         android:id="@+id/linearLayout"
         android:layout_marginRight="5dp">
         <TextView
@@ -28,4 +29,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>
+    <ImageButton
+        android:layout_width="30dp"
+        android:layout_height="25dp"
+        android:id="@+id/deleteImg"
+        android:contentDescription="Delete user"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/button"
+        android:layout_alignParentEnd="true"
+        android:onClick="deleteItem"/>
 </RelativeLayout>

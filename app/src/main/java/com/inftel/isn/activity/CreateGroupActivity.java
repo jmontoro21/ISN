@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.google.gson.Gson;
 import com.inftel.isn.R;
 import com.inftel.isn.model.Group;
 import com.inftel.isn.request.DownloadDropboxTask;
@@ -221,8 +222,9 @@ public class CreateGroupActivity extends Activity implements DownloadDropboxTask
         if(urlImage!=null) group.setImageUrl(urlImage);
         group.setAdmin("currentLogin");
 
-        Intent i = new Intent(this, AddUsersGroupActivity.class);
-        i.putExtra("group", group);
-        startActivity(i);
+        Gson gson = new Gson();
+        Intent intent = new Intent(this, UserSearchActivity.class);
+        intent.putExtra("group", gson.toJson(group));
+        startActivity(intent);
     }
 }
