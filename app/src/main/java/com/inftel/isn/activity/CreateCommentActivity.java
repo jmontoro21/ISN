@@ -16,10 +16,16 @@ import com.google.gson.Gson;
 import com.inftel.isn.R;
 import com.inftel.isn.model.Comment;
 import com.inftel.isn.request.DownloadImageTask;
+import com.inftel.isn.request.RestServicePost;
 
+import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicHeader;
+import org.apache.http.protocol.HTTP;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -34,7 +40,7 @@ public class CreateCommentActivity extends Activity {
     private final static String INVALID_IMAGE_URL = "Image URL invalid";
     private final static String INVALID_YOUTUBE = "Invalid Youtube link";
     private final static String NOT_AN_IMAGE = "URL is not a valid image";
-    private final static String CREATE_PROFILE_POST_URL = "http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/profilecomments/insertcomment/userEmail/";
+    private final static String CREATE_PROFILE_POST_URL = "http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/profilecomments";
     private ImageView addImageView;
     private ImageView youtubeImage;
     private String image = "";
@@ -43,6 +49,23 @@ public class CreateCommentActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_comment);
+        Comment newComment = new Comment();
+        newComment.setText("mierda");
+        newComment.setImageUrl("asfdasfas");
+        newComment.setVideoUrl("asdasfasfsd");
+
+        Gson gsonComment = new Gson();
+        String jsonComment = gsonComment.toJson(newComment, Comment.class);
+        JSONObject comment = null;
+        try {
+            comment = new JSONObject(jsonComment);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        new RestServicePost(comment).execute("http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/profilecomments/insert/alfredo.gallego.gonzalez@gmail.com");
+        System.out.println("parate");
+
 
     }
 
@@ -155,14 +178,25 @@ public class CreateCommentActivity extends Activity {
     private class HttpRequestTask extends AsyncTask<Comment, Void, Void> {
         @Override
         protected Void doInBackground(Comment... params) {
+            HttpResponse httpResponse= null;
             try {
-                Comment micomentario = params[0];
+               // Comment micomentario = params[0];
                 Gson gson = new Gson();
-                String json = gson.toJson(micomentario, Comment.class);
+                String json = gson.toJson(params[0], Comment.class);
 
-                HttpPost httpPost = new HttpPost(CREATE_PROFILE_POST_URL+"un@email.es"+"/newComment/");
-                httpPost.setEntity(new StringEntity(json,"UTF-8"));
-                new DefaultHttpClient().execute(httpPost);
+                HttpPost httpPost = new HttpPost(CREATE_PROFILE_POST_URL);
+                StringEntity entity = new StringEntity(json, "UTF-8");
+                entity.setContentType("application/json;charset=UTF-8");
+                entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
+
+                httpPost.setHeader("Accept", "application/json");
+                httpPost.setHeader("Content-type", "application/json");
+                httpPost.setEntity(entity);
+                httpResponse = new DefaultHttpClient().execute(httpPost);
+
+
+
+              //  Log.e(httpResponse.getStatusLine());
 
             } catch (Exception e) {
                 Log.e("CreatePostActivity", e.getMessage(), e);

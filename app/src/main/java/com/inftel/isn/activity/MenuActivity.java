@@ -13,14 +13,20 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 import com.inftel.isn.R;
+import com.inftel.isn.model.User;
 import com.inftel.isn.utility.PageAdapterFragment;
 
 public class MenuActivity extends FragmentActivity implements ActionBar.TabListener {
     ActionBar actionbar;
+    private User user = new User();
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
     ViewPager viewpager;
     PageAdapterFragment ft;
     static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
@@ -89,12 +95,14 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuItem itemBlog = menu.add(Menu.NONE, R.id.qr_reader, 1, "QR Reader");
-        MenuItemCompat.setShowAsAction(itemBlog, MenuItem.SHOW_AS_ACTION_ALWAYS);
-        itemBlog.setIcon(R.drawable.qr);
+        MenuItem search = menu.add(Menu.NONE, R.id.action_search, 1, "Search");
+        MenuItemCompat.setShowAsAction(search, MenuItem.SHOW_AS_ACTION_ALWAYS);
+        search.setIcon(R.drawable.search);
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -109,6 +117,10 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
                     showDialog(MenuActivity.this, "No Scanner Found", "Download a scanner code activity?", "Yes", "No").show();
                 }
                 return true;
+            case R.id.action_search:
+                intent = new Intent(this, UserSearchActivity.class);
+                startActivity(intent);
+                return true;
 
             case R.id.createGroup:
                 intent = new Intent(this, CreateGroupActivity.class);
@@ -119,6 +131,7 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
                 intent = new Intent(this, LoginGoogleActivity.class);
                 startActivity(intent);
                 return true;
+
 
             default:
                 return super.onOptionsItemSelected(item);

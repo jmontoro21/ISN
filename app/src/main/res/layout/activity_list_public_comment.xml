@@ -5,8 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -17,11 +15,8 @@
                 android:scaleType="centerCrop"
                 android:layout_height="55dp"
                 android:layout_marginLeft="20dp"
-
                 android:layout_marginTop="10dp"
-                android:contentDescription="@string/ProfileImg"
-                android:id="@+id/PublicCommentImgProfile"
-                 />
+                android:id="@+id/PublicCommentImgProfile"/>
 
             <TextView
                 android:layout_width="280dp"
@@ -32,12 +27,7 @@
                 android:layout_marginTop="10dp"
                 android:id="@+id/PublicCommentNameProfile"
                 android:gravity="left|center" />
-
            </LinearLayout>
-
-
-
-
 
     <TextView
         android:layout_width="match_parent"

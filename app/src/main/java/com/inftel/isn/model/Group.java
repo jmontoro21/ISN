@@ -1,20 +1,21 @@
 package com.inftel.isn.model;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
  * Created by inftel13 on 19/03/15.
  */
 
-public class Group {
+public class Group implements Serializable{
 
 
     private String id;
     private String admin;
     private String name;
     private String imageUrl;
-    private List<User> userList;
+    private ArrayList<User> usersList = new ArrayList<>();
 
     public Group() {
 
@@ -26,7 +27,7 @@ public class Group {
         hash = 23 * hash + Objects.hashCode(this.admin);
         hash = 23 * hash + Objects.hashCode(this.name);
         hash = 23 * hash + Objects.hashCode(this.imageUrl);
-        hash = 23 * hash + Objects.hashCode(this.userList);
+        hash = 23 * hash + Objects.hashCode(this.usersList);
         return hash;
     }
 
@@ -48,7 +49,7 @@ public class Group {
         if (!Objects.equals(this.imageUrl, other.imageUrl)) {
             return false;
         }
-        if (!Objects.equals(this.userList, other.userList)) {
+        if (!Objects.equals(this.usersList, other.usersList)) {
             return false;
         }
         return true;
@@ -62,12 +63,12 @@ public class Group {
         this.admin = admin;
     }
 
-    public Group(String id, String admin, String name, String imageUrl, List<User> userList) {
+    public Group(String id, String admin, String name, String imageUrl, ArrayList<User> usersList) {
         this.id = id;
         this.admin = admin;
         this.name = name;
         this.imageUrl = imageUrl;
-        this.userList = userList;
+        this.usersList = usersList;
     }
 
     public String getId() {
@@ -94,12 +95,20 @@ public class Group {
         this.imageUrl = imageUrl;
     }
 
-    public List<User> getUser() {
-        return userList;
+    public ArrayList<User> getUsersList() {
+        return usersList;
     }
 
-    public void setUser(List<User> user) {
-        this.userList = user;
+    public void setUsersList(ArrayList<User> usersList) {
+        this.usersList = usersList;
+    }
+
+    public void removeUserList(int position) {
+        this.usersList.remove(position);
+    }
+
+    public void addUserToList(User user) {
+        this.usersList.add(user);
     }
 
 }
