@@ -16,6 +16,10 @@ import com.inftel.isn.R;
 import com.inftel.isn.adapter.UsersListAdapter;
 import com.inftel.isn.model.Group;
 import com.inftel.isn.model.User;
+import com.inftel.isn.request.RestServiceGet;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -26,18 +30,22 @@ public class UserSearchActivity extends ListActivity {
     private ArrayList<User> array_sort;
     private EditText editText;
     private ListView listView;
-    private ArrayList<User> users;
+    private ArrayList<User> users = new ArrayList<>();
 
-    private void crearUsuariosProvisionales(){
-        users = new ArrayList<>();
-        User user1 = new User("1", "googleId 1", "email 1", "Usuario 1", "Imagen 1");
-        User user2 = new User("2", "googleId 2", "email 2", "Usuario 2", "Imagen 2");
-        User user3 = new User("3", "googleId 3", "email 3", "Usuario 3", "Imagen 3");
-        User user4 = new User("4", "googleId 4", "email 4", "Usuario 4", "Imagen 4");
-        users.add(user1);
-        users.add(user2);
-        users.add(user3);
-        users.add(user4);
+    private void requestUsersBBDD(){
+        try {
+            JSONArray respJSON = new RestServiceGet().execute("http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/users").get();
+            Gson gson = new Gson();
+
+            if (respJSON.length() != 0) {
+                for (int i = 0; i < respJSON.length(); i++) {
+                    JSONObject object = respJSON.getJSONObject(i);
+                    users.add(gson.fromJson(object.toString(), User.class));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -45,7 +53,7 @@ public class UserSearchActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_search);
 
-        crearUsuariosProvisionales();
+        requestUsersBBDD();
 
         Gson gson = new Gson();
         String strObj = getIntent().getStringExtra("group");

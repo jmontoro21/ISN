@@ -34,7 +34,6 @@ public class RestServicePost extends AsyncTask<String, Integer, String> {
 
             HttpPost httpPost = new HttpPost(urls[0]);
             StringEntity entity = new StringEntity(json.toString(), "UTF-8");
-            System.out.println("el json es" + json);
             entity.setContentType("application/json;charset=UTF-8");
             entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
 

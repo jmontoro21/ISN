@@ -12,6 +12,10 @@ import com.inftel.isn.R;
 import com.inftel.isn.adapter.UsersAddedListAdapter;
 import com.inftel.isn.model.Group;
 import com.inftel.isn.model.User;
+import com.inftel.isn.request.RestServicePost;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class AddUsersGroupActivity extends Activity{
 
@@ -49,7 +53,17 @@ public class AddUsersGroupActivity extends Activity{
     }
 
     public void intentCreated(View v) {
-        //Aqui subo el grupo "group" a la BBDD ya relleno
+        try {
+            Gson gson = new Gson();
+            String json = gson.toJson(group, Group.class);
+
+            JSONObject group = new JSONObject(json);
+
+            new RestServicePost(group).execute("http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/group/create");
+        } catch (JSONException eq) {
+            eq.printStackTrace();
+        }
+
         for(User user: group.getUsersList()) {
             Toast data = Toast.makeText(this, user.getName(), Toast.LENGTH_SHORT);
             data.show();
