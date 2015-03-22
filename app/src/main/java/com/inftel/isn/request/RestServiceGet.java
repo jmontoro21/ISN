@@ -20,6 +20,7 @@ import java.net.URL;
  */
 public class RestServiceGet extends AsyncTask<String, Integer, String> {
 
+
     protected String doInBackground(String... urls) {
 
 
@@ -49,7 +50,7 @@ public class RestServiceGet extends AsyncTask<String, Integer, String> {
                 // otra llamada asincrona
             }
 
-            return null;
+            return respStr;
            /* for(i=0; i<respJSON.length(); i++){
                 JSONObject object = respJSON.getJSONObject(i);
                 String title = object.getString("title");
@@ -75,5 +76,7 @@ public class RestServiceGet extends AsyncTask<String, Integer, String> {
 
     protected void onPostExecute(String result) {
         //reloadActivity();
+
+
     }
 }

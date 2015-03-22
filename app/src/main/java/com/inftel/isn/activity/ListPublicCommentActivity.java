@@ -10,11 +10,13 @@ import android.widget.TextView;
 
 import com.inftel.isn.R;
 import com.inftel.isn.request.DownloadImageTask;
+import com.inftel.isn.request.RestServiceGetUserData;
 
 
 public class ListPublicCommentActivity extends Activity {
 
     public static final String EMAIL_USER_PROFILE = "es.inftel.isn.user.google.id.name";
+
 
 
     private TextView userName;
@@ -59,12 +61,11 @@ public class ListPublicCommentActivity extends Activity {
                 new DownloadImageTask(imgProfile).execute(prefs.getString(LoginGoogleActivity.USER_URL, ""));
             }
         } else {
-            // otro perfil
-            // leer datos de usuario de la bd
-
-
-
+            String formatEmail = emailProfile.replaceAll("\\.", "___") ;
+            //userName.setText(new RestServiceGet().execute("http://192.168.1.123:8080/InftelSocialNetwork-web/webresources/users/" + emailProfile) );
         }
+
+
 
         //cargar lista de comentarios con fotos, fexa...
 

@@ -16,7 +16,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 import com.google.gson.Gson;
-import com.inftel.isn.model.Comment;
 import com.inftel.isn.model.User;
 import com.inftel.isn.request.RestServicePost;
 
@@ -141,7 +140,7 @@ public class LoginGoogleActivity extends Activity implements
 
         name = persona.getDisplayName();
         googleId = persona.getId();
-        imgUrl =persona.getImage().getUrl();
+        imgUrl = persona.getImage().getUrl();
 
         SharedPreferences prefs = this.getSharedPreferences("MYPREFERENCES", Context.MODE_PRIVATE);
         SharedPreferences.Editor e = prefs.edit();
@@ -153,89 +152,27 @@ public class LoginGoogleActivity extends Activity implements
 
         try {
 
-        User userData = new User();
-        //userData.setId(null);
-        userData.setEmail(email);
-        userData.setGoogleId(googleId);
-        userData.setName(name);
-        userData.setImageUrl(imgUrl);
+            User userData = new User();
+            userData.setEmail(email);
+            userData.setGoogleId(googleId);
+            userData.setName(name);
+            userData.setImageUrl(imgUrl);
 
-
-
-
-
-
-            /*
-            Comment com1 = new Comment();
-            com1.setImageUrl();
-            com1.setAuthor();
-            com1.setCreationDate();
-            com1.setText();
-            com1.setVideoUrl();
-*/
-
-
-        Gson gson = new Gson();
-        String json = gson.toJson(userData, User.class);
-
-            System.out.println("gson " + json);
+            Gson gson = new Gson();
+            String json = gson.toJson(userData, User.class);
 
             JSONObject user = new JSONObject(json);
 
-           // new RestServicePost(user).execute("http://192.168.1.117:8080/InftelSocialNetwork-web/webresources/users/create");
+            new RestServicePost(user).execute("http://192.168.1.123:8080/InftelSocialNetwork-web/webresources/users/create");
 
+            Intent i = new Intent(this, ListPublicCommentActivity.class);
+            startActivity(i);
 
-
-            // comentario
-            String nuevo = "{ \"text\" : \"privado nuevo\" , \"creationDate\" : { \"$date\" : \"2015-02-19T11:00:53.967Z\"} , \"author\" : { \"_id\" : \"5509b11dbfcba77ba8877e14\" , \"googleId\" : \"104611636054460643894\" , \"email\" : \"jmontoro21@gmail.com\" , \"name\" : \"josé Fernández Montoro\" , \"imageUrl\" : \"https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg?sz=250\"} , \"imageUrl\" : \"\" , \"videoUrl\" : \"\"}";
-
-            JSONObject coment = new JSONObject(nuevo);
-
-            String formatEmail = email.replaceAll("\\.", "___") ;
-
-            new RestServicePost(coment).execute("http://192.168.1.117:8080/InftelSocialNetwork-web/webresources//insert/userEmail/"+ formatEmail );
-
-
-
-
+           // this.st
 
         } catch (JSONException eq) {
             eq.printStackTrace();
         }
-
-
-
-
-
-
-        // String formatEmail = email.replaceAll("\\.", "___") ;
-
-
-
-
-
-
-
-
-
-        // Compruebo si el usuario está en la bd y sino, lo inserto.
-
-
-
-
-
-
-
-
-
-
-        //new RestServiceGet().execute("http://192.168.1.117:8080/InftelSocialNetwork-web/webresources/users/" + formatEmail);
-
-        //System.out.println("resultado " + isEmailInserted);
-
-
-        //Intent i = new Intent(this, ListPublicCommentActivity.class);
-        //startActivity(i);
     }
 
     /**
@@ -280,112 +217,4 @@ public class LoginGoogleActivity extends Activity implements
             retryConnecting();
         }
     }
-
-/*
-    public void restoreBackup(){
-        datasource.open();
-        datasource.deleteDB();
-        getBackup(googleUser);
-
-    }
-
-    private void getBackup(String googleId) {
-        new RestServiceGet().execute(GET_BACKUP_URL + googleId);
-    }
-
-
-    public void createBackup() throws UnsupportedEncodingException, JSONException {
-        datasource.open();
-        List<JournalEntry> values = datasource.getAllJournalEntries();
-        int i;
-        createUserDB(googleUser);
-        deleteDB(googleUser);
-        for(i=0; i< values.size();i++){
-            createJournalEntry(googleUser, values.get(i));
-        }
-        datasource.close();
-    }
-
-    public void createUserDB(String googleId){
-        String json;
-        json = "{\"googleid\":\""+googleId+"\"}";
-        try {
-            JSONObject user = new JSONObject(json);
-            new RestServiceCreateUser(user)
-                    .execute(REST_CREATE_USER_URL);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void deleteDB(String googleId){
-        new RestServiceDelete().execute(DELETE_EVENT_URL+googleId);
-    }
-
-    public void createJournalEntry(String googleId, JournalEntry je) throws JSONException, UnsupportedEncodingException {
-        String json;
-        json = createJson(je, googleId);
-        JSONObject dato = new JSONObject(json);
-        new RestServicePost(dato).execute(CREATE_EVENT_URL);
-    }
-
-    public String createJson(JournalEntry je, String googleId){
-        String json;
-        json = "{\"address\":\" \",\"description\":\""+je.getDesc()+"\",\"eventdate\":\" \",\"latitude\":\""+je.getGps_lat()+"\",\"longitude\":\""+je.getGps_long()+"\",\"title\":\""+je.getTitle()+"\",\"urlimage\":\""+je.getImg()+"\",\"userdataGoogleid\":{\"googleid\":\""+googleId+"\"}}";
-        return json;
-    }
-
-
-
-    private class RestServiceGet extends AsyncTask<String, Integer, String> {
-
-        protected String doInBackground(String... urls) {
-            HttpClient httpClient = new DefaultHttpClient();
-            HttpGet g = new HttpGet(urls[0]);
-            g.setHeader("Accept", "application/json");
-            g.setHeader("Content-type", "application/json");
-            try
-            {
-                System.out.println("LLEGA 1");
-                HttpResponse resp = httpClient.execute(g);
-                String respStr = EntityUtils.toString(resp.getEntity());
-                int i;
-                JSONArray respJSON = new JSONArray(respStr);
-                System.out.println(respJSON.toString());
-                for(i=0; i<respJSON.length(); i++){
-                    JSONObject object = respJSON.getJSONObject(i);
-                    String title = object.getString("title");
-                    String entryContent = object.getString("description");
-                    String lat = object.getString("latitude");
-                    String lg = object.getString("longitude");
-                    String im = object.getString("urlimage");
-                    datasource.open();
-                    datasource.createEntry(title, entryContent, lat, lg, im);
-                    datasource.close();
-                }
-            }
-            catch(Exception ex)
-            {
-                Log.e("ServicioRest","Error!", ex);
-            }
-            return null;
-        }
-
-        protected void onProgressUpdate(Integer... progress){
-
-        }
-
-        protected void onPostExecute(String result) {
-            reloadActivity();
-        }
-        public void reloadActivity(){
-            Intent intent = new Intent(this, MainActivity.class);
-            this.startActivity(intent);
-
-
-
-
-
-        }
-*/
 }
