@@ -2,7 +2,6 @@ package com.inftel.isn.request;
 
 import android.os.AsyncTask;
 
-import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -31,9 +30,7 @@ public class RestServicePost extends AsyncTask<String, Integer, String> {
             httpPost.setEntity(entity);
             httpPost.setHeader("Content-type", "application/json");
 
-            HttpResponse d= httpClient.execute(httpPost);
-
-            System.out.println("kdkdkdkd");
+            httpClient.execute(httpPost);
         } catch (Exception e) {
             e.printStackTrace();
         }
