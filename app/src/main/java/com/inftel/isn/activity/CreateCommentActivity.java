@@ -16,7 +16,6 @@ import com.google.gson.Gson;
 import com.inftel.isn.R;
 import com.inftel.isn.model.Comment;
 import com.inftel.isn.request.DownloadImageTask;
-import com.inftel.isn.request.RestServicePost;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -24,8 +23,6 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -49,25 +46,6 @@ public class CreateCommentActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_comment);
-        Comment newComment = new Comment();
-        newComment.setText("mierda");
-        newComment.setImageUrl("asfdasfas");
-        newComment.setVideoUrl("asdasfasfsd");
-
-        Gson gsonComment = new Gson();
-        String jsonComment = gsonComment.toJson(newComment, Comment.class);
-        JSONObject comment = null;
-        try {
-            comment = new JSONObject(jsonComment);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        String email="alfredo.gallego.gonzalez@gmail.com";
-        String formatem = email.replaceAll("\\.", "___");
-        new RestServicePost(comment).execute("http://192.168.1.123:8080/InftelSocialNetwork-web/webresources/profilecomments/insert/userEmail/"+ formatem);
-        System.out.println("parate");
-
 
     }
 
