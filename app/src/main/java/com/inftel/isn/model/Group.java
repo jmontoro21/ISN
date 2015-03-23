@@ -111,6 +111,8 @@ public class Group implements Serializable{
         this.usersList.add(user);
     }
 
+    public void removeUserFromList(User user) { this.usersList.remove(user);}
+
 }
 
 

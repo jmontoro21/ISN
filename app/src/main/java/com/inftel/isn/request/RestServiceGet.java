@@ -8,8 +8,6 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 public class RestServiceGet extends AsyncTask<String, Integer, String> {
 
@@ -22,8 +20,6 @@ public class RestServiceGet extends AsyncTask<String, Integer, String> {
         try {
             HttpResponse resp = httpClient.execute(g);
             respStr = EntityUtils.toString(resp.getEntity());
-
-
         } catch (Exception ex) {
             Log.e("ServicioRest", "Error!", ex);
         }

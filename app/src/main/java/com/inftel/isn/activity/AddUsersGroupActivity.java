@@ -56,9 +56,7 @@ public class AddUsersGroupActivity extends Activity{
         try {
             Gson gson = new Gson();
             String json = gson.toJson(group, Group.class);
-
             JSONObject group = new JSONObject(json);
-
             new RestServicePost(group).execute("http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/group/create");
         } catch (JSONException eq) {
             eq.printStackTrace();
