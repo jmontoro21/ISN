@@ -20,8 +20,6 @@ public class RestServiceGet extends AsyncTask<String, Integer, String> {
         try {
             HttpResponse resp = httpClient.execute(g);
             respStr = EntityUtils.toString(resp.getEntity());
-
-
         } catch (Exception ex) {
             Log.e("ServicioRest", "Error!", ex);
         }

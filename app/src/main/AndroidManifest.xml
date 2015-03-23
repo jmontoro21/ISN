@@ -67,7 +67,8 @@
         </activity>
         <activity
             android:name=".activity.UserSearchActivity"
-            android:label="@string/title_activity_user_search" >
+            android:label="@string/title_activity_user_search"
+            android:launchMode="singleInstance" >
         </activity>
     </application>
 

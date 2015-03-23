@@ -142,6 +142,8 @@ public class Group implements Parcelable{
         usersList= in.readArrayList(null);
 
     }
+    public void removeUserFromList(User user) { this.usersList.remove(user);}
+
 }
 
 
