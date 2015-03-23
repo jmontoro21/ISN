@@ -2,6 +2,7 @@ package com.inftel.isn.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -57,6 +60,14 @@ public class CreateCommentActivity extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
         addImageView = (ImageView) findViewById(R.id.addImageToComment);
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+        EditText edtView=(EditText)findViewById(R.id.postContent);
+        edtView.setInputType(0);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         return true;
     }
 
@@ -217,6 +228,142 @@ public class CreateCommentActivity extends Activity {
                     public void onClick(DialogInterface dialog, int whichButton) {
                     }
                 }).show();
+    }
+
+    public void keyClicked(View view){
+        EditText content = (EditText) findViewById(R.id.postContent);
+        if(view.getId() == R.id.n1){
+            content.setText(content.getText().toString() +"1");
+
+        }
+        if(view.getId() == R.id.n2){
+            content.setText(content.getText().toString() + "2");
+        }
+        if(view.getId() == R.id.n3){
+            content.setText(content.getText().toString() +"3");
+        }
+        if(view.getId() == R.id.n4){
+            content.setText(content.getText().toString() +"4");
+        }
+        if(view.getId() == R.id.n5){
+            content.setText(content.getText().toString() +"5");
+        }
+        if(view.getId() == R.id.n6){
+            content.setText(content.getText().toString() +"6");
+        }
+        if(view.getId() == R.id.n7){
+            content.setText(content.getText().toString() +"7");
+        }
+        if(view.getId() == R.id.n8){
+            content.setText(content.getText().toString() +"8");
+        }
+        if(view.getId() == R.id.n9){
+            content.setText(content.getText().toString() +"9");
+        }
+        if(view.getId() == R.id.n0){
+            content.setText(content.getText().toString() +"0");
+        }
+        if(view.getId() == R.id.q){
+            content.setText(content.getText().toString() +"q");
+        }
+        if(view.getId() == R.id.w){
+            content.setText(content.getText().toString() +"w");
+        }
+        if(view.getId() == R.id.e){
+            content.setText(content.getText().toString() +"e");
+        }
+        if(view.getId() == R.id.r){
+            content.setText(content.getText().toString() +"r");
+        }
+        if(view.getId() == R.id.t){
+            content.setText(content.getText().toString() +"t");
+        }
+        if(view.getId() == R.id.y){
+            content.setText(content.getText().toString() +"y");
+        }
+        if(view.getId() == R.id.u){
+            content.setText(content.getText().toString() +"u");
+        }
+        if(view.getId() == R.id.i){
+            content.setText(content.getText().toString() +"i");
+        }
+        if(view.getId() == R.id.o){
+            content.setText(content.getText().toString() +"o");
+        }
+        if(view.getId() == R.id.p){
+            content.setText(content.getText().toString() +"p");
+        }
+        if(view.getId() == R.id.a){
+            content.setText(content.getText().toString() +"a");
+        }
+        if(view.getId() == R.id.s){
+            content.setText(content.getText().toString() +"s");
+        }
+        if(view.getId() == R.id.d){
+            content.setText(content.getText().toString() +"d");
+        }
+        if(view.getId() == R.id.f){
+            content.setText(content.getText().toString() +"f");
+        }
+        if(view.getId() == R.id.g){
+            content.setText(content.getText().toString() +"g");
+        }
+        if(view.getId() == R.id.h){
+            content.setText(content.getText().toString() +"h");
+        }
+        if(view.getId() == R.id.j){
+            content.setText(content.getText().toString() +"j");
+        }
+        if(view.getId() == R.id.k){
+            content.setText(content.getText().toString() +"k");
+        }
+        if(view.getId() == R.id.l){
+            content.setText(content.getText().toString() +"l");
+        }
+        if(view.getId() == R.id.enye){
+            content.setText(content.getText().toString() +"ñ");
+        }
+        if(view.getId() == R.id.z){
+            content.setText(content.getText().toString() +"z");
+        }
+        if(view.getId() == R.id.x){
+            content.setText(content.getText().toString() +"x");
+        }
+        if(view.getId() == R.id.c){
+            content.setText(content.getText().toString() +"c");
+        }
+        if(view.getId() == R.id.v){
+            content.setText(content.getText().toString() +"v");
+        }
+        if(view.getId() == R.id.b){
+            content.setText(content.getText().toString() +"b");
+        }
+        if(view.getId() == R.id.n){
+            content.setText(content.getText().toString() +"n");
+        }
+        if(view.getId() == R.id.m){
+            content.setText(content.getText().toString() +"m");
+        }
+        if(view.getId() == R.id.comma){
+            content.setText(content.getText().toString() +",");
+        }
+        if(view.getId() == R.id.point){
+            content.setText(content.getText().toString() +".");
+        }
+        if(view.getId() == R.id.menos){
+            content.setText(content.getText().toString() +"-");
+        }
+        if(view.getId() == R.id.borrar){
+            content.setText(content.getText().toString().substring(0,content.getText().toString().length()-1));
+        }
+        if(view.getId() == R.id.espacio){
+            content.setText(content.getText().toString() +" ");
+        }
+        if(view.getId() == R.id.enviarcomentario){
+            //ENVIAR COMENTARIO
+            //VOLVER A OTRA ACTIVITY
+        }
+        content.refreshDrawableState();
     }
 
     private class HttpRequestTask extends AsyncTask<Comment, Void, Void> {
