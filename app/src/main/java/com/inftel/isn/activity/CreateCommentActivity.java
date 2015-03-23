@@ -78,9 +78,7 @@ public class CreateCommentActivity extends Activity {
 
     public void doPost(View view){
         EditText content = (EditText) findViewById(R.id.postContent);
-        //EditText youtubeURL = (EditText) findViewById(R.id.youtube);
         String entryContent = content.getText().toString();
-        //String youtube = youtubeURL.getText().toString();
         Comment comment = new Comment();
         if(!entryContent.isEmpty() && entryContent.length()>5) {
             //save post to database via async REST (on postExecute reload postList)
@@ -98,7 +96,6 @@ public class CreateCommentActivity extends Activity {
             //show alert dialog
             showDialog(CANT_POST_ALERT, EMPTY_CONTENT_ALERT);
         }
-
 
         Gson gsonComment = new Gson();
         String jsonComment = gsonComment.toJson(comment, Comment.class);
@@ -140,6 +137,7 @@ public class CreateCommentActivity extends Activity {
                                 image.toLowerCase().endsWith(".gif") ||image.toLowerCase().endsWith(".jpg")
                                 || image.toLowerCase().endsWith("jpeg")){
                             Log.i("db","user " + " <USUARIO> " + " saving image URL "+image);
+                            new DownloadImageTask((ImageView) findViewById(R.id.addImageToComment)).execute(image);
 
                         }else{
                             showDialog(CANT_POST_ALERT, NOT_AN_IMAGE);
@@ -159,9 +157,7 @@ public class CreateCommentActivity extends Activity {
                 // Canceled.
             }
         });
-
         alert.show();
-        new DownloadImageTask((ImageView) findViewById(R.id.addImageToComment)).execute(image);
 
     }
 
@@ -191,13 +187,13 @@ public class CreateCommentActivity extends Activity {
                     Log.i("db","user " + " <USUARIO> " + " saving youtube video "+vId);
                     int id = getResources().getIdentifier("com.inftel.isn:drawable/youtubeok", null, null);
                     youtubeImage.setImageResource(id);
-
+                    youtube = vId;
                 }else{
                     showDialog(CANT_POST_ALERT, INVALID_YOUTUBE);
                     int id = getResources().getIdentifier("com.inftel.isn:drawable/youtubeerror", null, null);
                     youtubeImage.setImageResource(id);
+                    youtube="";
                 }
-                // Do something with value!
             }
         });
 
