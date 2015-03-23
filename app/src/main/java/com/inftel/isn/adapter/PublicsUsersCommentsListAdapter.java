@@ -1,9 +1,12 @@
 package com.inftel.isn.adapter;
 
 import android.app.Activity;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
@@ -105,7 +108,29 @@ public class PublicsUsersCommentsListAdapter extends BaseAdapter {
 
         if(objects.get(position).getVideoUrl() != null && !objects.get(position).getVideoUrl().isEmpty() ) {
             WebView viedoComentario = (WebView) itemView.findViewById(R.id.videoComment);
-            new ShowYoutuveVideo(viedoComentario).execute(objects.get(position).getVideoUrl(), "");
+
+            WebSettings settings = viedoComentario.getSettings();
+            settings.setJavaScriptEnabled(true);
+            settings.setAllowFileAccess(true);
+            settings.setPluginState(WebSettings.PluginState.ON);
+
+
+            String html = "";
+            html += "<html><body>";
+            html += "<iframe width=\"560\" height=\"315\" src=\"http://www.youtube.com/embed/"+ objects.get(position).getVideoUrl() +"?rel=0\" frameborder=\"0\" allowfullscreen></iframe>";
+            html += "</body></html>";
+
+            viedoComentario.loadData(html, "text/html", null);
+
+
+
+            //viedoComentario.getSettings().setJavaScriptEnabled(true);
+            //viedoComentario.getSettings().setPluginState(WebSettings.PluginState.ON);
+            //viedoComentario.loadUrl("http://www.youtube.com/embed/" + objects.get(position).getVideoUrl() + "?autoplay=1&vq=small");
+
+          //viedoComentario.setWebChromeClient(new WebChromeClient());
+
+          // new ShowYoutuveVideo(viedoComentario).execute(objects.get(position).getVideoUrl(), "");
         }
 
         return itemView;

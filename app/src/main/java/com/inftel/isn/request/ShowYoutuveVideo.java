@@ -19,10 +19,10 @@ public class ShowYoutuveVideo extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
 
+
             mWebView.getSettings().setJavaScriptEnabled(true);
             mWebView.getSettings().setPluginState(WebSettings.PluginState.ON);
             mWebView.loadUrl("http://www.youtube.com/embed/" + urls[0] + "?autoplay=1&vq=small");
-
 
             return null;
         }
