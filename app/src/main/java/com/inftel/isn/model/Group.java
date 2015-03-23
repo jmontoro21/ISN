@@ -1,23 +1,22 @@
 package com.inftel.isn.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
  * Created by inftel13 on 19/03/15.
  */
 
-public class Group implements Parcelable{
+public class Group implements Serializable{
 
 
     private String id;
     private String admin;
     private String name;
     private String imageUrl;
-    private ArrayList<User> usersList = new ArrayList<>();
+    private List<User> usersList = new ArrayList<>();
 
     public Group() {
 
@@ -97,7 +96,7 @@ public class Group implements Parcelable{
         this.imageUrl = imageUrl;
     }
 
-    public ArrayList<User> getUsersList() {
+    public List<User> getUsersList() {
         return usersList;
     }
 
@@ -113,35 +112,7 @@ public class Group implements Parcelable{
         this.usersList.add(user);
     }
 
-    public int describeContents() {
-        return 0;
-    }
 
-    public void writeToParcel(Parcel out, int flags) {
-
-        out.writeString(id);
-        out.writeString(admin);
-        out.writeString(name);
-        out.writeString(imageUrl);
-        out.writeList(usersList);
-    }
-    public static final Parcelable.Creator<Group> CREATOR = new Parcelable.Creator<Group>(){
-        public Group createFromParcel(Parcel in){
-            return new Group(in);
-        }
-        public Group[] newArray (int size){
-            return new Group[size];
-        }
-
-    };
-    private Group (Parcel in){
-        id = in.readString();
-        admin = in.readString();
-        name = in.readString();
-        imageUrl = in.readString();
-        usersList= in.readArrayList(null);
-
-    }
     public void removeUserFromList(User user) { this.usersList.remove(user);}
 
 }

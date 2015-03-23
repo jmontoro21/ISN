@@ -34,7 +34,7 @@ public class AddUsersGroupActivity extends Activity{
 
         listView = (ListView)findViewById(R.id.list_users);
 
-        adapter = new UsersAddedListAdapter(group.getUsersList(), this);
+        adapter = new UsersAddedListAdapter((java.util.ArrayList<User>) group.getUsersList(), this);
         listView.setAdapter(adapter);
     }
 
