@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,12 +15,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class UsersListAdapter extends BaseAdapter {
+public class UsersAddedListAdapter extends BaseAdapter {
     LayoutInflater inflater;
     ArrayList<User> objects;
     Activity activity;
 
-    public UsersListAdapter(ArrayList<User> objetos, Activity activity) {
+    public UsersAddedListAdapter(ArrayList<User> objetos, Activity activity) {
         this.activity = activity;
         inflater = LayoutInflater.from(activity);
         this.objects = objetos;
@@ -42,10 +43,12 @@ public class UsersListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View itemView = inflater.inflate(R.layout.user_item, parent, false);
+        View itemView = inflater.inflate(R.layout.user_item_erasable, parent, false);
         TextView textTitulo = (TextView) itemView.findViewById(R.id.name);
         TextView textDescription = (TextView) itemView.findViewById(R.id.description);
         ImageView imageView = (ImageView) itemView.findViewById(R.id.userImg);
+        ImageButton imageButton = (ImageButton) itemView.findViewById(R.id.deleteImg);
+        imageButton.setTag(position);
 
         Picasso.with(activity).load(R.drawable.user).into(imageView);
         textTitulo.setText(objects.get(position).getName());

@@ -97,12 +97,7 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuItem search = menu.add(Menu.NONE, R.id.action_search, 1, "Search");
         MenuItemCompat.setShowAsAction(search, MenuItem.SHOW_AS_ACTION_ALWAYS);
-        search.setIcon(R.drawable.ic_action_search);
-        getMenuInflater().inflate(R.menu.menu, menu);
-
-        MenuItem itemBlog = menu.add(Menu.NONE, R.id.qr_reader, 1, "QR Reader");
-        MenuItemCompat.setShowAsAction(itemBlog, MenuItem.SHOW_AS_ACTION_ALWAYS);
-        itemBlog.setIcon(R.drawable.qr);
+        search.setIcon(R.drawable.search);
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
@@ -123,11 +118,8 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
                 }
                 return true;
             case R.id.action_search:
-                try{
-                    return super.onOptionsItemSelected(item);
-                }catch (ActivityNotFoundException anfe) {
-                    showDialog(MenuActivity.this, "No Scanner Found", "Download a scanner code activity?", "Yes", "No").show();
-                }
+                intent = new Intent(this, UserSearchActivity.class);
+                startActivity(intent);
                 return true;
 
             case R.id.createGroup:

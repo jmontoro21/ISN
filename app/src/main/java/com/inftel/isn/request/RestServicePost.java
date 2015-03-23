@@ -3,6 +3,7 @@ package com.inftel.isn.request;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -26,17 +27,23 @@ public class RestServicePost extends AsyncTask<String, Integer, String> {
     protected String doInBackground(String... urls) {
         try {
 
+            System.out.println("djdjjd " + json);
+
+
             HttpClient httpClient = new DefaultHttpClient();
 
             HttpPost httpPost = new HttpPost(urls[0]);
             StringEntity entity = new StringEntity(json.toString(), "UTF-8");
-            System.out.println("el json es" + json);
             entity.setContentType("application/json;charset=UTF-8");
             entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
 
             httpPost.setEntity(entity);
             httpPost.setHeader("Content-type", "application/json");
-            httpClient.execute(httpPost);
+
+            HttpResponse d= httpClient.execute(httpPost);
+
+
+            System.out.println("kdkdkdkd");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             Log.e("HTTP", "Error in http connection1 " + e.toString());

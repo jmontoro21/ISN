@@ -1,7 +1,7 @@
 package com.inftel.isn.model;
 
 
-import org.w3c.dom.Comment;
+
 
 import java.util.ArrayList;
 
@@ -45,6 +45,16 @@ public class ProfileComments {
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
+    }
+
+    public void removecommentsList(int position) {
+        this.commentsList.remove(position);
+    }
+
+
+    public Comment getComment(int position)
+    {
+        return this.commentsList.get(position);
     }
 
 }

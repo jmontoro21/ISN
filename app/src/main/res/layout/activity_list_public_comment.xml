@@ -5,8 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -17,33 +15,43 @@
                 android:scaleType="centerCrop"
                 android:layout_height="55dp"
                 android:layout_marginLeft="20dp"
-
                 android:layout_marginTop="10dp"
-                android:contentDescription="@string/ProfileImg"
-                android:id="@+id/PublicCommentImgProfile"
-                 />
+                android:id="@+id/PublicCommentImgProfile"/>
 
-            <TextView
-                android:layout_width="280dp"
-                android:layout_height="55dp"
-                android:textSize="20sp"
-                android:textIsSelectable="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:id="@+id/PublicCommentNameProfile"
-                android:gravity="left|center" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
 
-           </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:textSize="20sp"
+                    android:textIsSelectable="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/PublicCommentNameProfile"
+                    android:gravity="left|center"
+                    android:layout_marginRight="20dp" />
 
+                <ImageButton
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/Seguir"
+                    android:id="@+id/Seguir"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="20dp" />
+            </LinearLayout>
 
-
+        </LinearLayout>
 
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/ListaDEMensajes"
-        android:textSize="25sp"
+        android:textSize="26sp"
         android:textIsSelectable="true"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="0dp"
@@ -65,4 +73,5 @@
             android:dividerHeight="5.0sp"
             android:layout_gravity="left|center_vertical" />
     </FrameLayout>
+
 </LinearLayout>
