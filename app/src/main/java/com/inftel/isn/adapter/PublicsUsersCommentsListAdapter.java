@@ -75,7 +75,7 @@ public class PublicsUsersCommentsListAdapter extends BaseAdapter {
         textFecha.setText( formateador.format(objects.get(position).getCreationDate()));
 
 
-        ImageButton botonBorrar = (ImageButton) itemView.findViewById(R.id.btnDelete);
+        ImageButton botonBorrar = (ImageButton) itemView.findViewById(R.id.btnDeleteComments);
         ImageButton botonCompartir = (ImageButton) itemView.findViewById(R.id.btnShare);
         if(perfil.getUserEmail().compareTo(emailGoogle) == 0 )
         {

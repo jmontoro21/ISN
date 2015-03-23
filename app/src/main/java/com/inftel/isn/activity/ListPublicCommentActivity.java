@@ -213,7 +213,7 @@ public class ListPublicCommentActivity extends Activity {
             }
 
 
-    public void deleteItem(View v) {
+    public void deleteItems(View v) {
 
 
         try {

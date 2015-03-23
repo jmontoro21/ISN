@@ -169,11 +169,11 @@ public class LoginGoogleActivity extends Activity implements
 
 
 
-            //Intent i = new Intent(this, ListPublicCommentActivity.class);
-            //startActivity(i);
-
-            Intent i = new Intent(this, MenuActivity.class);
+            Intent i = new Intent(this, ListPublicCommentActivity.class);
             startActivity(i);
+
+           // Intent i = new Intent(this, MenuActivity.class);
+            //startActivity(i);
 
 
            // this.st
