@@ -154,11 +154,24 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
     }
 
     public void fab_home(View view){
+        Intent intent = new Intent(this, CreateCommentActivity.class);
+        intent.putExtra(CreateCommentActivity.COMMENT_TYPE, "publico");
+        startActivity(intent);
         Log.i("fab", "home");
     }
 
 
     public void fab_group(View view){
+        Intent intent = new Intent(this, CreateCommentActivity.class);
+        intent.putExtra(CreateCommentActivity.COMMENT_TYPE, "grupo");
+        startActivity(intent);
         Log.i("fab", "grupo");
+    }
+
+    public void fab_nota(View view){
+        Intent intent = new Intent(this, CreateCommentActivity.class);
+        intent.putExtra(CreateCommentActivity.COMMENT_TYPE, "nota");
+        startActivity(intent);
+        Log.i("fab", "nota");
     }
 }

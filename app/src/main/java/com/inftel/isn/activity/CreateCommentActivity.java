@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,10 +44,12 @@ public class CreateCommentActivity extends Activity {
     private final static String INVALID_YOUTUBE = "Invalid Youtube link";
     private final static String NOT_AN_IMAGE = "URL is not a valid image";
     private final static String CREATE_PROFILE_POST_URL = "http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/profilecomments/insert?userEmail=";
+    public final static String COMMENT_TYPE = "com.inftel.isn.activity.type.blablabla";
     private ImageView addImageView;
     private ImageView youtubeImage;
     private String image = "";
     private String youtube = "";
+    private Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +90,8 @@ public class CreateCommentActivity extends Activity {
     }
 
 
-    public void doPost(View view){
+    public void doPost(){
+        String tipo = intent.getStringExtra(COMMENT_TYPE);
         EditText content = (EditText) findViewById(R.id.postContent);
         String entryContent = content.getText().toString();
         Comment comment = new Comment();
@@ -116,7 +120,13 @@ public class CreateCommentActivity extends Activity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
+        if(tipo.equals("publico")){
+            //llamada rest publicComment
+        }else if(tipo.equals("grupo")){
+            //llamada rest grupoComment
+        }else if(tipo.equals("nota")){
+            //llamda rest nota privada
+        }
         new RestServicePost(jsoncomment).execute(CREATE_PROFILE_POST_URL+"CERVEZA");
 
     }
@@ -362,8 +372,8 @@ public class CreateCommentActivity extends Activity {
             content.setText(content.getText().toString() +" ");
         }
         if(view.getId() == R.id.enviarcomentario){
-            //ENVIAR COMENTARIO
-            //VOLVER A OTRA ACTIVITY
+            intent = getIntent();
+            doPost();
         }
         content.refreshDrawableState();
     }
