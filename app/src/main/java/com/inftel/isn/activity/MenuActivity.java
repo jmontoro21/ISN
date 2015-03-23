@@ -14,8 +14,10 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 
 import com.inftel.isn.R;
@@ -149,5 +151,14 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
 
     @Override
     public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+    }
+
+    public void fab_home(View view){
+        Log.i("fab", "home");
+    }
+
+
+    public void fab_group(View view){
+        Log.i("fab", "grupo");
     }
 }
