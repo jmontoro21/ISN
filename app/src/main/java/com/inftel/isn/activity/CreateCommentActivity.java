@@ -354,7 +354,9 @@ public class CreateCommentActivity extends Activity {
             content.setText(content.getText().toString() +"-");
         }
         if(view.getId() == R.id.borrar){
-            content.setText(content.getText().toString().substring(0,content.getText().toString().length()-1));
+            if(content.getText().toString().length()>=1) {
+                content.setText(content.getText().toString().substring(0, content.getText().toString().length() - 1));
+            }
         }
         if(view.getId() == R.id.espacio){
             content.setText(content.getText().toString() +" ");
