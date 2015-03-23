@@ -21,7 +21,7 @@ import com.inftel.isn.model.PrivateComments;
 import com.inftel.isn.model.ProfileComments;
 import com.inftel.isn.model.User;
 import com.inftel.isn.request.DownloadImageTask;
-import com.inftel.isn.request.ShowYoutuveVideo;
+
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -122,15 +122,6 @@ public class PublicsUsersCommentsListAdapter extends BaseAdapter {
 
             viedoComentario.loadData(html, "text/html", null);
 
-
-
-            //viedoComentario.getSettings().setJavaScriptEnabled(true);
-            //viedoComentario.getSettings().setPluginState(WebSettings.PluginState.ON);
-            //viedoComentario.loadUrl("http://www.youtube.com/embed/" + objects.get(position).getVideoUrl() + "?autoplay=1&vq=small");
-
-          //viedoComentario.setWebChromeClient(new WebChromeClient());
-
-          // new ShowYoutuveVideo(viedoComentario).execute(objects.get(position).getVideoUrl(), "");
         }
 
         return itemView;

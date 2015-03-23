@@ -6,8 +6,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -16,11 +18,20 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.inftel.isn.R;
+
+import com.inftel.isn.fragment.HomeFragment;
+import com.inftel.isn.model.Comment;
 import com.inftel.isn.model.User;
+import com.inftel.isn.request.RestServicePost;
 import com.inftel.isn.utility.PageAdapterFragment;
+
+import org.json.JSONObject;
 
 public class MenuActivity extends FragmentActivity implements ActionBar.TabListener {
     ActionBar actionbar;
@@ -36,7 +47,30 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         viewpager = (ViewPager) findViewById(R.id.pager);
-        ft = new PageAdapterFragment(getSupportFragmentManager());
+
+        SharedPreferences prefs = this.getSharedPreferences("MYPREFERENCES", Context.MODE_PRIVATE);
+
+        // SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+        // emailLogin = sp.getString(LoginGoogleActivity.USER_KEY,"");
+        //System.out.println("fhhfhfhfhfhf " + emailLogin);
+        String emailLogin="";
+        // Email del usuario logueado
+        if (prefs.contains(LoginGoogleActivity.USER_KEY)) {
+
+
+            // emailLogin = sp.getString(LoginGoogleActivity.USER_KEY,"");
+
+            emailLogin = prefs.getString(LoginGoogleActivity.USER_KEY, "");
+
+
+            System.out.println("fhhfhfhfhfhf");
+
+
+
+        }
+
+        ft = new PageAdapterFragment(getSupportFragmentManager(),emailLogin);
 
         actionbar = getActionBar();
         viewpager.setAdapter(ft);
@@ -59,6 +93,12 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
             public void onPageScrollStateChanged(int arg0) {
             }
         });
+
+
+
+
+
+
     }
 
     private static AlertDialog showDialog(final Activity act, CharSequence title, CharSequence message, CharSequence buttonYes, CharSequence buttonNo) {
@@ -150,4 +190,6 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
     @Override
     public void onTabUnselected(Tab tab, FragmentTransaction ft) {
     }
+
+
 }

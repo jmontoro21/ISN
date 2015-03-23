@@ -158,15 +158,23 @@ public class LoginGoogleActivity extends Activity implements
             userData.setName(name);
             userData.setImageUrl(imgUrl);
 
+
+
             Gson gson = new Gson();
             String json = gson.toJson(userData, User.class);
 
             JSONObject user = new JSONObject(json);
 
-            new RestServicePost(user).execute("http://192.168.1.117:8080/InftelSocialNetwork-web/webresources/users/create");
+            new RestServicePost(user).execute("http://192.168.1.123:8080/InftelSocialNetwork-web/webresources/users/create");
 
-            Intent i = new Intent(this, ListPublicCommentActivity.class);
+
+
+            //Intent i = new Intent(this, ListPublicCommentActivity.class);
+            //startActivity(i);
+
+            Intent i = new Intent(this, MenuActivity.class);
             startActivity(i);
+
 
            // this.st
 

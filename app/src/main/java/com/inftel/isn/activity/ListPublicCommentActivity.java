@@ -102,7 +102,7 @@ public class ListPublicCommentActivity extends Activity {
 
 
                 String formatEmail = emailProfile.replaceAll("\\.", "___");
-                String userGet = new RestServiceGet().execute("http://192.168.1.117:8080/InftelSocialNetwork-web/webresources/users/" + formatEmail).get();
+                String userGet = new RestServiceGet().execute("http://192.168.1.123:8080/InftelSocialNetwork-web/webresources/users/" + formatEmail).get();
 
                 Gson gson = new Gson();
                 User perfil = gson.fromJson(userGet, User.class);
@@ -134,7 +134,7 @@ public class ListPublicCommentActivity extends Activity {
 
 
         try {
-            respJSON = new RestServiceGet().execute("http://192.168.1.117:8080/InftelSocialNetwork-web/webresources/profilecomments/email?email=" + formatEmail).get();
+            respJSON = new RestServiceGet().execute("http://192.168.1.123:8080/InftelSocialNetwork-web/webresources/profilecomments/email?email=" + formatEmail).get();
 
 
 
@@ -159,7 +159,7 @@ public class ListPublicCommentActivity extends Activity {
             // Creates the json object which will manage the information received
             GsonBuilder builder = new GsonBuilder();
 
-// Register an adapter to manage the date types as long values
+            // Register an adapter to manage the date types as long values
             builder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
                 public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
                     return new Date(json.getAsJsonPrimitive().getAsLong());
