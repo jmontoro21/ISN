@@ -163,7 +163,7 @@ public class LoginGoogleActivity extends Activity implements
 
             JSONObject user = new JSONObject(json);
 
-            new RestServicePost(user).execute("http://192.168.1.123:8080/InftelSocialNetwork-web/webresources/users/create");
+            new RestServicePost(user).execute("http://192.168.1.117:8080/InftelSocialNetwork-web/webresources/users/create");
 
             Intent i = new Intent(this, ListPublicCommentActivity.class);
             startActivity(i);
@@ -216,5 +216,13 @@ public class LoginGoogleActivity extends Activity implements
             Log.e(TAG, "Exception while starting resolution activity", e);
             retryConnecting();
         }
+    }
+
+
+    public void closeConnection()
+    {
+        Plus.AccountApi.revokeAccessAndDisconnect(mGoogleApiClient);
+        Intent i = new Intent(this, LoginGoogleActivity.class);
+        startActivity(i);
     }
 }

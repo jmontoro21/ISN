@@ -1,6 +1,6 @@
 package com.inftel.isn.model;
 
-import org.w3c.dom.Comment;
+import com.inftel.isn.model.Comment;
 
 import java.util.ArrayList;
 

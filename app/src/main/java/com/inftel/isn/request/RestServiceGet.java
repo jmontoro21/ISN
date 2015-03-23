@@ -9,23 +9,24 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
-public class RestServiceGet extends AsyncTask<String, Integer, JSONArray> {
+public class RestServiceGet extends AsyncTask<String, Integer, String> {
 
-    protected JSONArray doInBackground(String... urls) {
+    protected String doInBackground(String... urls) {
         HttpClient httpClient = new DefaultHttpClient();
         HttpGet g = new HttpGet(urls[0]);
         g.setHeader("Accept", "application/json");
         g.setHeader("Content-type", "application/json");
-        JSONArray respJSON = null;
+        String respStr = "";
         try {
             HttpResponse resp = httpClient.execute(g);
-            String respStr = EntityUtils.toString(resp.getEntity());
-            respJSON = new JSONArray(respStr);
+            respStr = EntityUtils.toString(resp.getEntity());
+
 
         } catch (Exception ex) {
             Log.e("ServicioRest", "Error!", ex);
         }
-        return respJSON;
+        return respStr;
     }
 }

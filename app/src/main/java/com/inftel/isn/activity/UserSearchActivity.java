@@ -34,7 +34,7 @@ public class UserSearchActivity extends ListActivity {
 
     private void requestUsersBBDD(){
         try {
-            JSONArray respJSON = new RestServiceGet().execute("http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/users").get();
+          /* // JSONArray respJSON = new RestServiceGet().execute("http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/users").get();
             Gson gson = new Gson();
 
             if (respJSON.length() != 0) {
@@ -42,7 +42,7 @@ public class UserSearchActivity extends ListActivity {
                     JSONObject object = respJSON.getJSONObject(i);
                     users.add(gson.fromJson(object.toString(), User.class));
                 }
-            }
+            }*/
         } catch (Exception e) {
             e.printStackTrace();
         }
