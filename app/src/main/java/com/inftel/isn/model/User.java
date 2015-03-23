@@ -1,11 +1,14 @@
 package com.inftel.isn.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Objects;
 
 /**
  * Created by inftel13 on 19/03/15.
  */
-public class User {
+public class User implements Parcelable {
 
     private String id;
     private String googleId;
@@ -97,6 +100,39 @@ public class User {
             return false;
         }
         return true;
+    }
+    @Override
+    public String toString() {
+        return "com.inftel.isn.model.User[ id=" + id + " ]";
+    }
+
+    public int describeContents() {
+        return 0;
+    }
+
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeString(id);
+        out.writeString(googleId);
+        out.writeString(email);
+        out.writeString(name);
+        out.writeString(imageUrl);
+    }
+    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>(){
+        public User createFromParcel(Parcel in){
+            return new User(in);
+        }
+        public User[] newArray (int size){
+            return new User[size];
+        }
+
+    };
+    private User (Parcel in){
+        id = in.readString();
+        googleId = in.readString();
+        email = in.readString();
+        name = in.readString();
+        imageUrl = in.readString();
+
     }
 }
 
