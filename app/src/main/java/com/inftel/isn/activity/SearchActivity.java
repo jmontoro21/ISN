@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.inftel.isn.R;
 import com.inftel.isn.model.User;
+import com.inftel.isn.request.SearchUserAsyncTask;
 
 
 public class SearchActivity extends Activity {
@@ -22,7 +23,7 @@ public class SearchActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_user);
 
-       // user = getIntent().getExtras().getParcelable("user");
+        user = getIntent().getExtras().getParcelable("user");
 
         String query = getIntent().getStringExtra("query");
         searchBar(query);
@@ -67,7 +68,7 @@ public class SearchActivity extends Activity {
     private void searchBar(String name) {
         ListView lvDetail = (ListView) findViewById(R.id.lvCustomListSearch);
         TextView tvNoResult = (TextView) findViewById(R.id.noResults);
-        //new SearchUserAsyncTask(this, lvDetail, user, tvNoResult).execute(http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/profilecomments);
+        new SearchUserAsyncTask(this, lvDetail, user, tvNoResult).execute("http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/users/searchData/"+ name);
     }
 
 }
