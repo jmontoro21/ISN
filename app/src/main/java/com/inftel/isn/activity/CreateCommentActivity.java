@@ -50,9 +50,9 @@ public class CreateCommentActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_comment);
         Comment newComment = new Comment();
-        newComment.setText("mierda");
-        newComment.setImageUrl("asfdasfas");
-        newComment.setVideoUrl("asdasfasfsd");
+        newComment.setText("mierda2222");
+        newComment.setImageUrl("asfdasfas222");
+        newComment.setVideoUrl("asdasfasfsd222");
 
         Gson gsonComment = new Gson();
         String jsonComment = gsonComment.toJson(newComment, Comment.class);
@@ -152,8 +152,30 @@ public class CreateCommentActivity extends Activity {
     }
 
     public void changeImage (View v) throws IOException {
-        new DownloadImageTask((ImageView) findViewById(R.id.addImageToComment)).execute("http://www.online-image-editor.com//styles/2014/images/example_image.png");
-        image = "http://www.online-image-editor.com//styles/2014/images/example_image.png";
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+        alert.setTitle("Image URL");
+        alert.setMessage("Write image URL");
+
+        // Set an EditText view to get user input
+        final EditText input = new EditText(this);
+        alert.setView(input);
+
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                image = input.getText().toString();
+                new DownloadImageTask((ImageView) findViewById(R.id.addImageToComment)).execute(image);
+            }
+        });
+
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // Canceled.
+            }
+        });
+
+        alert.show();
+
     }
 
     public void changeYoutube (View v) throws IOException {
