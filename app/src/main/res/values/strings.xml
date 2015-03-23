@@ -24,5 +24,6 @@
     <string name="searchActivity">Búsqueda</string>
     <string name="createGroupActivity">Nuevo grupo</string>
     <string name="title_activity_user_search">Buscador usuarios</string>
+    <string name="title_activity_main">MainActivity</string>
 
 </resources>

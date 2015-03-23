@@ -2,6 +2,7 @@ package com.inftel.isn.activity;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -31,6 +32,7 @@ public class UserSearchActivity extends ListActivity {
     private EditText editText;
     private ListView listView;
     private ArrayList<User> users = new ArrayList<>();
+    public ArrayList<User> selectedIds = new ArrayList<>();
 
     private void requestUsersBBDD(){
         try {
@@ -94,8 +96,20 @@ public class UserSearchActivity extends ListActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3)
             {
-                group.addUserToList(array_sort.get(position));
-                Toast.makeText(getApplicationContext(), array_sort.get(position).getName()+" añadido", Toast.LENGTH_SHORT).show();
+                if(selectedIds.contains(array_sort.get(position)))
+                {
+                    selectedIds.remove(array_sort.get(position));
+                    group.removeUserFromList(array_sort.get(position));
+                    arg1.setBackgroundColor(Color.TRANSPARENT);
+                    Toast.makeText(getApplicationContext(), array_sort.get(position).getName()+" eliminado", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    selectedIds.add(array_sort.get(position));
+                    group.addUserToList(array_sort.get(position));
+                    arg1.setBackgroundColor(Color.parseColor("#81F781"));
+                    Toast.makeText(getApplicationContext(), array_sort.get(position).getName()+" añadido", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

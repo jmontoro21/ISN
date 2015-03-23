@@ -16,7 +16,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 import com.google.gson.Gson;
-import com.inftel.isn.model.Comment;
 import com.inftel.isn.model.User;
 import com.inftel.isn.request.RestServicePost;
 
@@ -168,7 +167,7 @@ public class LoginGoogleActivity extends Activity implements
 
             JSONObject user = new JSONObject(json);
 
-            new RestServicePost(user).execute("http://192.168.1.117:8080/InftelSocialNetwork-web/webresources/users/create");
+            new RestServicePost(user).execute("http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/users/create");
         } catch (JSONException eq) {
             eq.printStackTrace();
         }
