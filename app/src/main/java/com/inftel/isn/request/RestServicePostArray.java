@@ -8,13 +8,13 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
-import org.json.JSONObject;
+import org.json.JSONArray;
 
 public class RestServicePostArray extends AsyncTask<String, Integer, String> {
 
-    private JSONObject json;
+    private JSONArray json;
 
-    public RestServicePostArray(JSONObject json) {
+    public RestServicePostArray(JSONArray json) {
         this.json = json;
     }
 
