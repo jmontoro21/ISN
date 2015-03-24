@@ -3,18 +3,6 @@
     android:layout_height="match_parent"
     tools:context="com.inftel.isn.activity.AddUsersGroupActivity">
 
-    <ImageButton
-        android:id="@+id/fab_image_button"
-        android:layout_width="@dimen/fab_button_diameter"
-        android:layout_height="@dimen/fab_button_diameter"
-        android:layout_marginBottom="@dimen/fab_button_margin_bottom"
-        android:layout_marginRight="@dimen/fab_button_margin_right"
-        android:background="@drawable/fab_shape"
-        android:src="@drawable/fab_shape"
-        android:tint="@android:color/white"
-        android:onClick="fab_home"
-        android:layout_gravity="bottom|right" />
-
     <Button
         android:id="@+id/buttonAddUser"
         android:layout_width="wrap_content"
@@ -31,13 +19,25 @@
     <ListView
         android:id="@+id/list_users"
         android:layout_width="fill_parent"
-        android:layout_height="441dp"
+        android:layout_height="wrap_content"
         android:padding="4dp"
         android:scrollbars="none"
         android:divider="@android:color/transparent"
         android:dividerHeight="5.0sp"
-        android:layout_gravity="right|bottom"
         android:drawSelectorOnTop="true"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="70dp" />
+
+    <ImageButton
+        android:id="@+id/fab_image_button"
+        android:layout_width="@dimen/fab_button_diameter"
+        android:layout_height="@dimen/fab_button_diameter"
+        android:layout_marginBottom="@dimen/fab_button_margin_bottom"
+        android:layout_marginRight="@dimen/fab_button_margin_right"
+        android:background="@drawable/fab_shape"
+        android:src="@drawable/flecha"
+        android:tint="@android:color/white"
+        android:onClick="intentCreated"
+        android:scaleType="centerInside"
+        android:layout_gravity="right|bottom"/>
 
 </FrameLayout>

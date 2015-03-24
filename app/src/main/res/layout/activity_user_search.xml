@@ -26,18 +26,6 @@
             android:layout_marginLeft="10dp" />
     </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/fab_image_button"
-        android:layout_width="@dimen/fab_button_diameter"
-        android:layout_height="@dimen/fab_button_diameter"
-        android:layout_marginBottom="@dimen/fab_button_margin_bottom"
-        android:layout_marginRight="@dimen/fab_button_margin_right"
-        android:background="@drawable/fab_shape"
-        android:src="@drawable/fab_shape"
-        android:tint="@android:color/white"
-        android:onClick="intentUsersGroup"
-        android:layout_gravity="right|bottom" />
-
     <ListView
         android:id="@+id/android:list"
         android:layout_width="fill_parent"
@@ -46,8 +34,20 @@
         android:scrollbars="none"
         android:divider="@android:color/transparent"
         android:dividerHeight="5.0sp"
-        android:layout_gravity="right|bottom"
         android:drawSelectorOnTop="true"
         android:layout_marginTop="70dp" />
+
+    <ImageButton
+        android:id="@+id/fab_image_button"
+        android:layout_width="@dimen/fab_button_diameter"
+        android:layout_height="@dimen/fab_button_diameter"
+        android:layout_marginBottom="@dimen/fab_button_margin_bottom"
+        android:layout_marginRight="@dimen/fab_button_margin_right"
+        android:background="@drawable/fab_shape"
+        android:src="@drawable/flecha"
+        android:tint="@android:color/white"
+        android:onClick="intentUsersGroup"
+        android:scaleType="centerInside"
+        android:layout_gravity="right|bottom"/>
 
 </FrameLayout>
