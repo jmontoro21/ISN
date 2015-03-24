@@ -13,10 +13,12 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 
 import com.inftel.isn.R;
 import com.inftel.isn.model.User;
@@ -25,6 +27,8 @@ import com.inftel.isn.utility.PageAdapterFragment;
 public class MenuActivity extends FragmentActivity implements ActionBar.TabListener {
     ActionBar actionbar;
     private User user = new User();
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
     ViewPager viewpager;
     PageAdapterFragment ft;
     static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
@@ -57,7 +61,6 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
             public void onPageScrollStateChanged(int arg0) {
             }
         });
-
     }
 
     private static AlertDialog showDialog(final Activity act, CharSequence title, CharSequence message, CharSequence buttonYes, CharSequence buttonNo) {
@@ -99,32 +102,6 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
         search.setIcon(R.drawable.search);
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
-
-       /* MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-
-        MenuItem searchMenuItem = menu.findItem(R.id.action_search);
-
-        SearchView searchView = (SearchView) searchMenuItem.getActionView();
-        searchView.setQueryHint(getString(R.string.search_bar_hint));
-
-        final Context context = this;
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                Intent intent = new Intent(context, UserSearchActivity.class);
-                intent.putExtra("user", user);
-                startActivity(intent);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                return false;
-            }
-        });
-
-        return super.onCreateOptionsMenu(menu);*/
     }
 
 
@@ -146,8 +123,6 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
                 intent = new Intent(this, UserSearchActivity.class);
                 startActivity(intent);
                 return true;
-                //return super.onOptionsItemSelected(item);
-
 
             case R.id.createGroup:
                 intent = new Intent(this, CreateGroupActivity.class);

@@ -31,5 +31,6 @@
     <string name="title_activity_login_selection">LoginSelectionActivity</string>
     <string name="title_activity_followed">Seguidos</string>
     <string name="title_activity_follower">Siguiendo</string>
+    <string name="QRLogin">QR</string>
 
 </resources>
