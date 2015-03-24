@@ -15,12 +15,14 @@
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:theme="@style/WhiteTheme" >
-        <activity android:name=".activity.LoginGoogleActivity" />
+        <activity android:name=".activity.LoginGoogleActivity" >
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
+    </activity>
+
         <activity
             android:name="com.dropbox.client2.android.AuthActivity"
             android:configChanges="orientation|keyboard"
@@ -37,11 +39,7 @@
         <activity
             android:name=".activity.MenuActivity"
             android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity

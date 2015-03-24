@@ -25,6 +25,8 @@
     <string name="createGroupActivity">Nuevo grupo</string>
     <string name="title_activity_user_search">Buscador usuarios</string>
     <string name="Seguir">Seguir</string>
+    <string name="DSeguir">Dejar de seguir</string>
+
     <string name="img131">Img</string>
 
 </resources>

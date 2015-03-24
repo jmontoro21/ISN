@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import com.inftel.isn.R;
 import com.inftel.isn.adapter.PublicsUsersCommentsListAdapter;
 import com.inftel.isn.adapter.UsersAddedListAdapter;
 import com.inftel.isn.model.Comment;
+import com.inftel.isn.model.Following;
 import com.inftel.isn.model.ProfileComments;
 import com.inftel.isn.model.User;
 import com.inftel.isn.request.DownloadImageTask;
@@ -42,7 +44,7 @@ import java.util.concurrent.ExecutionException;
 public class ListPublicCommentActivity extends Activity {
 
     public static final String EMAIL_USER_PROFILE = "es.inftel.isn.user.google.id.name";
-    public static final String IP = "192.168.1.117";
+    public static final String IP = "192.168.1.123";
 
     private TextView userName;
     private ImageView imgProfile;
@@ -52,7 +54,8 @@ public class ListPublicCommentActivity extends Activity {
     private ListView listView;
     private PublicsUsersCommentsListAdapter adapter;
     private ProfileComments perfil;
-
+    private ImageButton btnSeguir;
+    private ImageButton btnDSeguir;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,10 +97,26 @@ public class ListPublicCommentActivity extends Activity {
             if (prefs.contains(LoginGoogleActivity.USER_URL)) {
                 new DownloadImageTask(imgProfile).execute(prefs.getString(LoginGoogleActivity.USER_URL, ""));
             }
+
+            loadBotonSeguir(emailLogin,emailLogin);
+
+
+            // perfil del usuario no hay boton
+            //loadBotonSeguir(emailLogin,"");
+
             // extraer lista de comentarios
             loadCommentsList(emailLogin);
 
-        } else {
+
+
+        }else if(emailProfile.compareTo(emailLogin) == 0 )
+        {
+            // no se muestra el perfil propio
+
+            //loadBotonSeguir(emailLogin,emailLogin);
+
+        }
+        else {
             try {
 
 
@@ -111,13 +130,15 @@ public class ListPublicCommentActivity extends Activity {
                 new DownloadImageTask(imgProfile).execute(perfil.getImageUrl(), "");
 
 
+
+                loadBotonSeguir(emailLogin,emailProfile);
+
+                loadCommentsList(emailProfile);
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
                 e.printStackTrace();
-
-
-                loadCommentsList(emailProfile);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -212,6 +233,58 @@ public class ListPublicCommentActivity extends Activity {
 
             }
 
+    public void loadBotonSeguir(String emailLogin,String emailProfile)
+    {
+
+        try {
+
+
+            emailLogin = emailLogin.replaceAll("\\.", "___");
+            emailProfile = emailProfile.replaceAll("\\.", "___");
+
+            String userGet = new RestServiceGet().execute("http://"+IP+":8080/InftelSocialNetwork-web/webresources/following/following?followerEmail=" + emailLogin + "&followingUserEmail=" + emailProfile).get();
+
+
+            System.out.println("string  " + userGet);
+
+            if((userGet != null) ||(!userGet.isEmpty()) ) {
+                //Gson gson = new Gson();
+                //Following seguir = gson.fromJson(userGet, Following.class);
+                System.out.println("dejar de seguirrrrrrrrrrrrrrrrrrrrr");
+
+               // dejar de
+                btnSeguir = (ImageButton) this.findViewById(R.id.Seguir);
+                btnSeguir.setVisibility(View.INVISIBLE);
+
+                btnDSeguir = (ImageButton) this.findViewById(R.id.DejarDeSeguir);
+                btnDSeguir.setVisibility(View.VISIBLE);
+
+
+            }
+            else
+            {
+                //seguir
+
+                System.out.println("seguirrrrrrrrrrrrrrrrrrrrr");
+
+
+                btnSeguir = (ImageButton) this.findViewById(R.id.Seguir);
+                btnSeguir.setVisibility(View.VISIBLE);
+                btnDSeguir = (ImageButton) this.findViewById(R.id.DejarDeSeguir);
+                btnDSeguir.setVisibility(View.INVISIBLE);
+            }
+
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
 
     public void deleteItems(View v) {
 

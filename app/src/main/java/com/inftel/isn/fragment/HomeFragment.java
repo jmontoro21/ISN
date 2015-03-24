@@ -46,7 +46,7 @@ import java.util.concurrent.ExecutionException;
 
 public class HomeFragment extends Fragment {
     public static final String EMAIL_USER_PROFILE = "es.inftel.isn.user.google.id.name";
-    public static final String IP = "192.168.1.117";
+    public static final String IP = "192.168.1.123";
 
 
     private TextView userName;

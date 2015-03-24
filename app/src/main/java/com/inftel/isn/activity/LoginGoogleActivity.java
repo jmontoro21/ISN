@@ -29,6 +29,12 @@ public class LoginGoogleActivity extends Activity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
+
+    public LoginGoogleActivity()
+    {
+
+    }
+
     public boolean isLogout() {
         return logout;
     }
@@ -49,6 +55,9 @@ public class LoginGoogleActivity extends Activity implements
     private static final String TAG = "LoginGoogleActivity";
 
     private static final String KEY_IN_RESOLUTION = "is_in_resolution";
+
+
+    public static final String IP = "192.168.1.123";
 
     /**
      * Request code for auto Google Play Services error resolution.
@@ -71,10 +80,20 @@ public class LoginGoogleActivity extends Activity implements
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        SharedPreferences prefs = this.getSharedPreferences("MYPREFERENCES", Context.MODE_PRIVATE);
+
+        //if (prefs.contains(LoginGoogleActivity.USER_KEY))
+          // logout = true;
+
+
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
+
+            Bundle bundle=getIntent().getExtras();
             mIsInResolution = savedInstanceState.getBoolean(KEY_IN_RESOLUTION, false);
         }
+
     }
 
     /**
@@ -151,6 +170,12 @@ public class LoginGoogleActivity extends Activity implements
            SharedPreferences prefs1 = this.getSharedPreferences("MYPREFERENCES", Context.MODE_PRIVATE);
            SharedPreferences.Editor e = prefs1.edit();
            e.clear();
+           e.remove(USER_KEY);
+           e.remove(USER_NAME);
+           e.remove(USER_ID);
+           e.remove(USER_URL);
+           e.commit();
+
 
            closeConnection();
        }
@@ -187,15 +212,15 @@ public class LoginGoogleActivity extends Activity implements
 
             JSONObject user = new JSONObject(json);
 
-            new RestServicePost(user).execute("http://192.168.1.123:8080/InftelSocialNetwork-web/webresources/users/create");
+            new RestServicePost(user).execute("http://" + IP + ":8080/InftelSocialNetwork-web/webresources/users/create");
 
 
 
             Intent i = new Intent(this, ListPublicCommentActivity.class);
             startActivity(i);
 
-           // Intent i = new Intent(this, MenuActivity.class);
-            //startActivity(i);
+           //Intent i = new Intent(this, MenuActivity.class);
+           //startActivity(i);
 
 
            // this.st
@@ -251,26 +276,22 @@ public class LoginGoogleActivity extends Activity implements
     }
 
 
+
+
     public void closeConnection()
     {
-        super.onStart();
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addApi(Plus.API)
-                .addScope(Plus.SCOPE_PLUS_LOGIN)
-                        // Optionally, add additional APIs and scopes if required.
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .build();
 
-        mGoogleApiClient.connect();
-
-
+        System.out.println(" desconexion ");
         if (mGoogleApiClient.isConnected()) {
+
+            System.out.println(" desconexion 11 ");
             Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
             Plus.AccountApi.revokeAccessAndDisconnect(mGoogleApiClient)
                     .setResultCallback(new ResultCallback<Status>() {
                         @Override
                         public void onResult(Status arg0) {
+
+                            System.out.println(" desconexion 22 ");
                             Log.e(TAG, "User access revoked!");
                             mGoogleApiClient.connect();
 
@@ -280,7 +301,9 @@ public class LoginGoogleActivity extends Activity implements
         }
 
         logout = false;
-        Intent i = new Intent(this, LoginGoogleActivity.class);
+        Intent i = new Intent(this, MenuActivity.class);
         startActivity(i);
     }
+
+
 }
