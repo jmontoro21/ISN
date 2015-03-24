@@ -14,4 +14,8 @@
         android:title="Crear grupo"/>
     <item android:id="@+id/buscarGroup"
         android:title="buscar grupo"/>
+    <item android:id="@+id/seguidos"
+        android:title="Seguidos"/>
+    <item android:id="@+id/siguiendo"
+        android:title="Siguiendo"/>
 </menu>

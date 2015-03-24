@@ -163,6 +163,16 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
                 intent = new Intent(this, SearchGroupsActivity.class);
                 startActivity(intent);
                 return true;*/
+            case R.id.seguidos:
+                intent = new Intent(this, FollowedActivity.class);
+                intent.putExtra("user", user);
+                startActivity(intent);
+                return true;
+            case R.id.siguiendo:
+                intent = new Intent(this, FollowerActivity.class);
+                intent.putExtra("user", user);
+                startActivity(intent);
+                return true;
 
 
             default:
