@@ -18,6 +18,7 @@ public class UsersListAdapter extends BaseAdapter {
     LayoutInflater inflater;
     ArrayList<User> objects;
     Activity activity;
+    public ArrayList<User> selectedIds = new ArrayList<>();
 
     public UsersListAdapter(ArrayList<User> objetos, Activity activity) {
         this.activity = activity;

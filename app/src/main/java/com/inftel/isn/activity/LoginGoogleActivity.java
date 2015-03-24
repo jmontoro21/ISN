@@ -163,7 +163,7 @@ public class LoginGoogleActivity extends Activity implements
 
             JSONObject user = new JSONObject(json);
 
-            new RestServicePost(user).execute("http://192.168.1.117:8080/InftelSocialNetwork-web/webresources/users/create");
+            new RestServicePost(user).execute("http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/users/create");
 
             Intent i = new Intent(this, ListPublicCommentActivity.class);
             startActivity(i);

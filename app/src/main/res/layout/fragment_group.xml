@@ -36,7 +36,7 @@
             android:background="@drawable/fab_shape"
             android:src="@drawable/fab_shape"
             android:tint="@android:color/white"
-            android:onClick="fab_home"
+            android:onClick="fab_group"
             android:layout_gravity="right|bottom" />
     </FrameLayout>
 
