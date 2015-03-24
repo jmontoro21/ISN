@@ -160,16 +160,16 @@ public class ListPublicCommentActivity extends Activity {
 
 
 
-        System.out.println("el json esss " + respJSON);
+            System.out.println("el json esss " + respJSON);
 
 
             JSONObject json = null;
 
-                json = new JSONObject(respJSON);
+            json = new JSONObject(respJSON);
 
             JSONArray nuevo = null;
 
-                nuevo = json.getJSONArray("commentsList");
+            nuevo = json.getJSONArray("commentsList");
 
 
             //Gson gson = new Gson();
@@ -198,29 +198,29 @@ public class ListPublicCommentActivity extends Activity {
                 for (int i = 0; i < nuevo.length(); i++) {
                     JSONObject object = null;
 
-                        object = nuevo.getJSONObject(i);
+                    object = nuevo.getJSONObject(i);
 
 
-                   //perfil = gson.fromJson(respJSON, ProfileComments.class);
+                    //perfil = gson.fromJson(respJSON, ProfileComments.class);
                 }
 
             }
-                 perfil = gson.fromJson(respJSON, ProfileComments.class);
+            perfil = gson.fromJson(respJSON, ProfileComments.class);
 
-                System.out.println("email " + email);
-                System.out.println("perfil " + perfil.getUserEmail());
-
-
+            System.out.println("email " + email);
+            System.out.println("perfil " + perfil.getUserEmail());
 
 
-           Collections.reverse(perfil.getCommentsList());
 
-               perfil.getCommentsList().removeAll(Collections.singleton(null));
 
-                listView = (ListView) findViewById(R.id.itemList);
-                adapter = new PublicsUsersCommentsListAdapter(perfil, emailLogin, perfil.getCommentsList(), this);
-                System.out.println("zzsz" + adapter.toString());
-                listView.setAdapter(adapter);
+            Collections.reverse(perfil.getCommentsList());
+
+            perfil.getCommentsList().removeAll(Collections.singleton(null));
+
+            listView = (ListView) findViewById(R.id.itemList);
+            adapter = new PublicsUsersCommentsListAdapter(perfil, emailLogin, perfil.getCommentsList(), this);
+            System.out.println("zzsz" + adapter.toString());
+            listView.setAdapter(adapter);
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -231,7 +231,7 @@ public class ListPublicCommentActivity extends Activity {
             e.printStackTrace();
         }
 
-            }
+    }
 
     public void loadBotonSeguir(String emailLogin,String emailProfile)
     {
@@ -244,15 +244,9 @@ public class ListPublicCommentActivity extends Activity {
 
             String userGet = new RestServiceGet().execute("http://"+IP+":8080/InftelSocialNetwork-web/webresources/following/following?followerEmail=" + emailLogin + "&followingUserEmail=" + emailProfile).get();
 
+            if((userGet != null) &&(!userGet.isEmpty()) ) {
 
-            System.out.println("string  " + userGet);
-
-            if((userGet != null) ||(!userGet.isEmpty()) ) {
-                //Gson gson = new Gson();
-                //Following seguir = gson.fromJson(userGet, Following.class);
-                System.out.println("dejar de seguirrrrrrrrrrrrrrrrrrrrr");
-
-               // dejar de
+                // dejar de
                 btnSeguir = (ImageButton) this.findViewById(R.id.Seguir);
                 btnSeguir.setVisibility(View.INVISIBLE);
 
@@ -264,9 +258,6 @@ public class ListPublicCommentActivity extends Activity {
             else
             {
                 //seguir
-
-                System.out.println("seguirrrrrrrrrrrrrrrrrrrrr");
-
 
                 btnSeguir = (ImageButton) this.findViewById(R.id.Seguir);
                 btnSeguir.setVisibility(View.VISIBLE);
@@ -304,10 +295,10 @@ public class ListPublicCommentActivity extends Activity {
 
         Gson gson = builder.create();
 */
-       Gson gson = new Gson();
+            Gson gson = new Gson();
 
 
-        String json = gson.toJson(perfil.getComment((int) v.getTag()),Comment.class);
+            String json = gson.toJson(perfil.getComment((int) v.getTag()),Comment.class);
 
 
             json = json.replaceAll("creationDate\":\".*?\"","creationDate\":1426701282429");
@@ -317,24 +308,36 @@ public class ListPublicCommentActivity extends Activity {
 
             JSONObject  comenatrio = new JSONObject(json);
 
-        String formatEmail = emailLogin.replaceAll("\\.", "___");
+            String formatEmail = emailLogin.replaceAll("\\.", "___");
 
 
             new RestServicePost(comenatrio).execute("http://"+IP+":8080/InftelSocialNetwork-web/webresources/profilecomments/deletecomment?userEmail=" + formatEmail);
 
             perfil.removecommentsList((int) v.getTag());
 
-        Toast data = Toast.makeText(this, "User removed", Toast.LENGTH_LONG);
-        data.show();
-        adapter.notifyDataSetChanged();
+            Toast data = Toast.makeText(this, "User removed", Toast.LENGTH_LONG);
+            data.show();
+            adapter.notifyDataSetChanged();
 
-        // actualizo perfil en la bd
-           // eliminando el comentario
+            // actualizo perfil en la bd
+            // eliminando el comentario
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-        }
+
+    public void dejardeSeguir()
+    {
+
+    }
+
+
+
+    public void Seguir()
+    {
+
+    }
+}
 
