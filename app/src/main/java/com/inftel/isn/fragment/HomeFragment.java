@@ -46,6 +46,8 @@ import java.util.concurrent.ExecutionException;
 
 public class HomeFragment extends Fragment {
     public static final String EMAIL_USER_PROFILE = "es.inftel.isn.user.google.id.name";
+    public static final String IP = "192.168.1.117";
+
 
     private TextView userName;
     private ImageView imgProfile;
@@ -209,7 +211,7 @@ public class HomeFragment extends Fragment {
 
 
         try {
-            respJSON = new RestServiceGet().execute("http://192.168.1.123:8080/InftelSocialNetwork-web/webresources/profilecomments/email?email=" + formatEmail).get();
+            respJSON = new RestServiceGet().execute("http://" +IP+ ":8080/InftelSocialNetwork-web/webresources/profilecomments/email?email=" + formatEmail).get();
 
             JSONObject json = null;
 
@@ -316,7 +318,7 @@ public class HomeFragment extends Fragment {
             String formatEmail = emailLogin.replaceAll("\\.", "___");
 
 
-            new RestServicePost(comenatrio).execute("http://192.168.1.117:8080/InftelSocialNetwork-web/webresources/profilecomments/deletecomment?userEmail=" + formatEmail);
+            new RestServicePost(comenatrio).execute("http://" +IP+ ":8080/InftelSocialNetwork-web/webresources/profilecomments/deletecomment?userEmail=" + formatEmail);
 
             perfil.removecommentsList((int) v.getTag());
 

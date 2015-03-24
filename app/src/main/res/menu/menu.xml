@@ -12,4 +12,7 @@
         android:visible="false" />
     <item android:id="@+id/createGroup"
         android:title="Crear grupo"/>
+    <item android:id="@+id/logout"
+        android:title="Login"
+        android:orderInCategory="100"/>
 </menu>

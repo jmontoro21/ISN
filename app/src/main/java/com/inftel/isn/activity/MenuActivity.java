@@ -172,6 +172,14 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
                 startActivity(intent);
                 return true;
 
+            case R.id.logout:
+
+                LoginGoogleActivity logi = new LoginGoogleActivity();
+                logi.setLogout(true);
+
+                logi.closeConnection();
+
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);

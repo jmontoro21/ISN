@@ -13,7 +13,10 @@ import android.util.Log;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.plus.Plus;
+import com.google.android.gms.plus.PlusClient;
 import com.google.android.gms.plus.model.people.Person;
 import com.google.gson.Gson;
 import com.inftel.isn.model.User;
@@ -26,6 +29,15 @@ public class LoginGoogleActivity extends Activity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
+    public boolean isLogout() {
+        return logout;
+    }
+
+    public void setLogout(boolean logout) {
+        this.logout = logout;
+    }
+
+    private boolean logout = false;
     private String email;
     private String name;
     private String googleId;
@@ -134,6 +146,16 @@ public class LoginGoogleActivity extends Activity implements
     @Override
     public void onConnected(Bundle connectionHint) {
 
+       if(logout)
+       {
+           SharedPreferences prefs1 = this.getSharedPreferences("MYPREFERENCES", Context.MODE_PRIVATE);
+           SharedPreferences.Editor e = prefs1.edit();
+           e.clear();
+
+           closeConnection();
+       }
+        else
+       {
         email = Plus.AccountApi.getAccountName(mGoogleApiClient);
 
         Person persona = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
@@ -181,6 +203,8 @@ public class LoginGoogleActivity extends Activity implements
         } catch (JSONException eq) {
             eq.printStackTrace();
         }
+
+       }
     }
 
     /**
@@ -229,7 +253,33 @@ public class LoginGoogleActivity extends Activity implements
 
     public void closeConnection()
     {
-        Plus.AccountApi.revokeAccessAndDisconnect(mGoogleApiClient);
+        super.onStart();
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(Plus.API)
+                .addScope(Plus.SCOPE_PLUS_LOGIN)
+                        // Optionally, add additional APIs and scopes if required.
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
+
+        mGoogleApiClient.connect();
+
+
+        if (mGoogleApiClient.isConnected()) {
+            Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
+            Plus.AccountApi.revokeAccessAndDisconnect(mGoogleApiClient)
+                    .setResultCallback(new ResultCallback<Status>() {
+                        @Override
+                        public void onResult(Status arg0) {
+                            Log.e(TAG, "User access revoked!");
+                            mGoogleApiClient.connect();
+
+                        }
+
+                    });
+        }
+
+        logout = false;
         Intent i = new Intent(this, LoginGoogleActivity.class);
         startActivity(i);
     }
