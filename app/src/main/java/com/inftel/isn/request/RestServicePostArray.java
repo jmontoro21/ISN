@@ -10,11 +10,11 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 import org.json.JSONObject;
 
-public class RestServicePost extends AsyncTask<String, Integer, String> {
+public class RestServicePostArray extends AsyncTask<String, Integer, String> {
 
     private JSONObject json;
 
-    public RestServicePost(JSONObject json) {
+    public RestServicePostArray(JSONObject json) {
         this.json = json;
     }
 
