@@ -21,6 +21,9 @@ public class GroupFragment extends Fragment {
         //Array estatico provisional
         ArrayList objetos = new ArrayList<String>();
         objetos.add("grupo1");objetos.add("grupo2");objetos.add("grupo3");objetos.add("grupo4");
+        objetos.add("grupo1");objetos.add("grupo2");objetos.add("grupo3");objetos.add("grupo4");
+        objetos.add("grupo1");objetos.add("grupo2");objetos.add("grupo3");objetos.add("grupo4");
+        objetos.add("grupo1");objetos.add("grupo2");objetos.add("grupo3");objetos.add("grupo4");
 
         SimpleArrayAdapter adapter = new SimpleArrayAdapter(objetos, getActivity());
         eventListView.setAdapter(adapter);
