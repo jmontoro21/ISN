@@ -26,6 +26,8 @@
     <string name="title_activity_user_search">Buscador usuarios</string>
     <string name="Seguir">Seguir</string>
     <string name="img131">Img</string>
+    <string name="title_activity_search_groups">SearchGroupsActivity</string>
+    <string name="title_activity_comment_group">CommentGroupActivity</string>
     <string name="title_activity_login_selection">LoginSelectionActivity</string>
 
 </resources>

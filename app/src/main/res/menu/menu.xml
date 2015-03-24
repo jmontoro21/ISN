@@ -12,4 +12,6 @@
         android:visible="false" />
     <item android:id="@+id/createGroup"
         android:title="Crear grupo"/>
+    <item android:id="@+id/buscarGroup"
+        android:title="buscar grupo"/>
 </menu>
