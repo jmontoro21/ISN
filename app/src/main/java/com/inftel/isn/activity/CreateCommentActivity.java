@@ -24,6 +24,7 @@ import android.widget.TableLayout;
 import com.google.gson.Gson;
 import com.inftel.isn.R;
 import com.inftel.isn.model.Comment;
+import com.inftel.isn.model.Group;
 import com.inftel.isn.request.DownloadImageTask;
 import com.inftel.isn.request.RestServicePost;
 
@@ -113,20 +114,37 @@ public class CreateCommentActivity extends Activity {
         }
 
         Gson gsonComment = new Gson();
-        String jsonComment = gsonComment.toJson(comment, Comment.class);
+        String jsonCommentAsString = gsonComment.toJson(comment, Comment.class);
         JSONObject jsoncomment = null;
-        try {
-            jsoncomment = new JSONObject(jsonComment);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
         if(tipo.equals("publico")){
+            try {
+                jsoncomment = new JSONObject(jsonCommentAsString);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             Log.i("nc","profile");
             new RestServicePost(jsoncomment).execute(CREATE_PROFILE_POST_URL+emailLogin);
         }else if(tipo.equals("grupo")){
             Log.i("nc","grupo");
-            //llamada rest grupoComment
+            Intent i = getIntent();
+            Group g;
+            g = i.getParcelableExtra("GRUPO");
+            Gson gsonGroup = new Gson();
+            String jsonGroup = gsonGroup.toJson(g, Group.class);
+            JSONObject jsongroup = null;
+            try {
+                jsongroup = new JSONObject(jsonGroup);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            new RestServicePost(jsongroup).execute(CREATE_COMMENT_FOR_GROUP);
         }else if(tipo.equals("nota")){
+            try {
+                jsoncomment = new JSONObject(jsonCommentAsString);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             Log.i("nc","private-nota");
             //llamda rest nota privada
             new RestServicePost(jsoncomment).execute(CREATE_NOTA_URL+emailLogin);
