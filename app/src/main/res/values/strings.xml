@@ -29,5 +29,6 @@
     <string name="title_activity_search_groups">SearchGroupsActivity</string>
     <string name="title_activity_comment_group">CommentGroupActivity</string>
     <string name="title_activity_login_selection">LoginSelectionActivity</string>
+    <string name="title_activity_create_qr">CreateQRActivity</string>
 
 </resources>

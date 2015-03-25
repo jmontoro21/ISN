@@ -1,5 +1,4 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MenuActivity">
     <item android:id="@+id/loginGoogle"
@@ -13,5 +12,7 @@
     <item android:id="@+id/createGroup"
         android:title="Crear grupo"/>
     <item android:id="@+id/buscarGroup"
-        android:title="buscar grupo"/>
+        android:title="Buscar grupo"/>
+    <item android:id="@+id/createQR"
+        android:title="Generar QR"/>
 </menu>

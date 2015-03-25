@@ -1,5 +1,6 @@
 package com.inftel.isn.request;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.widget.Toast;
@@ -7,21 +8,20 @@ import android.widget.Toast;
 import com.dropbox.client2.DropboxAPI;
 import com.dropbox.client2.DropboxAPI.UploadRequest;
 import com.dropbox.client2.ProgressListener;
-import com.inftel.isn.activity.CreateGroupActivity;
 
 import java.io.File;
 import java.io.FileInputStream;
 
-public class UploadDropboxTask extends AsyncTask<Void, Long, Boolean> {
+public class UploadQRDropboxTask extends AsyncTask<Void, Long, Boolean> {
 
     private DropboxAPI<?> mApi;
     private String mPath;
     private File mFile;
     private UploadRequest mRequest;
-    public CreateGroupActivity mContext;
+    public Activity mContext;
     private final ProgressDialog mDialog;
 
-    public UploadDropboxTask(CreateGroupActivity context, DropboxAPI<?> api, File file) {
+    public UploadQRDropboxTask(Activity context, DropboxAPI<?> api, File file) {
         mContext = context;
         mApi = api;
         mPath = "/images/";
@@ -75,9 +75,6 @@ public class UploadDropboxTask extends AsyncTask<Void, Long, Boolean> {
         } else {
             showToast("Image not uploaded");
         }
-        //Funcion provisional de descarga desde Dropbox, mFIle.getName() es lo que debo guardar en la BD
-        mContext.downloadImageDropbox(mFile.getName());
-        mContext.setUrlImage(mFile.getName());
         mFile.delete();
     }
 

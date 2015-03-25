@@ -68,14 +68,6 @@
             android:label="@string/title_activity_user_search"
             android:launchMode="singleInstance" >
         </activity>
-        <activity
-            android:name=".activity.SearchGroupsActivity"
-            android:label="@string/title_activity_search_groups" >
-        </activity>
-        <activity
-            android:name=".activity.CommentGroupActivity"
-            android:label="@string/title_activity_comment_group" >
-        </activity>
     </application>
 
 </manifest>
