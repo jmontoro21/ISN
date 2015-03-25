@@ -18,6 +18,7 @@ import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,21 +51,21 @@ import java.util.Date;
 
 public class MenuActivity extends FragmentActivity implements ActionBar.TabListener {
     ActionBar actionbar;
-    private User user = new User();
+    //private User user1 = new User();
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
-    ViewPager viewpager;
-    User user = new User();
-    PageAdapterFragment ft;
+    private ViewPager viewpager;
+    private User user = new User();
+    private PageAdapterFragment ft;
     static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
-    DropboxConnection dc;
+    private DropboxConnection dc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         viewpager = (ViewPager) findViewById(R.id.pager);
-        ft = new PageAdapterFragment(getSupportFragmentManager());
+
 
         SharedPreferences prefs = this.getSharedPreferences("MYPREFERENCES", Context.MODE_PRIVATE);
 
@@ -115,39 +116,34 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
             public void onPageScrollStateChanged(int arg0) {
             }
         });
+
+        dc = new DropboxConnection(this);
+        dc.connect();
     }
 
-    private static AlertDialog showDialog(final Activity act, CharSequence title, CharSequence message, CharSequence buttonYes, CharSequence buttonNo) {
-        AlertDialog.Builder downloadDialog = new AlertDialog.Builder(act);
-        downloadDialog.setTitle(title);
-        downloadDialog.setMessage(message);
-        downloadDialog.setPositiveButton(buttonYes, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Uri uri = Uri.parse("market://details?id=" + "com.google.zxing.client.android");
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                try {
-                    act.startActivity(intent);
-                } catch (ActivityNotFoundException anfe) {
-
-                }
-            }
-        });
-        downloadDialog.setNegativeButton(buttonNo, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialogInterface, int i) {
-            }
-        });
-        return downloadDialog.show();
+    @Override
+    public void onResume(){
+        super.onResume();
+        dc.resume();
     }
 
-    //Devolución del programa
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        if (requestCode == 0) {
-            if (resultCode == RESULT_OK) {
-                String contents = intent.getStringExtra("SCAN_RESULT");
 
-            }
-        }
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -227,4 +223,98 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
     @Override
     public void onTabUnselected(Tab tab, FragmentTransaction ft) {
     }
+
+
+
+    public void fab_home(View view) {
+        Intent intent = new Intent(this, CreateCommentActivity.class);
+        intent.putExtra(CreateCommentActivity.COMMENT_TYPE, "publico");
+        startActivity(intent);
+        Log.i("fab", "home");
+    }
+
+
+    public void fab_group(View view) {
+        Intent intent = new Intent(this, CreateCommentActivity.class);
+        intent.putExtra(CreateCommentActivity.COMMENT_TYPE, "grupo");
+        startActivity(intent);
+        Log.i("fab", "grupo");
+    }
+
+    public void fab_nota(View view) {
+        Intent intent = new Intent(this, CreateCommentActivity.class);
+        intent.putExtra(CreateCommentActivity.COMMENT_TYPE, "nota");
+        startActivity(intent);
+        Log.i("fab", "nota");
+    }
+
+    private void generateQR() {
+        QRCodeWriter writer = new QRCodeWriter();
+        try {
+            BitMatrix bitMatrix = writer.encode("emailLoginplussecurityCode", BarcodeFormat.QR_CODE, 512, 512);
+            int width = bitMatrix.getWidth();
+            int height = bitMatrix.getHeight();
+            Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    bmp.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
+                }
+            }
+
+            Date date = new Date();
+            DateFormat df = new SimpleDateFormat("kk-mm-ss");
+            String newPicFile = "ISN-Inftel_QR_" + df.format(date) + ".jpg";
+
+            String file_path = Environment.getExternalStorageDirectory() + "/imgInftel/";
+            File dir = new File(file_path);
+            if (!dir.exists()) dir.mkdirs();
+
+            File file = new File(dir, newPicFile);
+            FileOutputStream fOut = new FileOutputStream(file);
+            bmp.compress(Bitmap.CompressFormat.PNG, 85, fOut);
+            fOut.flush();
+            fOut.close();
+
+            UploadQRDropboxTask upload = new UploadQRDropboxTask(this, dc.getDropboxApi(), file);
+            upload.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static AlertDialog showDialog(final Activity act, CharSequence title, CharSequence message, CharSequence buttonYes, CharSequence buttonNo) {
+        AlertDialog.Builder downloadDialog = new AlertDialog.Builder(act);
+        downloadDialog.setTitle(title);
+        downloadDialog.setMessage(message);
+        downloadDialog.setPositiveButton(buttonYes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Uri uri = Uri.parse("market://details?id=" + "com.google.zxing.client.android");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                try {
+                    act.startActivity(intent);
+                } catch (ActivityNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        downloadDialog.setNegativeButton(buttonNo, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
+        return downloadDialog.show();
+    }
+
+    //Devolución del programa
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if (requestCode == 0) {
+            if (resultCode == RESULT_OK) {
+                String loginEmail = intent.getStringExtra("SCAN_RESULT");
+                //Buscar usuario por email en BBDD pasando "loginEmail".
+                //Si alguno concuerda, logearse con dicho email
+                //Si no, volver al LoginActivity
+            }
+        }
+    }
+
+
 }
