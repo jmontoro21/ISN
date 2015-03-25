@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -43,13 +44,13 @@ import java.util.concurrent.ExecutionException;
 
 public class ListPublicCommentActivity extends Activity {
 
-    public static final String EMAIL_USER_PROFILE = "es.inftel.isn.user.google.id.name";
-    public static final String IP = "192.168.1.123";
+    public static final String EMAIL_USER_PROFILE = "es.inftel.isn.user.google.id.nameUser";
+    public static final String IP = "192.168.1.117";
 
     private TextView userName;
     private ImageView imgProfile;
-    private String emailProfile;
-    private String emailLogin;
+    private  String emailProfile;
+    private  String emailLogin;
 
     private ListView listView;
     private PublicsUsersCommentsListAdapter adapter;
@@ -58,12 +59,17 @@ public class ListPublicCommentActivity extends Activity {
     private ImageButton btnDSeguir;
 
 
+    private TextView email1;
+    private TextView email2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_public_comment);
+
         loadProfile();
+
     }
 
 
@@ -71,7 +77,7 @@ public class ListPublicCommentActivity extends Activity {
     public void loadProfile() {
         SharedPreferences prefs = this.getSharedPreferences("MYPREFERENCES", Context.MODE_PRIVATE);
 
-        Intent intent = getIntent();
+        Intent intent = this.getIntent();
 
         // Email del perfil a cargar
         if (intent.getStringExtra(EMAIL_USER_PROFILE) != null) {
@@ -86,12 +92,13 @@ public class ListPublicCommentActivity extends Activity {
         }
 
 
+
         userName = (TextView) this.findViewById(R.id.PublicCommentNameProfile);
         imgProfile = (ImageView) this.findViewById(R.id.PublicCommentImgProfile);
 
 
         // Compruebo si el perfil es del usuario logueado o de otro
-        if ((emailProfile.isEmpty()) || (emailProfile.compareTo(emailLogin) == 0)) {
+        if ((emailProfile.isEmpty())) {
             // perfil usuario logueado
             if (prefs.contains(LoginGoogleActivity.USER_NAME)) {
                 userName.setText(prefs.getString(LoginGoogleActivity.USER_NAME, ""));
@@ -103,7 +110,7 @@ public class ListPublicCommentActivity extends Activity {
             //loadBotonSeguir(emailLogin,emailLogin);
 
 
-
+            System.out.println("vacio email profile " );
             // perfil del usuario no hay boton
             //loadBotonSeguir(emailLogin,"");
 
@@ -118,25 +125,50 @@ public class ListPublicCommentActivity extends Activity {
 
             //loadBotonSeguir(emailLogin,emailLogin);
 
+            Intent i = new Intent(this, MenuActivity.class);
+            startActivity(i);
         }
         else {
             try {
 
 
+                System.out.println("dentro perfilffff  " );
                 String formatEmail = emailProfile.replaceAll("\\.", "___");
                 String userGet = new RestServiceGet().execute("http://"+IP+":8080/InftelSocialNetwork-web/webresources/users/" + formatEmail).get();
 
-                Gson gson = new Gson();
-                User perfil = gson.fromJson(userGet, User.class);
+                if(!userGet.isEmpty() && userGet != null) {
 
-                userName.setText(perfil.getName());
-                new DownloadImageTask(imgProfile).execute(perfil.getImageUrl(), "");
+                    Gson gson = new Gson();
+                    JSONObject json = null;
+                    JSONArray userArray = new  JSONArray(userGet);
+
+                    for(int i=0; i<userArray.length();i++ )
+                    {
+                       json = new  JSONObject(userArray.get(i).toString());
+
+                    }
+
+                    User perfil = gson.fromJson(json.toString(), User.class);
 
 
 
-                loadBotonSeguir(emailLogin,emailProfile);
+                    userName.setText(perfil.getName());
 
-                loadCommentsList(emailProfile);
+                    new DownloadImageTask(imgProfile).execute(perfil.getImageUrl(), "");
+
+
+                    loadBotonSeguir(emailLogin, emailProfile);
+
+                    loadCommentsList(emailProfile);
+
+
+                }
+                else
+                {
+
+                }
+
+
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -223,6 +255,7 @@ public class ListPublicCommentActivity extends Activity {
     {
         try {
 
+
             emailLogin = emailLogin.replaceAll("\\.", "___");
             emailProfile = emailProfile.replaceAll("\\.", "___");
 
@@ -245,6 +278,7 @@ public class ListPublicCommentActivity extends Activity {
 
                 btnSeguir = (ImageButton) this.findViewById(R.id.Seguir);
                 btnSeguir.setVisibility(View.VISIBLE);
+
                 btnDSeguir = (ImageButton) this.findViewById(R.id.DejarDeSeguir);
                 btnDSeguir.setVisibility(View.INVISIBLE);
             }
@@ -310,9 +344,10 @@ public class ListPublicCommentActivity extends Activity {
     }
 
 
-    public void dejardeSeguir()
+    public void dejardeSeguir(View v)
     {
         try {
+
 
 
 
@@ -332,7 +367,7 @@ public class ListPublicCommentActivity extends Activity {
 
 
 
-    public void Seguir()
+    public void Seguir(View v)
     {
         try {
 

@@ -70,6 +70,10 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
 
         }
 
+
+
+
+
         ft = new PageAdapterFragment(getSupportFragmentManager(),emailLogin);
 
         actionbar = getActionBar();
@@ -174,10 +178,8 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
 
             case R.id.logout:
 
-                LoginGoogleActivity logi = new LoginGoogleActivity();
-                logi.setLogout(true);
-
-                logi.closeConnection();
+                intent = new Intent(this, Logout.class);
+                startActivity(intent);
 
                 return true;
 

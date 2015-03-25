@@ -28,5 +28,7 @@
     <string name="DSeguir">Dejar de seguir</string>
 
     <string name="img131">Img</string>
+    <string name="title_activity_jose">JoseActivity</string>
+    <string name="title_activity_logout">Logout</string>
 
 </resources>

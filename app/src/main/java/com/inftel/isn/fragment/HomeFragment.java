@@ -46,7 +46,7 @@ import java.util.concurrent.ExecutionException;
 
 public class HomeFragment extends Fragment {
     public static final String EMAIL_USER_PROFILE = "es.inftel.isn.user.google.id.name";
-    public static final String IP = "192.168.1.123";
+    public static final String IP = "192.168.1.117";
 
 
     private TextView userName;
@@ -206,6 +206,10 @@ public class HomeFragment extends Fragment {
     // carga la lista de comentarios
     public void loadCommentsList(String email) {
 
+        if(email != null && !email.isEmpty())
+        {
+
+
         String formatEmail = email.replaceAll("\\.", "___");
         String respJSON = null;
 
@@ -280,6 +284,8 @@ public class HomeFragment extends Fragment {
         }
         catch (Exception e) {
             e.printStackTrace();
+        }
+
         }
     }
 
