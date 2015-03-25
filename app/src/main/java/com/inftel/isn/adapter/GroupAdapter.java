@@ -11,12 +11,9 @@ import android.widget.TextView;
 
 import com.inftel.isn.R;
 import com.inftel.isn.model.Group;
-
 import com.inftel.isn.request.DownloadImageTask;
-import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
-
 import java.util.Date;
 import java.util.List;
 
@@ -54,7 +51,6 @@ public class GroupAdapter extends BaseAdapter {
                     context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.list_item, null);
         }
-
 
         TextView textTitulo = (TextView) convertView.findViewById(R.id.titulo_item);
         Group group= objects.get(position);

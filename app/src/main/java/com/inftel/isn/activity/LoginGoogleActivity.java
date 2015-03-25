@@ -229,9 +229,6 @@ public class LoginGoogleActivity extends Activity implements
         }
     }
 
-
-
-
     public void closeConnection()
     {
         if (mGoogleApiClient.isConnected()) {

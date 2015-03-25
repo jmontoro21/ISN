@@ -1,42 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:id = "@+id/drawer_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Lista de mensajes"
-        android:textSize="25dp"
-        android:textIsSelectable="true"
-        android:layout_marginLeft="10dp" />
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <ListView
-            android:id="@+id/itemList"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:padding="4dp"
-            android:scrollbars="none"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="5.0sp"
-            android:layout_gravity="left|center_vertical" />
-            android:dividerHeight="5.0sp"/>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context="com.inftel.isn.activity.AddUsersGroupActivity">
 
-        <ImageButton
-            android:id="@+id/fab_image_button"
-            android:layout_width="@dimen/fab_button_diameter"
-            android:layout_height="@dimen/fab_button_diameter"
-            android:layout_marginBottom="@dimen/fab_button_margin_bottom"
-            android:layout_marginRight="@dimen/fab_button_margin_right"
-            android:background="@drawable/fab_shape"
-            android:src="@drawable/fab_ic_add"
-            android:tint="@android:color/white"
-            android:onClick="fab_home"
-            android:layout_gravity="right|bottom" />
-    </FrameLayout>
-</LinearLayout>
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Lista de mensajes"
+    android:textSize="25dp"
+    android:textIsSelectable="true"
+    android:layout_marginLeft="10dp" />
+
+<ListView
+    android:id="@+id/itemList"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="4dp"
+    android:scrollbars="none"
+    android:divider="@android:color/transparent"
+    android:dividerHeight="5.0sp"
+    android:drawSelectorOnTop="true"
+    android:layout_marginTop="40dp" />
+
+<ImageButton
+    android:id="@+id/fab_image_button"
+    android:layout_width="@dimen/fab_button_diameter"
+    android:layout_height="@dimen/fab_button_diameter"
+    android:layout_marginBottom="@dimen/fab_button_margin_bottom"
+    android:layout_marginRight="@dimen/fab_button_margin_right"
+    android:background="@drawable/fab_shape"
+    android:src="@drawable/fab_ic_add"
+    android:tint="@android:color/white"
+    android:onClick="intentCreated"
+    android:scaleType="centerInside"
+    android:layout_gravity="right|bottom"/>
+
+</FrameLayout>

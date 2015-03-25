@@ -16,11 +16,9 @@ import com.inftel.isn.R;
 import com.inftel.isn.activity.CommentGroupActivity;
 import com.inftel.isn.activity.LoginGoogleActivity;
 import com.inftel.isn.adapter.GroupAdapter;
-import com.inftel.isn.adapter.SimpleArrayAdapter;
 import com.inftel.isn.model.Group;
 import com.inftel.isn.request.GroupsRequest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GroupFragment extends Fragment {

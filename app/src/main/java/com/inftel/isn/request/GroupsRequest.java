@@ -5,8 +5,6 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.inftel.isn.activity.MenuActivity;
-import com.inftel.isn.activity.SearchGroupsActivity;
 import com.inftel.isn.fragment.GroupFragment;
 import com.inftel.isn.model.Group;
 
@@ -39,7 +37,7 @@ public class GroupsRequest  extends AsyncTask<String, Integer, List<Group>> {
         HttpClient httpclient = new DefaultHttpClient();
         HttpGet httpGet = null;
         try {
-            httpGet = new HttpGet(new URL("http://192.168.183.61:8080/InftelSocialNetwork-web/webresources/group/email/"+ source.getEmail()).toString());
+            httpGet = new HttpGet(new URL("http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/group/email/"+ source.getEmail()).toString());
             httpGet.setHeader("Accept", "application/json");
             httpGet.setHeader("Content-type", "application/json");
         } catch (MalformedURLException e) {
@@ -65,7 +63,6 @@ public class GroupsRequest  extends AsyncTask<String, Integer, List<Group>> {
 
     @Override
     public void onProgressUpdate(Integer... progress) {
-
     }
 
     @Override
