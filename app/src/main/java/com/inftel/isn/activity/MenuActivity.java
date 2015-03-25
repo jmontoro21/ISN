@@ -24,24 +24,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
-import android.view.View;
 
-import com.google.gson.Gson;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.inftel.isn.R;
-
-import com.inftel.isn.fragment.HomeFragment;
-import com.inftel.isn.model.Comment;
 import com.inftel.isn.model.User;
-import com.inftel.isn.request.RestServicePost;
 import com.inftel.isn.request.UploadQRDropboxTask;
 import com.inftel.isn.utility.DropboxConnection;
 import com.inftel.isn.utility.PageAdapterFragment;
-
-import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;

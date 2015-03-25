@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.inftel.isn.fragment.GroupFragment;
 import com.inftel.isn.fragment.HomeFragment;
+import com.inftel.isn.fragment.NotaFragment;
 
 public class PageAdapterFragment extends FragmentPagerAdapter {
 
@@ -39,7 +40,7 @@ private String email;
 		case 1:
 			   return new GroupFragment();
 		case 2:
-			  return new HomeFragment();
+			  return new NotaFragment();
 		default:
 			break;
 		}

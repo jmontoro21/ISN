@@ -15,15 +15,12 @@ import java.util.ArrayList;
 public class NotaFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_group, container, false);
+        View v = inflater.inflate(R.layout.fragment_nota, container, false);
         ListView eventListView = (ListView) v.findViewById(R.id.itemList);
 
         //Array estatico provisional
         ArrayList objetos = new ArrayList<String>();
-        objetos.add("grupo1");objetos.add("grupo2");objetos.add("grupo3");objetos.add("grupo4");
-        objetos.add("grupo1");objetos.add("grupo2");objetos.add("grupo3");objetos.add("grupo4");
-        objetos.add("grupo1");objetos.add("grupo2");objetos.add("grupo3");objetos.add("grupo4");
-        objetos.add("grupo1");objetos.add("grupo2");objetos.add("grupo3");objetos.add("grupo4");
+
 
         SimpleArrayAdapter adapter = new SimpleArrayAdapter(objetos, getActivity());
         eventListView.setAdapter(adapter);

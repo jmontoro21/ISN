@@ -45,6 +45,8 @@ public class CreateCommentActivity extends Activity {
     private final static String NOT_AN_IMAGE = "URL is not a valid image";
     private final static String CREATE_PROFILE_POST_URL = "http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/profilecomments/insert?userEmail=";
     public final static String COMMENT_TYPE = "com.inftel.isn.activity.type.blablabla";
+    private final static String CREATE_NOTA_URL = "http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/privatecomment/insert?userEmail=";
+    private final static String CREATE_COMMENT_FOR_GROUP = "http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/groupcomment/insertcomment";
     private ImageView addImageView;
     private ImageView youtubeImage;
     private String image = "";
@@ -137,13 +139,17 @@ public class CreateCommentActivity extends Activity {
             e.printStackTrace();
         }
         if(tipo.equals("publico")){
-            //llamada rest publicComment
+            Log.i("nc","profile");
+            new RestServicePost(jsoncomment).execute(CREATE_PROFILE_POST_URL+"CERVEZA");
         }else if(tipo.equals("grupo")){
+            Log.i("nc","grupo");
             //llamada rest grupoComment
         }else if(tipo.equals("nota")){
+            Log.i("nc","private-nota");
             //llamda rest nota privada
+            new RestServicePost(jsoncomment).execute(CREATE_NOTA_URL+"CERVEZA");
         }
-        new RestServicePost(jsoncomment).execute(CREATE_PROFILE_POST_URL+"CERVEZA");
+
 
     }
 
