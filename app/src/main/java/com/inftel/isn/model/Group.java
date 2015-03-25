@@ -1,6 +1,8 @@
 package com.inftel.isn.model;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -9,7 +11,7 @@ import java.util.Objects;
  * Created by inftel13 on 19/03/15.
  */
 
-public class Group implements Serializable{
+public class Group implements Parcelable{
 
 
     private String id;
@@ -115,6 +117,35 @@ public class Group implements Serializable{
 
     public void removeUserFromList(User user) { this.user.remove(user);}
 
+    public int describeContents() {
+        return 0;
+    }
+
+    public void writeToParcel(Parcel out, int flags) {
+
+        out.writeString(id);
+        out.writeString(admin);
+        out.writeString(name);
+        out.writeString(imageUrl);
+        out.writeList(user);
+    }
+    public static final Parcelable.Creator<Group> CREATOR = new Parcelable.Creator<Group>(){
+        public Group createFromParcel(Parcel in){
+            return new Group(in);
+        }
+        public Group[] newArray (int size){
+            return new Group[size];
+        }
+
+    };
+    private Group (Parcel in){
+        id = in.readString();
+        admin = in.readString();
+        name = in.readString();
+        imageUrl = in.readString();
+        user = in.readArrayList(null);
+
+    }
 }
 
 
