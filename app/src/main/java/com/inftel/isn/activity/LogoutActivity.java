@@ -16,7 +16,7 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.plus.Plus;
 
 
-public class Logout extends Activity implements
+public class LogoutActivity extends Activity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
@@ -171,8 +171,6 @@ public class Logout extends Activity implements
     }
 
 
-
-
     public void closeConnection()
     {
         System.out.println(" desconexion ");
@@ -195,7 +193,7 @@ public class Logout extends Activity implements
         }
 
 
-        Intent i = new Intent(this, JoseActivity.class);
+        Intent i = new Intent(this, LoginSelectionActivity.class);
         startActivity(i);
     }
 }

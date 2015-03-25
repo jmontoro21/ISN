@@ -43,7 +43,7 @@ public class LoginGoogleActivity extends Activity implements
     private static final String KEY_IN_RESOLUTION = "is_in_resolution";
 
 
-    public static final String IP = "192.168.1.117";
+    public static final String IP = "192.168.183.24";
 
     /**
      * Request code for auto Google Play Services error resolution.
@@ -144,7 +144,6 @@ public class LoginGoogleActivity extends Activity implements
     @Override
     public void onConnected(Bundle connectionHint) {
 
-
         email = Plus.AccountApi.getAccountName(mGoogleApiClient);
 
         Person persona = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
@@ -178,16 +177,9 @@ public class LoginGoogleActivity extends Activity implements
 
             new RestServicePost(user).execute("http://" + IP + ":8080/InftelSocialNetwork-web/webresources/users/create");
 
+            Intent i = new Intent(this, MenuActivity.class);
+            startActivity(i);
 
-
-            //Intent i = new Intent(this, ListPublicCommentActivity.class);
-           // startActivity(i);
-
-           Intent i = new Intent(this, JoseActivity.class);
-           startActivity(i);
-
-
-           // this.st
 
         } catch (JSONException eq) {
             eq.printStackTrace();
