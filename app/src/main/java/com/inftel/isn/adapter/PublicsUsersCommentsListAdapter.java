@@ -63,7 +63,11 @@ public class PublicsUsersCommentsListAdapter extends BaseAdapter {
         View itemView = inflater.inflate(R.layout.public_comment_item, parent, false);
 
         ImageView ImgPerfil = (ImageView) itemView.findViewById(R.id.userImg);
-        new DownloadImageTask(ImgPerfil).execute(objects.get(position).getAuthor().getImageUrl(), "");
+        if(objects!=null && objects.get(position) != null && objects.get(position).getAuthor() != null
+                && objects.get(position).getAuthor().getImageUrl()!=null) {
+            new DownloadImageTask(ImgPerfil).execute(objects.get(position).getAuthor().getImageUrl(), "");
+        }
+
 
         TextView textNombre = (TextView) itemView.findViewById(R.id.name);
         textNombre.setText(objects.get(position).getAuthor().getName());

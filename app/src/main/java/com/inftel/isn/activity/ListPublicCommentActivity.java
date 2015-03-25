@@ -235,8 +235,6 @@ public class ListPublicCommentActivity extends Activity {
     public void loadBotonSeguir(String emailLogin,String emailProfile)
     {
         try {
-
-
             emailLogin = emailLogin.replaceAll("\\.", "___");
             emailProfile = emailProfile.replaceAll("\\.", "___");
 
@@ -250,8 +248,6 @@ public class ListPublicCommentActivity extends Activity {
 
                 btnDSeguir = (ImageButton) this.findViewById(R.id.DejarDeSeguir);
                 btnDSeguir.setVisibility(View.VISIBLE);
-
-
             }
             else
             {
@@ -272,13 +268,9 @@ public class ListPublicCommentActivity extends Activity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
     public void deleteItems(View v) {
-
-
         try {
 
 
