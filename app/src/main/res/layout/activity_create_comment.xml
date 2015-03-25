@@ -55,9 +55,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/switch1"
             android:showText="false"
-            android:textOn="XXL keyboard"
-            android:textOff="Android keyboard"
-            android:textStyle="bold" />
+            android:textOn="XXL"
+            android:textOff="M"
+            style="@style/Base.TextAppearance.AppCompat.Small" />
         <Button
             android:id="@+id/enviarcomentarionormal"
             android:layout_width="0dip"
@@ -65,7 +65,7 @@
             android:layout_weight="1"
             android:background="@color/material_deep_teal_500"
             android:onClick="keyClicked"
-            android:text="Comentar"
+            android:text="POST"
             android:visibility="invisible"/>
     </LinearLayout>
 

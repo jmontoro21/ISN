@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -51,6 +52,8 @@ public class CreateCommentActivity extends Activity {
     private String youtube = "";
     private Intent intent;
     private Switch mySwitch;
+    private SharedPreferences prefs;
+    private String emailLogin = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +62,8 @@ public class CreateCommentActivity extends Activity {
         setSwitchStatus();
         addImageView = (ImageView) findViewById(R.id.addImageToComment);
         androidKeyboard();
+        prefs = this.getSharedPreferences("MYPREFERENCES", Context.MODE_PRIVATE);
+        emailLogin = prefs.getString(LoginGoogleActivity.USER_KEY, "");
     }
 
     @Override
@@ -117,15 +122,18 @@ public class CreateCommentActivity extends Activity {
         }
         if(tipo.equals("publico")){
             Log.i("nc","profile");
-            new RestServicePost(jsoncomment).execute(CREATE_PROFILE_POST_URL+"CERVEZA");
+            new RestServicePost(jsoncomment).execute(CREATE_PROFILE_POST_URL+emailLogin);
         }else if(tipo.equals("grupo")){
             Log.i("nc","grupo");
             //llamada rest grupoComment
         }else if(tipo.equals("nota")){
             Log.i("nc","private-nota");
             //llamda rest nota privada
-            new RestServicePost(jsoncomment).execute(CREATE_NOTA_URL+"CERVEZA");
+            new RestServicePost(jsoncomment).execute(CREATE_NOTA_URL+emailLogin);
         }
+
+        Intent intent = new Intent(this, MenuActivity.class);
+        this.startActivity(intent);
 
 
     }
