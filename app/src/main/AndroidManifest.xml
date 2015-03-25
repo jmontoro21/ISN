@@ -46,7 +46,6 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <activity
             android:name=".activity.CreateGroupActivity"
             android:label="@string/createGroupActivity" >
@@ -54,10 +53,7 @@
         <activity
             android:name=".activity.CreateCommentActivity"
             android:label="@string/title_activity_create_post" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".activity.FollowedActivity"
@@ -82,7 +78,10 @@
         <activity
             android:name=".activity.LoginSelectionActivity"
             android:label="Select login">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity
@@ -96,7 +95,7 @@
         </activity>
 
         <activity
-            android:name=".activity.Logout"
+            android:name=".activity.LogoutActivity"
             android:label="@string/title_activity_logout" >
         </activity>
     </application>
