@@ -68,7 +68,6 @@ public class HomeFragment extends Fragment {
         // Email del usuario logueado
         if (prefs.contains(LoginGoogleActivity.USER_KEY)) {
             emailLogin = prefs.getString(LoginGoogleActivity.USER_KEY, "");
-            System.out.println("fhhfhfhfhfhf");
         }
         // extraer lista de comentarios
         loadCommentsList(emailLogin);
@@ -101,6 +100,9 @@ public class HomeFragment extends Fragment {
                     });
 
                     Gson gson = builder.create();
+
+
+                    System.out.println("------comentario--------- " + respJSON);
 
                     perfil = gson.fromJson(respJSON, ProfileComments.class);
 

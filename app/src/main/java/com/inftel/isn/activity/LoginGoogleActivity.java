@@ -234,24 +234,17 @@ public class LoginGoogleActivity extends Activity implements
 
     public void closeConnection()
     {
-
-        System.out.println(" desconexion ");
         if (mGoogleApiClient.isConnected()) {
-
-            System.out.println(" desconexion 11 ");
             Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
             Plus.AccountApi.revokeAccessAndDisconnect(mGoogleApiClient)
                     .setResultCallback(new ResultCallback<Status>() {
                         @Override
                         public void onResult(Status arg0) {
-
-                            System.out.println(" desconexion 22 ");
                             Log.e(TAG, "User access revoked!");
                             mGoogleApiClient.connect();
                         }
                     });
         }
-
 
         Intent i = new Intent(this, MenuActivity.class);
         startActivity(i);

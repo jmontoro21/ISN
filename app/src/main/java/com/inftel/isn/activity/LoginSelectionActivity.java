@@ -5,25 +5,23 @@ import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
+import android.widget.Toast;
 
 import com.inftel.isn.R;
+import com.inftel.isn.request.RestServiceGet;
 
 public class LoginSelectionActivity extends Activity {
     static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
+    public static final String IP = "192.168.183.24";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_selection);
-//        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
     }
-
-
 
     public void googleLogin(View v){
         Intent intent = new Intent(this, LoginGoogleActivity.class);
@@ -36,16 +34,51 @@ public class LoginSelectionActivity extends Activity {
             intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
             startActivityForResult(intent, 0);
         } catch (ActivityNotFoundException anfe) {
-            new AlertDialog.Builder(this)
-                    .setTitle("No Scanner Found")
-                    .setMessage("Please download a qr scanner!")
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            // continue with delete
-                        }
-                    })
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .show();
+            showDialog(LoginSelectionActivity.this, "No Scanner Found", "Download a scanner code activity?", "Yes", "No").show();
+        }
+    }
+
+    private static AlertDialog showDialog(final Activity act, CharSequence title, CharSequence message, CharSequence buttonYes, CharSequence buttonNo) {
+        AlertDialog.Builder downloadDialog = new AlertDialog.Builder(act);
+        downloadDialog.setTitle(title);
+        downloadDialog.setMessage(message);
+        downloadDialog.setPositiveButton(buttonYes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Uri uri = Uri.parse("market://details?id=" + "com.google.zxing.client.android");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                try {
+                    act.startActivity(intent);
+                } catch (ActivityNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        downloadDialog.setNegativeButton(buttonNo, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
+        return downloadDialog.show();
+    }
+
+    //Devolución del programa
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if (requestCode == 0) {
+            if (resultCode == RESULT_OK) {
+                String loginEmail = intent.getStringExtra("SCAN_RESULT");
+                try {
+                    String respStr = new RestServiceGet().execute("http://"+IP+":8080/InftelSocialNetwork-web/webresources/users/email?email=" + loginEmail).get();
+                    //Si esta vacio es porque no coincide con ningun User de la BBDD
+                    if(respStr.isEmpty()){
+                        Toast data = Toast.makeText(LoginSelectionActivity.this, "Login incorrecto", Toast.LENGTH_SHORT);
+                        data.show();
+                    } else {
+                        Intent i = new Intent(this, MenuActivity.class);
+                        startActivity(i);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }
