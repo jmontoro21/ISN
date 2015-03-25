@@ -1,6 +1,8 @@
 package com.inftel.isn.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,6 +14,7 @@ import android.widget.ListView;
 
 import com.inftel.isn.R;
 import com.inftel.isn.activity.CommentGroupActivity;
+import com.inftel.isn.activity.LoginGoogleActivity;
 import com.inftel.isn.adapter.GroupAdapter;
 import com.inftel.isn.adapter.SimpleArrayAdapter;
 import com.inftel.isn.model.Group;
@@ -30,7 +33,9 @@ public class GroupFragment extends Fragment {
         View v = inflater.inflate(R.layout.activity_search_groups, container, false);
         listView = (ListView) v.findViewById(R.id.listview_droup);
 
-        email = "bobolouna@gmail.com";
+        SharedPreferences prefs = getActivity().getSharedPreferences("MYPREFERENCES", Context.MODE_PRIVATE);
+        email = prefs.getString(LoginGoogleActivity.USER_KEY, "");
+
         email=email.replaceAll("\\.","___");
 
         new GroupsRequest(GroupFragment.this).execute();
@@ -50,7 +55,7 @@ public class GroupFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Group group= (Group)parent.getAdapter().getItem(position);
-                Group group1 =group;
+
                 changeActivity(group);
 
             }

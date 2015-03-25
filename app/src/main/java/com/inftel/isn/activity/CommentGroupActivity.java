@@ -68,6 +68,7 @@ public class CommentGroupActivity extends Activity {
 
         Intent intent = new Intent (this, CreateCommentActivity.class);
         intent.putExtra("GRUPO",group);
+        startActivity(intent);
 
     }
 
