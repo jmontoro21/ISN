@@ -1,21 +1,24 @@
 package com.inftel.isn.model;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
  * Created by inftel13 on 19/03/15.
  */
 
-public class Group implements Serializable{
+public class Group implements Parcelable{
 
 
     private String id;
     private String admin;
     private String name;
     private String imageUrl;
-    private ArrayList<User> usersList = new ArrayList<>();
+    private List<User> user = new ArrayList<>();
 
     public Group() {
 
@@ -27,7 +30,7 @@ public class Group implements Serializable{
         hash = 23 * hash + Objects.hashCode(this.admin);
         hash = 23 * hash + Objects.hashCode(this.name);
         hash = 23 * hash + Objects.hashCode(this.imageUrl);
-        hash = 23 * hash + Objects.hashCode(this.usersList);
+        hash = 23 * hash + Objects.hashCode(this.user);
         return hash;
     }
 
@@ -49,7 +52,7 @@ public class Group implements Serializable{
         if (!Objects.equals(this.imageUrl, other.imageUrl)) {
             return false;
         }
-        if (!Objects.equals(this.usersList, other.usersList)) {
+        if (!Objects.equals(this.user, other.user)) {
             return false;
         }
         return true;
@@ -63,12 +66,12 @@ public class Group implements Serializable{
         this.admin = admin;
     }
 
-    public Group(String id, String admin, String name, String imageUrl, ArrayList<User> usersList) {
+    public Group(String id, String admin, String name, String imageUrl, ArrayList<User> user) {
         this.id = id;
         this.admin = admin;
         this.name = name;
         this.imageUrl = imageUrl;
-        this.usersList = usersList;
+        this.user = user;
     }
 
     public String getId() {
@@ -95,24 +98,54 @@ public class Group implements Serializable{
         this.imageUrl = imageUrl;
     }
 
-    public ArrayList<User> getUsersList() {
-        return usersList;
+    public List<User> getUser() {
+        return user;
     }
 
     public void setUsersList(ArrayList<User> usersList) {
-        this.usersList = usersList;
+        this.user = user;
     }
 
     public void removeUserList(int position) {
-        this.usersList.remove(position);
+        this.user.remove(position);
     }
 
     public void addUserToList(User user) {
-        this.usersList.add(user);
+        this.user.add(user);
     }
 
-    public void removeUserFromList(User user) { this.usersList.remove(user);}
 
+    public void removeUserFromList(User user) { this.user.remove(user);}
+
+    public int describeContents() {
+        return 0;
+    }
+
+    public void writeToParcel(Parcel out, int flags) {
+
+        out.writeString(id);
+        out.writeString(admin);
+        out.writeString(name);
+        out.writeString(imageUrl);
+        out.writeList(user);
+    }
+    public static final Parcelable.Creator<Group> CREATOR = new Parcelable.Creator<Group>(){
+        public Group createFromParcel(Parcel in){
+            return new Group(in);
+        }
+        public Group[] newArray (int size){
+            return new Group[size];
+        }
+
+    };
+    private Group (Parcel in){
+        id = in.readString();
+        admin = in.readString();
+        name = in.readString();
+        imageUrl = in.readString();
+        user = in.readArrayList(null);
+
+    }
 }
 
 

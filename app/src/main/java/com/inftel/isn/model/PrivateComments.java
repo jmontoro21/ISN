@@ -1,7 +1,5 @@
 package com.inftel.isn.model;
 
-import com.inftel.isn.model.Comment;
-
 import java.util.ArrayList;
 
 /**

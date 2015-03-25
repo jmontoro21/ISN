@@ -10,28 +10,43 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.view.View;
 
 import com.google.gson.Gson;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import com.inftel.isn.R;
 
 import com.inftel.isn.fragment.HomeFragment;
 import com.inftel.isn.model.Comment;
 import com.inftel.isn.model.User;
 import com.inftel.isn.request.RestServicePost;
+import com.inftel.isn.request.UploadQRDropboxTask;
+import com.inftel.isn.utility.DropboxConnection;
 import com.inftel.isn.utility.PageAdapterFragment;
 
 import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MenuActivity extends FragmentActivity implements ActionBar.TabListener {
     ActionBar actionbar;
@@ -39,14 +54,17 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     ViewPager viewpager;
+    User user = new User();
     PageAdapterFragment ft;
     static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
+    DropboxConnection dc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         viewpager = (ViewPager) findViewById(R.id.pager);
+        ft = new PageAdapterFragment(getSupportFragmentManager());
 
         SharedPreferences prefs = this.getSharedPreferences("MYPREFERENCES", Context.MODE_PRIVATE);
 
@@ -97,12 +115,6 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
             public void onPageScrollStateChanged(int arg0) {
             }
         });
-
-
-
-
-
-
     }
 
     private static AlertDialog showDialog(final Activity act, CharSequence title, CharSequence message, CharSequence buttonYes, CharSequence buttonNo) {
@@ -147,7 +159,6 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
     }
 
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
@@ -177,10 +188,26 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
                 return true;
 
             case R.id.logout:
+            case R.id.seguidos:
+                intent = new Intent(this, FollowedActivity.class);
+                intent.putExtra("user", user);
+                startActivity(intent);
+                return true;
+            case R.id.siguiendo:
+                intent = new Intent(this, FollowerActivity.class);
+                intent.putExtra("user", user);
+                startActivity(intent);
 
                 intent = new Intent(this, Logout.class);
                 startActivity(intent);
 
+                return true;
+
+            case R.id.buscarGroup:
+                return true;
+
+            case R.id.createQR:
+                generateQR();
                 return true;
 
             default:
@@ -200,6 +227,4 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
     @Override
     public void onTabUnselected(Tab tab, FragmentTransaction ft) {
     }
-
-
 }

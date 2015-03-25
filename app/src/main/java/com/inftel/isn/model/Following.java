@@ -53,4 +53,8 @@ public class Following {
     public void setFollowing(List<User> following) {
         this.following = following;
     }
+
+
+    public void add(User user) {
+    }
 }

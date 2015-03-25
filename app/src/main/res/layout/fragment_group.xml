@@ -2,7 +2,6 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:id = "@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
@@ -23,20 +22,23 @@
             android:padding="4dp"
             android:scrollbars="none"
             android:divider="@android:color/transparent"
-            android:dividerHeight="5.0sp"
-            android:layout_gravity="left|center_vertical" />
             android:dividerHeight="5.0sp"/>
 
         <ImageButton
             android:id="@+id/fab_image_button"
             android:layout_width="@dimen/fab_button_diameter"
             android:layout_height="@dimen/fab_button_diameter"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/fab_button_margin_bottom"
             android:layout_marginRight="@dimen/fab_button_margin_right"
             android:background="@drawable/fab_shape"
             android:src="@drawable/fab_ic_add"
             android:tint="@android:color/white"
-            android:onClick="fab_home"
+            android:onClick="fab_group"
             android:layout_gravity="right|bottom" />
     </FrameLayout>
+
+
 </LinearLayout>

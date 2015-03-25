@@ -20,6 +20,8 @@ import org.json.JSONObject;
 public class AddUsersGroupActivity extends Activity{
 
     private Group group;
+    private User user;
+    private Activity activity;
     private ListView listView;
     private UsersAddedListAdapter adapter;
 
@@ -34,7 +36,7 @@ public class AddUsersGroupActivity extends Activity{
 
         listView = (ListView)findViewById(R.id.list_users);
 
-        adapter = new UsersAddedListAdapter(group.getUsersList(), this);
+        adapter = new UsersAddedListAdapter((java.util.ArrayList<User>) group.getUser(), this);
         listView.setAdapter(adapter);
     }
 
@@ -58,11 +60,14 @@ public class AddUsersGroupActivity extends Activity{
             String json = gson.toJson(group, Group.class);
             JSONObject group = new JSONObject(json);
             new RestServicePost(group).execute("http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/group/create");
+            Intent intent = new Intent(this, MenuActivity.class);
+            intent.putExtra("user", user);
+            startActivity(intent);
         } catch (JSONException eq) {
             eq.printStackTrace();
         }
 
-        for(User user: group.getUsersList()) {
+        for(User user: group.getUser()) {
             Toast data = Toast.makeText(this, user.getName(), Toast.LENGTH_SHORT);
             data.show();
         }
