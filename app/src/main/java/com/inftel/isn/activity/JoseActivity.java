@@ -1,16 +1,12 @@
 package com.inftel.isn.activity;
 
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.inftel.isn.R;
 
@@ -59,7 +55,7 @@ public class JoseActivity extends Activity {
 
             case R.id.logout:
 
-                intent = new Intent(this, Logout.class);
+                intent = new Intent(this, LogoutActivity.class);
                 startActivity(intent);
 
                 return true;

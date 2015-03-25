@@ -18,12 +18,10 @@ import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.common.BitMatrix;
@@ -42,9 +40,6 @@ import java.util.Date;
 
 public class MenuActivity extends FragmentActivity implements ActionBar.TabListener {
     ActionBar actionbar;
-    //private User user1 = new User();
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
     private ViewPager viewpager;
     private User user = new User();
     private PageAdapterFragment ft;
@@ -57,32 +52,12 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
         setContentView(R.layout.activity_menu);
         viewpager = (ViewPager) findViewById(R.id.pager);
 
-
         SharedPreferences prefs = this.getSharedPreferences("MYPREFERENCES", Context.MODE_PRIVATE);
-
-        // SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
-
-        // emailLogin = sp.getString(LoginGoogleActivity.USER_KEY,"");
-        //System.out.println("fhhfhfhfhfhf " + emailLogin);
         String emailLogin="";
         // Email del usuario logueado
         if (prefs.contains(LoginGoogleActivity.USER_KEY)) {
-
-
-            // emailLogin = sp.getString(LoginGoogleActivity.USER_KEY,"");
-
             emailLogin = prefs.getString(LoginGoogleActivity.USER_KEY, "");
-
-
-            System.out.println("fhhfhfhfhfhf");
-
-
-
         }
-
-
-
-
 
         ft = new PageAdapterFragment(getSupportFragmentManager(),emailLogin);
 
@@ -118,24 +93,6 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
         dc.resume();
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuItem search = menu.add(Menu.NONE, R.id.action_search, 1, "Search");
@@ -159,6 +116,7 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
                     showDialog(MenuActivity.this, "No Scanner Found", "Download a scanner code activity?", "Yes", "No").show();
                 }
                 return true;
+
             case R.id.action_search:
                 intent = new Intent(this, UserSearchActivity.class);
                 startActivity(intent);
@@ -174,20 +132,22 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
                 startActivity(intent);
                 return true;
 
-            case R.id.logout:
+
             case R.id.seguidos:
                 intent = new Intent(this, FollowedActivity.class);
                 intent.putExtra("user", user);
                 startActivity(intent);
                 return true;
+
             case R.id.siguiendo:
                 intent = new Intent(this, FollowerActivity.class);
                 intent.putExtra("user", user);
                 startActivity(intent);
+                return true;
 
-                intent = new Intent(this, Logout.class);
+            case R.id.logout:
+                intent = new Intent(this, LogoutActivity.class);
                 startActivity(intent);
-
                 return true;
 
             case R.id.buscarGroup:
@@ -214,7 +174,6 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
     @Override
     public void onTabUnselected(Tab tab, FragmentTransaction ft) {
     }
-
 
 
     public void fab_home(View view) {
@@ -306,6 +265,4 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
             }
         }
     }
-
-
 }
