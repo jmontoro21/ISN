@@ -20,21 +20,14 @@
         android:label="@string/app_name"
         android:theme="@style/WhiteTheme" >
         <activity android:name=".activity.LoginGoogleActivity" >
-
-
-
         </activity>
-
-
         <activity
             android:name="com.dropbox.client2.android.AuthActivity"
             android:configChanges="orientation|keyboard"
             android:launchMode="singleTask" >
             <intent-filter>
                 <data android:scheme="db-nzborwue2amvznk" />
-
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -42,10 +35,6 @@
         <activity
             android:name=".activity.MenuActivity"
             android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity
@@ -65,6 +54,10 @@
         <activity
             android:name=".activity.CreateCommentActivity"
             android:label="@string/title_activity_create_post" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activity.FollowedActivity"

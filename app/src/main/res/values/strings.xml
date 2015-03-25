@@ -37,5 +37,7 @@
     <string name="title_activity_followed">Seguidos</string>
     <string name="title_activity_follower">Siguiendo</string>
     <string name="QRLogin">QR</string>
+    <string name="youtube">añadir URL youtube</string>
+    <string name="anadirImagen">añadir imagen</string>
 
 </resources>
