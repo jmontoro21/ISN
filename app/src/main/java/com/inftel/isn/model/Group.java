@@ -3,6 +3,7 @@ package com.inftel.isn.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -11,7 +12,7 @@ import java.util.Objects;
  * Created by inftel13 on 19/03/15.
  */
 
-public class Group implements Parcelable{
+public class Group implements Parcelable {
 
 
     private String id;
@@ -117,35 +118,51 @@ public class Group implements Parcelable{
 
     public void removeUserFromList(User user) { this.user.remove(user);}
 
-    public int describeContents() {
-        return 0;
-    }
 
-    public void writeToParcel(Parcel out, int flags) {
-
-        out.writeString(id);
-        out.writeString(admin);
-        out.writeString(name);
-        out.writeString(imageUrl);
-        out.writeList(user);
-    }
-    public static final Parcelable.Creator<Group> CREATOR = new Parcelable.Creator<Group>(){
-        public Group createFromParcel(Parcel in){
-            return new Group(in);
-        }
-        public Group[] newArray (int size){
-            return new Group[size];
-        }
-
-    };
-    private Group (Parcel in){
+    protected Group(Parcel in) {
         id = in.readString();
         admin = in.readString();
         name = in.readString();
         imageUrl = in.readString();
-        user = in.readArrayList(null);
+        if (in.readByte() == 0x01) {
+            user = new ArrayList<User>();
+            in.readList(user, User.class.getClassLoader());
+        } else {
+            user = null;
+        }
+    }
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(admin);
+        dest.writeString(name);
+        dest.writeString(imageUrl);
+        if (user == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(user);
+        }
 
     }
+    public static final Parcelable.Creator<Group> CREATOR = new Parcelable.Creator<Group>() {
+        @Override
+        public Group createFromParcel(Parcel in) {
+            return new Group(in);
+        }
+
+        @Override
+        public Group[] newArray(int size) {
+            return new Group[size];
+        }
+    };
 }
 
 
