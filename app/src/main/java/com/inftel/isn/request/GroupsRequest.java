@@ -5,7 +5,9 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.inftel.isn.activity.MenuActivity;
 import com.inftel.isn.activity.SearchGroupsActivity;
+import com.inftel.isn.fragment.GroupFragment;
 import com.inftel.isn.model.Group;
 
 import org.apache.http.HttpResponse;
@@ -23,10 +25,10 @@ import java.util.List;
  * Created by loubna on 23/03/2015.
  */
 public class GroupsRequest  extends AsyncTask<String, Integer, List<Group>> {
-    private SearchGroupsActivity source;
+    private GroupFragment source;
 
 
-    public GroupsRequest(SearchGroupsActivity source) {
+    public GroupsRequest(GroupFragment source) {
         this.source = source;
         ;
     }

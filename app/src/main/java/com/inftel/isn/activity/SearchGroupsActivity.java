@@ -40,13 +40,13 @@ public class SearchGroupsActivity extends Activity {
     }
     public void onClick(View v){
 
-        EditText title = (EditText) findViewById(R.id.buscar);
+      //  EditText title = (EditText) findViewById(R.id.buscar);
         //TextView title = (TextView) findViewById(R.id.buscar);
 
-        email = title.getText().toString();
+      //  email = title.getText().toString();
         email=email.replaceAll("\\.","___");
 
-        new GroupsRequest(this).execute();
+     //   new GroupsRequest(this).execute();
 
 
 

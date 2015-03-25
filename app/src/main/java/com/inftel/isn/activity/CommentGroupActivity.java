@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -61,6 +62,12 @@ public class CommentGroupActivity extends Activity {
         CommentGroupsAdapter adapter = new CommentGroupsAdapter(comments.getCommentsList(), CommentGroupActivity.this);
         listView.setAdapter(adapter);
 
+
+    }
+    public void createCommentGroup(View view ){
+
+        Intent intent = new Intent (this, CreateCommentActivity.class);
+        intent.putExtra("GRUPO",group);
 
     }
 
