@@ -25,6 +25,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.inftel.isn.R;
+import com.inftel.isn.model.User;
 import com.inftel.isn.request.UploadQRDropboxTask;
 import com.inftel.isn.utility.DropboxConnection;
 import com.inftel.isn.utility.PageAdapterFragment;
@@ -38,6 +39,7 @@ import java.util.Date;
 public class MenuActivity extends FragmentActivity implements ActionBar.TabListener {
     ActionBar actionbar;
     ViewPager viewpager;
+    User user = new User();
     PageAdapterFragment ft;
     static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
     DropboxConnection dc;
@@ -119,13 +121,22 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
                 startActivity(intent);
                 return true;
 
+            case R.id.seguidos:
+                intent = new Intent(this, FollowedActivity.class);
+                intent.putExtra("user", user);
+                startActivity(intent);
+                return true;
+            case R.id.siguiendo:
+                intent = new Intent(this, FollowerActivity.class);
+                intent.putExtra("user", user);
+                startActivity(intent);
+
             case R.id.buscarGroup:
                 return true;
 
             case R.id.createQR:
                 generateQR();
                 return true;
-
 
             default:
                 return super.onOptionsItemSelected(item);

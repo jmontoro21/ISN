@@ -75,7 +75,7 @@ public class UploadDropboxTask extends AsyncTask<Void, Long, Boolean> {
         } else {
             showToast("Image not uploaded");
         }
-        //Funcion provisional de descarga desde Dropbox, mFIle.getName() es lo que debo guardar en la BD
+
         mContext.downloadImageDropbox(mFile.getName());
         mContext.setUrlImage(mFile.getName());
         mFile.delete();
