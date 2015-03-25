@@ -26,7 +26,7 @@
             android:configChanges="orientation|keyboard"
             android:launchMode="singleTask" >
             <intent-filter>
-                <data android:scheme="db-nzborwue2amvznk" />
+                <data android:scheme="db-byvhrgmt4snnfz0" />
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -67,10 +67,6 @@
             android:parentActivityName=".activity.MenuActivity">
         </activity>
 
-        <activity
-            android:name=".activity.SearchActivity"
-            android:label="@string/searchActivity" >
-        </activity>
         <activity
             android:name=".activity.AddUsersGroupActivity"
             android:label="@string/createGroupActivity" >

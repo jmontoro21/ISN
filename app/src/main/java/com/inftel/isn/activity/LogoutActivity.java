@@ -71,7 +71,6 @@ public class LogoutActivity extends Activity implements
                     .build();
         }
         mGoogleApiClient.connect();
-
     }
 
     /**
@@ -173,10 +172,7 @@ public class LogoutActivity extends Activity implements
 
     public void closeConnection()
     {
-        System.out.println(" desconexion ");
         if (mGoogleApiClient.isConnected()) {
-
-            System.out.println(" desconexion 11 ");
             Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
             Plus.AccountApi.revokeAccessAndDisconnect(mGoogleApiClient)
                     .setResultCallback(new ResultCallback<Status>() {
@@ -191,7 +187,6 @@ public class LogoutActivity extends Activity implements
 
                     });
         }
-
 
         Intent i = new Intent(this, LoginSelectionActivity.class);
         startActivity(i);
