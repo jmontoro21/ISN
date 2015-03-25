@@ -20,6 +20,8 @@ import org.json.JSONObject;
 public class AddUsersGroupActivity extends Activity{
 
     private Group group;
+    private User user;
+    private Activity activity;
     private ListView listView;
     private UsersAddedListAdapter adapter;
 
@@ -55,13 +57,12 @@ public class AddUsersGroupActivity extends Activity{
     public void intentCreated(View v) {
         try {
             Gson gson = new Gson();
-
-            String nuevo = "{ \"admin\" : \"jmontoro21@gmail.com\" , \"name\" : \"vayamierda\" , \"imageUrl\" : \"\" , \"user\" : [ { \"googleId\" : \"103877372006820839918\" , \"email\" : \"alfredo.gallego.gonzalez@gmail.com\" , \"name\" : \"Alfredo Gallego\" , \"imageUrl\" : \"https://lh5.googleusercontent.com/-i9X5ZiLaDKs/AAAAAAAAAAI/AAAAAAAAADI/9pIodSITkx0/photo.jpg?sz=250\"} , { \"_id\" : { \"$oid\" : \"551032deda06477fe1833e0f\"} , \"googleId\" : \"107628342645597570491\" , \"email\" : \"frodo.bolsonazos@gmail.com\" , \"name\" : \"Alfredo Gallego\" , \"imageUrl\" : \"https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg?sz=250\"} , { \"_id\" : \"55103b38da06439be39ceecd\" , \"googleId\" : \"104611636054460643894\" , \"email\" : \"jmontoro21@gmail.com\" , \"name\" : \"josé Fernández Montoro\" , \"imageUrl\" : \"https://lh3.googleusercontent.com/-pZZ7SAekdUs/AAAAAAAAAAI/AAAAAAAAAJM/fiGv2WJ1pSE/photo.jpg?sz=250\"}]}";
             String json = gson.toJson(group, Group.class);
-
             JSONObject group = new JSONObject(json);
-            System.out.println("pantalla "+group.toString());
             new RestServicePost(group).execute("http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/group/create");
+            Intent intent = new Intent(this, MenuActivity.class);
+            intent.putExtra("user", user);
+            startActivity(intent);
         } catch (JSONException eq) {
             eq.printStackTrace();
         }

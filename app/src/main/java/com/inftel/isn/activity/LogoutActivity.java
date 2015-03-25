@@ -1,12 +1,10 @@
 package com.inftel.isn.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -17,33 +15,14 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.plus.Plus;
 
-import com.google.android.gms.plus.model.people.Person;
-import com.google.gson.Gson;
-import com.inftel.isn.model.User;
-import com.inftel.isn.request.RestServicePost;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-public class LoginGoogleActivity extends Activity implements
+public class LogoutActivity extends Activity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
-
-    private String email;
-    private String name;
-    private String googleId;
-    private String imgUrl;
-    public static final String USER_KEY = "es.inftel.isn.user.google.id.email";
-    public static final String USER_NAME = "es.inftel.isn.user.google.id.name";
-    public static final String USER_ID = "es.inftel.isn.user.google.id.id";
-    public static final String USER_URL = "es.inftel.isn.user.google.id.url";
-    private static final String TAG = "LoginGoogleActivity";
+    private static final String TAG = "Logout";
 
     private static final String KEY_IN_RESOLUTION = "is_in_resolution";
-
-
-    public static final String IP = "192.168.183.24";
 
     /**
      * Request code for auto Google Play Services error resolution.
@@ -66,11 +45,8 @@ public class LoginGoogleActivity extends Activity implements
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-
-            Bundle bundle=getIntent().getExtras();
             mIsInResolution = savedInstanceState.getBoolean(KEY_IN_RESOLUTION, false);
         }
     }
@@ -95,6 +71,7 @@ public class LoginGoogleActivity extends Activity implements
                     .build();
         }
         mGoogleApiClient.connect();
+
     }
 
     /**
@@ -103,10 +80,11 @@ public class LoginGoogleActivity extends Activity implements
      */
     @Override
     protected void onStop() {
+        super.onStop();
         if (mGoogleApiClient != null) {
             mGoogleApiClient.disconnect();
         }
-        super.onStop();
+
     }
 
     /**
@@ -143,47 +121,10 @@ public class LoginGoogleActivity extends Activity implements
      */
     @Override
     public void onConnected(Bundle connectionHint) {
-
-        email = Plus.AccountApi.getAccountName(mGoogleApiClient);
-
-        Person persona = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
-
-        name = persona.getDisplayName();
-        googleId = persona.getId();
-        imgUrl = persona.getImage().getUrl();
-
-        SharedPreferences prefs = this.getSharedPreferences("MYPREFERENCES", Context.MODE_PRIVATE);
-        SharedPreferences.Editor e = prefs.edit();
-        e.putString(USER_KEY, email);
-        e.putString(USER_NAME, name);
-        e.putString(USER_ID, googleId);
-        e.putString(USER_URL, imgUrl);
-        e.commit();
-
-        try {
-
-            User userData = new User();
-            userData.setEmail(email);
-            userData.setGoogleId(googleId);
-            userData.setName(name);
-            userData.setImageUrl(imgUrl);
+        Log.i(TAG, "GoogleApiClient connected");
 
 
-
-            Gson gson = new Gson();
-            String json = gson.toJson(userData, User.class);
-
-            JSONObject user = new JSONObject(json);
-
-            new RestServicePost(user).execute("http://" + IP + ":8080/InftelSocialNetwork-web/webresources/users/create");
-
-            Intent i = new Intent(this, MenuActivity.class);
-            startActivity(i);
-
-
-        } catch (JSONException eq) {
-            eq.printStackTrace();
-        }
+        closeConnection();
     }
 
     /**
@@ -230,11 +171,8 @@ public class LoginGoogleActivity extends Activity implements
     }
 
 
-
-
     public void closeConnection()
     {
-
         System.out.println(" desconexion ");
         if (mGoogleApiClient.isConnected()) {
 
@@ -248,14 +186,14 @@ public class LoginGoogleActivity extends Activity implements
                             System.out.println(" desconexion 22 ");
                             Log.e(TAG, "User access revoked!");
                             mGoogleApiClient.connect();
+
                         }
+
                     });
         }
 
 
-        Intent i = new Intent(this, MenuActivity.class);
+        Intent i = new Intent(this, LoginSelectionActivity.class);
         startActivity(i);
     }
-
-
 }

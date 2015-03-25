@@ -5,29 +5,29 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
+import android.widget.TableLayout;
 
 import com.google.gson.Gson;
 import com.inftel.isn.R;
 import com.inftel.isn.model.Comment;
+import com.inftel.isn.model.Group;
 import com.inftel.isn.request.DownloadImageTask;
 import com.inftel.isn.request.RestServicePost;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.protocol.HTTP;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,48 +45,33 @@ public class CreateCommentActivity extends Activity {
     private final static String NOT_AN_IMAGE = "URL is not a valid image";
     private final static String CREATE_PROFILE_POST_URL = "http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/profilecomments/insert?userEmail=";
     public final static String COMMENT_TYPE = "com.inftel.isn.activity.type.blablabla";
+    private final static String CREATE_NOTA_URL = "http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/privatecomment/insert?userEmail=";
+    private final static String CREATE_COMMENT_FOR_GROUP = "http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/groupcomment/insertcomment";
     private ImageView addImageView;
     private ImageView youtubeImage;
     private String image = "";
     private String youtube = "";
     private Intent intent;
+    private Switch mySwitch;
+    private SharedPreferences prefs;
+    private String emailLogin = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_comment);
-        Comment newComment = new Comment();
-        newComment.setText("mierda");
-        newComment.setImageUrl("asfdasfas");
-        newComment.setVideoUrl("asdasfasfsd");
-
-        Gson gsonComment = new Gson();
-        String jsonComment = gsonComment.toJson(newComment, Comment.class);
-        JSONObject comment = null;
-        try {
-            comment = new JSONObject(jsonComment);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        new RestServicePost(comment).execute("http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/profilecomments/insert/alfredo.gallego.gonzalez@gmail.com");
-        System.out.println("parate");
-
-
+        mySwitch =  (Switch) findViewById(R.id.switch1);
+        setSwitchStatus();
+        addImageView = (ImageView) findViewById(R.id.addImageToComment);
+        androidKeyboard();
+        prefs = this.getSharedPreferences("MYPREFERENCES", Context.MODE_PRIVATE);
+        emailLogin = prefs.getString(LoginGoogleActivity.USER_KEY, "");
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
-        addImageView = (ImageView) findViewById(R.id.addImageToComment);
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        }
-        EditText edtView=(EditText)findViewById(R.id.postContent);
-        edtView.setInputType(0);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
         return true;
     }
 
@@ -129,21 +114,45 @@ public class CreateCommentActivity extends Activity {
         }
 
         Gson gsonComment = new Gson();
-        String jsonComment = gsonComment.toJson(comment, Comment.class);
+        String jsonCommentAsString = gsonComment.toJson(comment, Comment.class);
         JSONObject jsoncomment = null;
-        try {
-            jsoncomment = new JSONObject(jsonComment);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
         if(tipo.equals("publico")){
-            //llamada rest publicComment
+            try {
+                jsoncomment = new JSONObject(jsonCommentAsString);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            Log.i("nc","profile");
+            new RestServicePost(jsoncomment).execute(CREATE_PROFILE_POST_URL+emailLogin);
         }else if(tipo.equals("grupo")){
-            //llamada rest grupoComment
+            Log.i("nc","grupo");
+            Intent i = getIntent();
+            Group g;
+            g = i.getParcelableExtra("GRUPO");
+            Gson gsonGroup = new Gson();
+            String jsonGroup = gsonGroup.toJson(g, Group.class);
+            JSONObject jsongroup = null;
+            try {
+                jsongroup = new JSONObject(jsonGroup);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            new RestServicePost(jsongroup).execute(CREATE_COMMENT_FOR_GROUP);
         }else if(tipo.equals("nota")){
+            try {
+                jsoncomment = new JSONObject(jsonCommentAsString);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            Log.i("nc","private-nota");
             //llamda rest nota privada
+            new RestServicePost(jsoncomment).execute(CREATE_NOTA_URL+emailLogin);
         }
-        new RestServicePost(jsoncomment).execute(CREATE_PROFILE_POST_URL+"CERVEZA");
+
+        Intent intent = new Intent(this, MenuActivity.class);
+        this.startActivity(intent);
+
 
     }
 
@@ -242,6 +251,21 @@ public class CreateCommentActivity extends Activity {
 
         alert.show();
 
+    }
+
+    public void setSwitchStatus(){
+        mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
+                if (isChecked) {
+                    xxlKeyboard();
+                } else {
+                    androidKeyboard();
+                }
+            }
+        });
     }
 
     // mostrar mensaje de error
@@ -394,39 +418,40 @@ public class CreateCommentActivity extends Activity {
         content.refreshDrawableState();
     }
 
-    private class HttpRequestTask extends AsyncTask<Comment, Void, Void> {
-        @Override
-        protected Void doInBackground(Comment... params) {
-            HttpResponse httpResponse= null;
-            try {
-               // Comment micomentario = params[0];
-                Gson gson = new Gson();
-                String json = gson.toJson(params[0], Comment.class);
-
-                HttpPost httpPost = new HttpPost(CREATE_PROFILE_POST_URL);
-                StringEntity entity = new StringEntity(json, "UTF-8");
-                entity.setContentType("application/json;charset=UTF-8");
-                entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
-
-                httpPost.setHeader("Accept", "application/json");
-                httpPost.setHeader("Content-type", "application/json");
-                httpPost.setEntity(entity);
-                httpResponse = new DefaultHttpClient().execute(httpPost);
-
-
-
-              //  Log.e(httpResponse.getStatusLine());
-
-            } catch (Exception e) {
-                Log.e("CreatePostActivity", e.getMessage(), e);
-            }
-
-            return null;
+    private void xxlKeyboard(){
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
+        EditText edtView=(EditText)findViewById(R.id.postContent);
+        edtView.setInputType(0);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        protected void onPostExecute(Void nothing) {
-            Log.i("async","done");
+
+        TableLayout tl = (TableLayout)findViewById(R.id.table);
+        tl.setVisibility(View.VISIBLE);
+        Button botonEnviarComentario = (Button)findViewById(R.id.enviarcomentarionormal);
+        botonEnviarComentario.setVisibility(View.GONE);
+    }
+
+    private void androidKeyboard(){
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.SHOW_FORCED);
         }
+        EditText edtView=(EditText)findViewById(R.id.postContent);
+        edtView.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        if(edtView.requestFocus()) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
+        TableLayout tl = (TableLayout)findViewById(R.id.table);
+        tl.setVisibility(View.GONE);
+
+        Button botonEnviarComentario = (Button)findViewById(R.id.enviarcomentarionormal);
+        botonEnviarComentario.setVisibility(View.VISIBLE);
     }
 }

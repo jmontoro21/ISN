@@ -16,9 +16,10 @@
         android:editable="true"
         android:gravity="start"
         android:hint="@string/write_your_entry_here"
-        android:inputType="text|textMultiLine"
+        android:inputType="textMultiLine"
         android:lines="3"
-        android:maxLines="3" />
+        android:maxLines="3"
+        android:minLines="3" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -33,7 +34,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:clickable="true"
-            android:contentDescription="añadir imagen"
+            android:contentDescription="@string/anadirImagen"
             android:onClick="changeImage"
             android:src="@drawable/addimage" />
 
@@ -45,10 +46,29 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:clickable="true"
-            android:contentDescription="añadir URL youtube"
+            android:contentDescription="@string/youtube"
             android:onClick="changeYoutube"
             android:src="@drawable/youtube" />
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/switch1"
+            android:showText="false"
+            android:textOn="XXL"
+            android:textOff="M"
+            style="@style/Base.TextAppearance.AppCompat.Small" />
+        <Button
+            android:id="@+id/enviarcomentarionormal"
+            android:layout_width="0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@color/material_deep_teal_500"
+            android:onClick="keyClicked"
+            android:text="POST"
+            android:visibility="invisible"/>
     </LinearLayout>
+
 
 
     <TableLayout
@@ -429,5 +449,6 @@
 
 
     </TableLayout>
+
 
 </LinearLayout>

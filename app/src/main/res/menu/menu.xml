@@ -12,6 +12,15 @@
         android:visible="false" />
     <item android:id="@+id/createGroup"
         android:title="Crear grupo"/>
+    <item android:id="@+id/logout"
+        android:title="Logout"
+        android:orderInCategory="100"/>
     <item android:id="@+id/buscarGroup"
-        android:title="buscar grupo"/>
+        android:title="Buscar grupo"/>
+    <item android:id="@+id/createQR"
+        android:title="Generar QR"/>
+    <item android:id="@+id/seguidos"
+        android:title="Seguidos"/>
+    <item android:id="@+id/siguiendo"
+        android:title="Siguiendo"/>
 </menu>
