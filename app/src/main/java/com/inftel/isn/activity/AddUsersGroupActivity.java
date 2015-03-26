@@ -20,8 +20,6 @@ import org.json.JSONObject;
 public class AddUsersGroupActivity extends Activity{
 
     private Group group;
-    private User user;
-    private Activity activity;
     private ListView listView;
     private UsersAddedListAdapter adapter;
 
@@ -61,7 +59,6 @@ public class AddUsersGroupActivity extends Activity{
             JSONObject group = new JSONObject(json);
             new RestServicePost(group).execute("http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/group/create");
             Intent intent = new Intent(this, MenuActivity.class);
-            intent.putExtra("user", user);
             startActivity(intent);
         } catch (JSONException eq) {
             eq.printStackTrace();

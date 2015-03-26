@@ -12,16 +12,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.inftel.isn.R;
 import com.inftel.isn.activity.LoginGoogleActivity;
 import com.inftel.isn.model.Group;
+import com.inftel.isn.model.User;
 import com.inftel.isn.request.DownloadImageTask;
 import com.inftel.isn.request.RestServiceDeleteGroup;
 import com.inftel.isn.request.RestServiceExitGroup;
+import com.inftel.isn.request.RestServiceGet;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by loubna on 23/03/2015.
@@ -29,7 +33,7 @@ import java.util.List;
 public class GroupAdapter extends BaseAdapter {
     private Context context;
     private  List<Group> objects;
-
+    public static final String IP = "192.168.183.24";
 
 
     public GroupAdapter(List<Group> objetos, Context context) {
@@ -100,8 +104,19 @@ public class GroupAdapter extends BaseAdapter {
             public void onClick(View v)
             {
                 new RestServiceExitGroup(group).execute(email);
-                Toast.makeText(context, "Has dejado el grupo " + group.getName(), Toast.LENGTH_SHORT).show();
-                notifyDataSetChanged();
+                try {
+                    String respStr = new RestServiceGet().execute("http://"+IP+":8080/InftelSocialNetwork-web/webresources/users/email?email=" + email).get();
+                    Gson gson = new Gson();
+                    User user = gson.fromJson(respStr, User.class);
+                    group.removeUserFromList(user);
+                    Toast.makeText(context, "Has dejado el grupo " + group.getName(), Toast.LENGTH_SHORT).show();
+                    notifyDataSetChanged();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
 

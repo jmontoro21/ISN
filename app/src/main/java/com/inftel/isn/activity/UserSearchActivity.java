@@ -26,18 +26,20 @@ import java.util.ArrayList;
 
 public class UserSearchActivity extends ListActivity {
 
-    private Group group=null;
+    private Group group;
     int textlength=0;
     private ArrayList<User> array_sort;
     private EditText editText;
     private ListView listView;
-    private ArrayList<User> users = new ArrayList<>();
-    public ArrayList<User> listUsersGroup = new ArrayList<>();
+    private ArrayList<User> users;
+    public ArrayList<User> listUsersGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_search);
+
+        users = new ArrayList<>();
 
         requestUsersBBDD();
 
@@ -82,20 +84,30 @@ public class UserSearchActivity extends ListActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3)
             {
-                if(listUsersGroup.contains(array_sort.get(position)))
-                {
+                if(listUsersGroup.contains(array_sort.get(position))){
                     group.removeUserFromList(array_sort.get(position));
                     arg1.setBackgroundColor(Color.TRANSPARENT);
                     Toast.makeText(getApplicationContext(), array_sort.get(position).getName()+" eliminado", Toast.LENGTH_SHORT).show();
                 }
-                else
-                {
+                else{
                     group.addUserToList(array_sort.get(position));
                     arg1.setBackgroundColor(Color.parseColor("#81F781"));
                     Toast.makeText(getApplicationContext(), array_sort.get(position).getName()+" añadido", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
     }
 
     private void requestUsersBBDD(){
