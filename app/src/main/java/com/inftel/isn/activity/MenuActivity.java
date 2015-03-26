@@ -141,9 +141,6 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
                 startActivity(intent);
                 return true;
 
-            case R.id.buscarGroup:
-                return true;
-
             case R.id.createQR:
                 generateQR();
                 return true;

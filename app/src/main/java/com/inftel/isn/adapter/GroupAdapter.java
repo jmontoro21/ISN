@@ -34,7 +34,7 @@ public class GroupAdapter extends BaseAdapter {
     private Context context;
     private  List<Group> objects;
     public static final String IP = "192.168.183.24";
-
+    private Group group;
 
     public GroupAdapter(List<Group> objetos, Context context) {
         this.context = context;
@@ -68,7 +68,7 @@ public class GroupAdapter extends BaseAdapter {
         }
 
         TextView textTitulo = (TextView) convertView.findViewById(R.id.titulo_item);
-        final Group group= objects.get(position);
+        group= objects.get(position);
         textTitulo.setText(group.getName());
         TextView textDescription = (TextView) convertView.findViewById(R.id.descripcion_item);
         ImageView imageView = (ImageView) convertView.findViewById(R.id.itemImg);
@@ -111,6 +111,7 @@ public class GroupAdapter extends BaseAdapter {
                     group.removeUserFromList(user);
                     Toast.makeText(context, "Has dejado el grupo " + group.getName(), Toast.LENGTH_SHORT).show();
                     notifyDataSetChanged();
+
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {
