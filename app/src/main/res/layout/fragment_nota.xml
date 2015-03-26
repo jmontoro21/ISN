@@ -1,37 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <FrameLayout
-        android:layout_width="match_parent"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.inftel.isn.activity.AddUsersGroupActivity">
+
+
+    <ListView
+        android:id="@+id/itemList"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <ListView
-            android:id="@+id/itemList"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:padding="4dp"
-            android:scrollbars="none"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="5.0sp"/>
+        android:padding="4dp"
+        android:scrollbars="none"
+        android:drawSelectorOnTop="true"/>
 
-        <ImageButton
-            android:id="@+id/fab_image_button_nota"
-            android:layout_width="@dimen/fab_button_diameter"
-            android:layout_height="@dimen/fab_button_diameter"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/fab_button_margin_bottom"
-            android:layout_marginRight="@dimen/fab_button_margin_right"
-            android:background="@drawable/fab_shape"
-            android:src="@drawable/fab_ic_add"
-            android:tint="@android:color/white"
-            android:onClick="fab_nota"
-            android:layout_gravity="right|bottom" />
-    </FrameLayout>
+    <ImageButton
+        android:id="@+id/fab_image_button_home"
+        android:layout_width="@dimen/fab_button_diameter"
+        android:layout_height="@dimen/fab_button_diameter"
+        android:layout_marginBottom="@dimen/fab_button_margin_bottom"
+        android:layout_marginRight="@dimen/fab_button_margin_right"
+        android:background="@drawable/fab_shape"
+        android:src="@drawable/fab_ic_add"
+        android:tint="@android:color/white"
+        android:onClick="fab_nota"
+        android:scaleType="centerInside"
+        android:layout_gravity="right|bottom"/>
 
 
-</LinearLayout>
+</FrameLayout>
