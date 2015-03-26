@@ -24,6 +24,7 @@
         android:layout_height="200dp"
         android:id="@+id/button5"
         android:text="@string/QRLogin"
+        android:background="@drawable/qr2"
         android:onClick="qrLogin"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
