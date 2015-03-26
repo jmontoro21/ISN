@@ -1,31 +1,27 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context="com.inftel.isn.activity.AddUsersGroupActivity">
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.inftel.isn.activity.AddUsersGroupActivity">
 
+    <ListView
+        android:id="@+id/itemList"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:scrollbars="none"
+        android:drawSelectorOnTop="true"/>
 
-<ListView
-    android:id="@+id/itemList"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:padding="4dp"
-    android:scrollbars="none"
-    android:divider="@android:color/transparent"
-    android:dividerHeight="5.0sp"
-    android:drawSelectorOnTop="true"
-    android:layout_marginTop="40dp" />
-
-<ImageButton
-    android:id="@+id/fab_image_button_home"
-    android:layout_width="@dimen/fab_button_diameter"
-    android:layout_height="@dimen/fab_button_diameter"
-    android:layout_marginBottom="@dimen/fab_button_margin_bottom"
-    android:layout_marginRight="@dimen/fab_button_margin_right"
-    android:background="@drawable/fab_shape"
-    android:src="@drawable/fab_ic_add"
-    android:tint="@android:color/white"
-    android:onClick="fab_home"
-    android:scaleType="centerInside"
-    android:layout_gravity="right|bottom"/>
+    <ImageButton
+        android:id="@+id/fab_image_button_home"
+        android:layout_width="@dimen/fab_button_diameter"
+        android:layout_height="@dimen/fab_button_diameter"
+        android:layout_marginBottom="@dimen/fab_button_margin_bottom"
+        android:layout_marginRight="@dimen/fab_button_margin_right"
+        android:background="@drawable/fab_shape"
+        android:src="@drawable/fab_ic_add"
+        android:tint="@android:color/white"
+        android:onClick="fab_home"
+        android:scaleType="centerInside"
+        android:layout_gravity="right|bottom"/>
 
 </FrameLayout>
