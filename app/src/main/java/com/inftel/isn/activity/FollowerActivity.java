@@ -2,20 +2,21 @@ package com.inftel.isn.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.inftel.isn.R;
-import com.inftel.isn.adapter.FollowListAdapter;
 import com.inftel.isn.adapter.FollowerListAdapter;
 import com.inftel.isn.adapter.UsersAddedListAdapter;
 import com.inftel.isn.model.Following;
 import com.inftel.isn.model.User;
 import com.inftel.isn.request.RestServiceGet;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,6 +32,8 @@ public class FollowerActivity extends Activity {
     private ListView listView;
     private String emailLogin;
     private User user;
+    private Following followings;
+    Following siguiendo = new Following();
 
 //Gente que sigo
     private ArrayList<User> users = new ArrayList<>();
@@ -38,14 +41,13 @@ public class FollowerActivity extends Activity {
     private UsersAddedListAdapter adapter;
 
     private Following requestFollowerBBDD() {
-        Following siguiendo = new Following();
+
         try {
             String respStr = new RestServiceGet().execute("http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/following/user?email=" + emailLogin).get();
 
             JSONObject respJSON = new JSONObject(respStr);
             Gson gson = new Gson();
             siguiendo = gson.fromJson(respJSON.toString(), Following.class);
-
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -66,10 +68,18 @@ public class FollowerActivity extends Activity {
             emailLogin = prefs.getString(LoginGoogleActivity.USER_KEY, "");
         }
 
-        Following followings = requestFollowerBBDD();
+        followings = requestFollowerBBDD();
         listView = (ListView)findViewById(R.id.list_follower);
 
             listView.setAdapter(new FollowerListAdapter( followings.getFollowing(), this));
 
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3)
+                {
+                    Intent i = new Intent(getApplicationContext(), ListPublicCommentActivity.class);
+                    i.putExtra(ListPublicCommentActivity.EMAIL_USER_PROFILE, siguiendo.getUser().getEmail());
+                    startActivity(i);
+                }
+            });
     }
 }

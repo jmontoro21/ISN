@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.inftel.isn.R;
-import com.inftel.isn.model.Following;
 import com.inftel.isn.model.User;
 import com.squareup.picasso.Picasso;
 
@@ -31,7 +30,8 @@ public class FollowerListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return objects.size();
+        if(objects!=null) return objects.size();
+        return 0;
     }
 
     @Override
