@@ -22,7 +22,9 @@ public class RestServiceDeleteGroup extends AsyncTask<String, Integer, Void> {
             Gson gson = new Gson();
             String json = gson.toJson(group, Group.class);
             JSONObject groupJson = new JSONObject(json);
-            new RestServicePost(groupJson).execute("http://"+IP+":8080/InftelSocialNetwork-web/webresources/group/delete?admin=" + urls[0] + "&"+group.getName());
+            String name = group.getName();
+            new RestServicePost(groupJson).execute("http://"+IP+":8080/InftelSocialNetwork-web/webresources/group/delete?admin=" + urls[0] + "&namegroup="+group.getName());
+            System.out.println("Nada");
         } catch (JSONException e) {
             e.printStackTrace();
         }

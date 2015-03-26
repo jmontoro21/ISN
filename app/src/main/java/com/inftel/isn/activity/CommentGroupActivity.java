@@ -49,8 +49,13 @@ public class CommentGroupActivity extends Activity {
 
     public void createCommentGroup(View view ){
         Intent intent = new Intent (this, CreateCommentActivity.class);
+
+        intent.putExtra(CreateCommentActivity.COMMENT_TYPE, "grupo");
         intent.putExtra("GRUPO", group);
         startActivity(intent);
+
+
+
     }
 
     public void editGroup(View view ){
