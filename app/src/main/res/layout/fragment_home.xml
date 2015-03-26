@@ -3,13 +3,6 @@ xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_paren
 android:layout_height="match_parent"
 tools:context="com.inftel.isn.activity.AddUsersGroupActivity">
 
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Lista de mensajes"
-    android:textSize="25dp"
-    android:textIsSelectable="true"
-    android:layout_marginLeft="10dp" />
 
 <ListView
     android:id="@+id/itemList"
@@ -23,7 +16,7 @@ tools:context="com.inftel.isn.activity.AddUsersGroupActivity">
     android:layout_marginTop="40dp" />
 
 <ImageButton
-    android:id="@+id/fab_image_button"
+    android:id="@+id/fab_image_button_home"
     android:layout_width="@dimen/fab_button_diameter"
     android:layout_height="@dimen/fab_button_diameter"
     android:layout_marginBottom="@dimen/fab_button_margin_bottom"
@@ -31,7 +24,7 @@ tools:context="com.inftel.isn.activity.AddUsersGroupActivity">
     android:background="@drawable/fab_shape"
     android:src="@drawable/fab_ic_add"
     android:tint="@android:color/white"
-    android:onClick="intentCreated"
+    android:onClick="fab_home"
     android:scaleType="centerInside"
     android:layout_gravity="right|bottom"/>
 
