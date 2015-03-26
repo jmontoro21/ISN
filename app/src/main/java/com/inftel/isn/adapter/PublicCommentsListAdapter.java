@@ -12,21 +12,21 @@ import android.widget.TextView;
 
 import com.inftel.isn.R;
 import com.inftel.isn.model.Comment;
-import com.inftel.isn.model.PrivateComments;
+import com.inftel.isn.model.ProfileComments;
 import com.inftel.isn.request.DownloadImageTask;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class PrivateCommentsListAdapter extends BaseAdapter {
+public class PublicCommentsListAdapter extends BaseAdapter {
     LayoutInflater inflater;
     ArrayList<Comment> objects;
     Activity activity;
-    PrivateComments perfil;
+    ProfileComments perfil;
 
     String emailGoogle;
 
-    public PrivateCommentsListAdapter(PrivateComments perfil, String emailGoogle, ArrayList<Comment> objetos, Activity activity) {
+    public PublicCommentsListAdapter(ProfileComments perfil, String emailGoogle, ArrayList<Comment> objetos, Activity activity) {
         this.activity = activity;
         inflater = LayoutInflater.from(activity);
         this.objects = objetos;
@@ -51,7 +51,7 @@ public class PrivateCommentsListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View itemView = inflater.inflate(R.layout.private_comment_item, parent, false);
+        View itemView = inflater.inflate(R.layout.public_comment_item_home, parent, false);
 
         ImageView ImgPerfil = (ImageView) itemView.findViewById(R.id.userImg);
         if(objects!=null && objects.get(position) != null && objects.get(position).getAuthor() != null
@@ -62,10 +62,14 @@ public class PrivateCommentsListAdapter extends BaseAdapter {
 
         TextView textNombre = (TextView) itemView.findViewById(R.id.name);
         textNombre.setText(objects.get(position).getAuthor().getName());
+
         TextView textFecha = (TextView) itemView.findViewById(R.id.date);
+
         SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
 
-        textFecha.setText(formateador.format(objects.get(position).getCreationDate()));
+        textFecha.setText( formateador.format(objects.get(position).getCreationDate()));
+
+
         TextView textDescription = (TextView) itemView.findViewById(R.id.description);
         textDescription.setText(objects.get(position).getText());
 
@@ -76,9 +80,9 @@ public class PrivateCommentsListAdapter extends BaseAdapter {
         }
 
         if(objects.get(position).getVideoUrl() != null && !objects.get(position).getVideoUrl().isEmpty() ) {
-            WebView videoComentario = (WebView) itemView.findViewById(R.id.videoComment);
+            WebView viedoComentario = (WebView) itemView.findViewById(R.id.videoComment);
 
-            WebSettings settings = videoComentario.getSettings();
+            WebSettings settings = viedoComentario.getSettings();
             settings.setJavaScriptEnabled(true);
             settings.setAllowFileAccess(true);
             settings.setPluginState(WebSettings.PluginState.ON);
@@ -89,7 +93,7 @@ public class PrivateCommentsListAdapter extends BaseAdapter {
             html += "<iframe width=\"560\" height=\"315\" src=\"http://www.youtube.com/embed/"+ objects.get(position).getVideoUrl() +"?rel=0\" frameborder=\"0\" allowfullscreen></iframe>";
             html += "</body></html>";
 
-            videoComentario.loadData(html, "text/html", null);
+            viedoComentario.loadData(html, "text/html", null);
 
         }
 

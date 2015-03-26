@@ -20,7 +20,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.inftel.isn.R;
 import com.inftel.isn.activity.LoginGoogleActivity;
-import com.inftel.isn.adapter.PublicsUsersCommentsListAdapter;
+import com.inftel.isn.adapter.PublicCommentsListAdapter;
 import com.inftel.isn.model.Comment;
 import com.inftel.isn.model.ProfileComments;
 import com.inftel.isn.request.RestServiceGet;
@@ -41,7 +41,7 @@ public class HomeFragment extends Fragment {
         this.emailLogin = emailLogin;
     }
 
-    private PublicsUsersCommentsListAdapter adapter;
+    private PublicCommentsListAdapter adapter;
     private ProfileComments perfil;
     private ListView eventListView;
     private Activity act;
@@ -136,7 +136,7 @@ public class HomeFragment extends Fragment {
 
                     perfil.getCommentsList().removeAll(Collections.singleton(null));
 
-                    adapter = new PublicsUsersCommentsListAdapter(perfil, emailLogin, perfil.getCommentsList(), act);
+                    adapter = new PublicCommentsListAdapter(perfil, emailLogin, perfil.getCommentsList(), act);
 
                     eventListView.setAdapter(adapter);
 

@@ -148,30 +148,6 @@ public class NotaFragment extends Fragment {
     }
 
 
-    public void deleteItemNota(View v) {
 
-        try {
-            Gson gson = new Gson();
-
-            String json = gson.toJson(perfil.getComment((int) v.getTag()),Comment.class);
-
-            json = json.replaceAll("creationDate\":\".*?\"","creationDate\":1426701282429");
-
-            JSONObject comentario = new JSONObject(json);
-
-            String formatEmail = emailLogin.replaceAll("\\.", "___");
-
-            new RestServicePost(comentario).execute("http://" +IP+ ":8080/InftelSocialNetwork-web/webresources/privatecomment/deleteComment?userEmail=" + formatEmail);
-
-            perfil.removecommentsList((int) v.getTag());
-
-            Toast data = Toast.makeText(getActivity(), "Comment removed", Toast.LENGTH_LONG);
-            data.show();
-            adapter.notifyDataSetChanged();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
 }

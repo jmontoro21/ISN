@@ -3,13 +3,6 @@ xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_paren
 android:layout_height="match_parent"
 tools:context="com.inftel.isn.activity.AddUsersGroupActivity">
 
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Lista de mensajes"
-    android:textSize="25dp"
-    android:textIsSelectable="true"
-    android:layout_marginLeft="10dp" />
 
 <ListView
     android:id="@+id/itemList"
