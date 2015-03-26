@@ -1,7 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MenuActivity">
+    tools:context=".MenuActivity"
+    app:theme="@style/Theme.AppCompat.Light.DarkActionBar">
     <item android:id="@+id/loginGoogle"
         android:title="Login"
         android:orderInCategory="100"/>
@@ -20,5 +21,5 @@
     <item android:id="@+id/seguidos"
         android:title="Seguidos"/>
     <item android:id="@+id/siguiendo"
-        android:title="Siguiendo"/>
+        android:title="Siguiendo">@color/my_black_icon_color</item>
 </menu>
