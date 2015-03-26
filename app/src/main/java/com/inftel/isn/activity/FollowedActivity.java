@@ -2,14 +2,16 @@ package com.inftel.isn.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.inftel.isn.R;
 import com.inftel.isn.adapter.FollowListAdapter;
-import com.inftel.isn.adapter.UsersAddedListAdapter;
 import com.inftel.isn.model.Following;
 import com.inftel.isn.model.User;
 import com.inftel.isn.request.RestServiceGet;
@@ -25,14 +27,10 @@ import java.util.List;
  */
 public class FollowedActivity extends Activity {
 
-
     private ListView listView;
     private String emailLogin;
     private User user;
-
-    private ArrayList<User> users = new ArrayList<>();
-
-    private UsersAddedListAdapter adapter;
+    private List<Following> seguidores;
 
     private List<Following> requestFollowedBBDD(){
         try {
@@ -40,7 +38,7 @@ public class FollowedActivity extends Activity {
             String respStr = new RestServiceGet().execute("http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/following/followed?email="+emailLogin).get();///email/"+user.getEmail()
             System.out.println("respuesta es: "+ respStr);
             if(!respStr.isEmpty() && (respStr != null)){
-                List<Following> seguidores = new ArrayList<>();
+                seguidores = new ArrayList<>();
                 JSONArray respJSON = new JSONArray(respStr);
                 Gson gson = new Gson();
 
@@ -78,7 +76,14 @@ public class FollowedActivity extends Activity {
             listView.setAdapter(new FollowListAdapter(followings, this));
         }
 
-
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3)
+            {
+                Intent i = new Intent(getApplicationContext(), ListPublicCommentActivity.class);
+                i.putExtra(ListPublicCommentActivity.EMAIL_USER_PROFILE, seguidores.get(position).getUser().getEmail());
+                startActivity(i);
+            }
+        });
 
     }
 }

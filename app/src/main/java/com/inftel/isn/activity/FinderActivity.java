@@ -4,7 +4,6 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,12 +11,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.inftel.isn.R;
 import com.inftel.isn.adapter.UsersListAdapter;
-import com.inftel.isn.model.Group;
 import com.inftel.isn.model.User;
 import com.inftel.isn.request.RestServiceGet;
 
@@ -26,9 +23,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class UserSearchActivity extends ListActivity {
+public class FinderActivity extends ListActivity {
     public static final String IP = "192.168.183.24";
-    private Group group;
     int textlength=0;
     private ArrayList<User> array_sort;
     private EditText editText;
@@ -39,23 +35,18 @@ public class UserSearchActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_search);
+        setContentView(R.layout.finder);
 
         users = new ArrayList<>();
         requestUsersBBDD();
 
-        Gson gson = new Gson();
-        String strObj = getIntent().getStringExtra("group");
-        group = gson.fromJson(strObj, Group.class);
-
-        listUsersGroup = (ArrayList) group.getUser();
+        listUsersGroup = new ArrayList<>();
+        array_sort = new ArrayList<>(users);
 
         listView = (ListView)findViewById(android.R.id.list);
         editText = (EditText)findViewById(R.id.editText3);
 
-        array_sort = new ArrayList<> (users);
-
-        setListAdapter(new UsersListAdapter(array_sort, listUsersGroup, UserSearchActivity.this));
+        setListAdapter(new UsersListAdapter(array_sort, listUsersGroup, FinderActivity.this));
 
         editText.addTextChangedListener(new TextWatcher()
         {
@@ -78,23 +69,16 @@ public class UserSearchActivity extends ListActivity {
                         }
                     }
                 }
-                setListAdapter(new UsersListAdapter(array_sort, listUsersGroup, UserSearchActivity.this));
+                setListAdapter(new UsersListAdapter(array_sort, listUsersGroup, FinderActivity.this));
             }
         });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3)
             {
-                if(listUsersGroup.contains(array_sort.get(position))){
-                    group.removeUserFromList(array_sort.get(position));
-                    arg1.setBackgroundColor(Color.TRANSPARENT);
-                    Toast.makeText(getApplicationContext(), array_sort.get(position).getName()+" eliminado", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    group.addUserToList(array_sort.get(position));
-                    arg1.setBackgroundColor(Color.parseColor("#81F781"));
-                    Toast.makeText(getApplicationContext(), array_sort.get(position).getName()+" añadido", Toast.LENGTH_SHORT).show();
-                }
+                Intent i = new Intent(getApplicationContext(), ListPublicCommentActivity.class);
+                i.putExtra(ListPublicCommentActivity.EMAIL_USER_PROFILE,array_sort.get(position).getEmail());
+                startActivity(i);
             }
         });
     }
@@ -130,13 +114,6 @@ public class UserSearchActivity extends ListActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public void intentUsersGroup(View v) {
-        Gson gson = new Gson();
-        Intent intent = new Intent(this, AddUsersGroupActivity.class);
-        intent.putExtra("usersGroup", gson.toJson(group));
-        startActivity(intent);
     }
 }
 

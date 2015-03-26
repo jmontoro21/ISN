@@ -46,12 +46,10 @@ public class ListPublicCommentActivity extends Activity {
 
     public static final String EMAIL_USER_PROFILE = "es.inftel.isn.user.google.id.nameUser";
     public static final String IP = "192.168.1.123";
-
     private TextView userName;
     private ImageView imgProfile;
     private  String emailProfile;
     private  String emailLogin;
-
     private ListView listView;
     private PublicsUsersCommentsListAdapter adapter;
     private ProfileComments perfil;
@@ -74,7 +72,6 @@ public class ListPublicCommentActivity extends Activity {
     // carga el perfil del usuario
     public void loadProfile() {
         SharedPreferences prefs = this.getSharedPreferences("MYPREFERENCES", Context.MODE_PRIVATE);
-
         Intent intent = this.getIntent();
 
         // Email del perfil a cargar
@@ -88,8 +85,6 @@ public class ListPublicCommentActivity extends Activity {
         if (prefs.contains(LoginGoogleActivity.USER_KEY)) {
             emailLogin = prefs.getString(LoginGoogleActivity.USER_KEY, "");
         }
-
-
 
         userName = (TextView) this.findViewById(R.id.PublicCommentNameProfile);
         imgProfile = (ImageView) this.findViewById(R.id.PublicCommentImgProfile);
@@ -105,32 +100,17 @@ public class ListPublicCommentActivity extends Activity {
                 new DownloadImageTask(imgProfile).execute(prefs.getString(LoginGoogleActivity.USER_URL, ""));
             }
 
-            //loadBotonSeguir(emailLogin,emailLogin);
-
-
-            System.out.println("vacio email profile " );
-            // perfil del usuario no hay boton
-            //loadBotonSeguir(emailLogin,"");
-
             // extraer lista de comentarios
             loadCommentsList(emailLogin);
 
-
-
         }else if(emailProfile.compareTo(emailLogin) == 0 )
         {
-            // no se muestra el perfil propio
-
-            //loadBotonSeguir(emailLogin,emailLogin);
-
             Intent i = new Intent(this, MenuActivity.class);
             startActivity(i);
         }
         else {
             try {
 
-
-                System.out.println("dentro perfilffff  " );
                 String formatEmail = emailProfile.replaceAll("\\.", "___");
                 String userGet = new RestServiceGet().execute("http://"+IP+":8080/InftelSocialNetwork-web/webresources/users/" + formatEmail).get();
 
@@ -149,24 +129,12 @@ public class ListPublicCommentActivity extends Activity {
                     User perfil = gson.fromJson(json.toString(), User.class);
 
 
-
                     userName.setText(perfil.getName());
-
                     new DownloadImageTask(imgProfile).execute(perfil.getImageUrl(), "");
 
-
                     loadBotonSeguir(emailLogin, emailProfile);
-
                     loadCommentsList(emailProfile);
-
-
                 }
-                else
-                {
-
-                }
-
-
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -186,11 +154,8 @@ public class ListPublicCommentActivity extends Activity {
         String formatEmail = email.replaceAll("\\.", "___");
         String respJSON = null;
 
-
         try {
             respJSON = new RestServiceGet().execute("http://"+IP+":8080/InftelSocialNetwork-web/webresources/profilecomments/email?email=" + formatEmail).get();
-
-            System.out.println("el json esss " + respJSON);
 
             JSONObject json = null;
 
@@ -215,27 +180,13 @@ public class ListPublicCommentActivity extends Activity {
             if (nuevo.length() != 0) {
                 for (int i = 0; i < nuevo.length(); i++) {
                     JSONObject object = null;
-
-                    object = nuevo.getJSONObject(i);
-
-
-                    //perfil = gson.fromJson(respJSON, ProfileComments.class);
                 }
-
             }
             perfil = gson.fromJson(respJSON, ProfileComments.class);
-
-            System.out.println("email " + email);
-            System.out.println("perfil " + perfil.getUserEmail());
-
             Collections.reverse(perfil.getCommentsList());
-
             perfil.getCommentsList().removeAll(Collections.singleton(null));
-
             listView = (ListView) findViewById(R.id.itemList);
             adapter = new PublicsUsersCommentsListAdapter(perfil, emailLogin, perfil.getCommentsList(), this);
-
-            System.out.println("zzsz" + adapter.toString());
 
             listView.setAdapter(adapter);
 
@@ -276,8 +227,6 @@ public class ListPublicCommentActivity extends Activity {
                 btnDSeguir = (ImageButton) this.findViewById(R.id.DejarDeSeguir);
                 btnDSeguir.setVisibility(View.INVISIBLE);
             }
-
-
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -290,44 +239,18 @@ public class ListPublicCommentActivity extends Activity {
     public void deleteItems(View v) {
         try {
 
-
-
-       /* GsonBuilder builder = new GsonBuilder();
-
-// Register an adapter to manage the date types as long values
-        builder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
-            public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-                return new Date(json.getAsJsonPrimitive().getAsLong());
-            }
-        });
-
-        Gson gson = builder.create();
-*/
             Gson gson = new Gson();
-
-
             String json = gson.toJson(perfil.getComment((int) v.getTag()),Comment.class);
-
-
             json = json.replaceAll("creationDate\":\".*?\"","creationDate\":1426701282429");
-
-
-
-
             JSONObject  comenatrio = new JSONObject(json);
-
             String formatEmail = emailLogin.replaceAll("\\.", "___");
 
-
             new RestServicePost(comenatrio).execute("http://"+IP+":8080/InftelSocialNetwork-web/webresources/profilecomments/deletecomment?userEmail=" + formatEmail);
-
             perfil.removecommentsList((int) v.getTag());
 
             Toast data = Toast.makeText(this, "User removed", Toast.LENGTH_LONG);
             data.show();
             adapter.notifyDataSetChanged();
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -337,9 +260,6 @@ public class ListPublicCommentActivity extends Activity {
     public void dejardeSeguir(View v)
     {
         try {
-
-
-
 
             String emaillogin = emailLogin.replaceAll("\\.", "___");
             String emaolprofile = emailProfile.replaceAll("\\.", "___");
@@ -360,9 +280,6 @@ public class ListPublicCommentActivity extends Activity {
     public void Seguir(View v)
     {
         try {
-
-
-
             String emaillogin = emailLogin.replaceAll("\\.", "___");
             String emaolprofile = emailProfile.replaceAll("\\.", "___");
 
@@ -370,8 +287,6 @@ public class ListPublicCommentActivity extends Activity {
 
             btnSeguir.setVisibility(View.INVISIBLE);
            btnDSeguir.setVisibility(View.VISIBLE);
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -380,36 +295,23 @@ public class ListPublicCommentActivity extends Activity {
 
     public void shareItems(View v)
     {
-
-
         ImageButton botonCompartir =  (ImageButton) v.findViewById(R.id.btnShare);
         botonCompartir.getTag((int) v.getTag());
-
-
-
         botonCompartir.setVisibility(View.INVISIBLE);
-
-
         Gson gson = new Gson();
 
         String json = gson.toJson(perfil.getComment((int) v.getTag()),Comment.class);
-
         json = json.replaceAll("creationDate\":\".*?\"","creationDate\":1426701282429");
-
         JSONObject  comenatrio = null;
         try {
             comenatrio = new JSONObject(json);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         String formatEmail = emailLogin.replaceAll("\\.", "___");
-
         new RestServicePost(comenatrio).execute("http://"+IP+":8080/InftelSocialNetwork-web/webresources/profilecomments/share?userEmail=" + formatEmail);
-
         Toast data = Toast.makeText(this, "Comment Share", Toast.LENGTH_LONG);
         data.show();
-        //adapter.notifyDataSetChanged();
     }
 }
 

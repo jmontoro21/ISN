@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -111,7 +110,7 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
 
 
             case R.id.action_search:
-                intent = new Intent(this, UserSearchActivity.class);
+                intent = new Intent(this, FinderActivity.class);
                 startActivity(intent);
                 return true;
 
@@ -120,8 +119,8 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
                 startActivity(intent);
                 return true;
 
-            case R.id.loginGoogle:
-                intent = new Intent(this, LoginGoogleActivity.class);
+            case R.id.logout:
+                intent = new Intent(this, LogoutActivity.class);
                 startActivity(intent);
                 return true;
 
@@ -137,12 +136,9 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
                 startActivity(intent);
                 return true;
 
-            case R.id.logout:
-                intent = new Intent(this, LogoutActivity.class);
+            case R.id.perfil:
+                intent = new Intent(this, ListPublicCommentActivity.class);
                 startActivity(intent);
-                return true;
-
-            case R.id.buscarGroup:
                 return true;
 
             case R.id.createQR:

@@ -59,6 +59,8 @@ public class CreateGroupActivity extends Activity implements DownloadDropboxTask
         dc = new DropboxConnection(this);
         dc.connect();
 
+        urlImage= "http://png-1.findicons.com/files/icons/131/software/48/user_group.png";
+
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {

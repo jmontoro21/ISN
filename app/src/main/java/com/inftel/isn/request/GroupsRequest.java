@@ -59,6 +59,6 @@ public class GroupsRequest  extends AsyncTask<String, Integer, List<Group>> {
 
     @Override
     protected void onPostExecute(List<Group> object) {
-        if(object!=null) (source).loadListView(object);
+        if(object != null) (source).loadListView(object);
     }
 }

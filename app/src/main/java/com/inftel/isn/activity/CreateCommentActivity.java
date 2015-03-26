@@ -162,15 +162,21 @@ public class CreateCommentActivity extends Activity {
             Intent i = getIntent();
             Group g;
             g = i.getParcelableExtra("GRUPO");
-            Gson gsonGroup = new Gson();
-            String jsonGroup = gsonGroup.toJson(g, Group.class);
-            JSONObject jsongroup = null;
+            String nombreAdmin = g.getAdmin();
+            String nombreGrupo = g.getName();
             try {
-                jsongroup = new JSONObject(jsonGroup);
-            } catch (JSONException e) {
+                jsoncomment = new JSONObject(jsonCommentAsString);
+
+            Log.i("nc", "profile");
+            nombreAdmin = nombreAdmin.replaceAll("\\.", "___");
+
+            new RestServicePost(jsoncomment).execute(CREATE_COMMENT_FOR_GROUP + "?admin=" + nombreAdmin +"&name=" + nombreGrupo );
+            } catch (Exception e) {
+
                 e.printStackTrace();
             }
-            new RestServicePost(jsongroup).execute(CREATE_COMMENT_FOR_GROUP);
+
+
         } else if (tipo.equals("nota")) {
             try {
                 jsoncomment = new JSONObject(jsonCommentAsString);

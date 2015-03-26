@@ -67,7 +67,7 @@
         </activity>
         <activity
             android:name=".activity.LoginSelectionActivity"
-            android:label="Select login">
+            android:label="Inftel Social Network">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -93,6 +93,10 @@
         <activity
             android:name=".activity.CommentGroupActivity"
             android:label="Comentarios del grupo" >
+        </activity>
+        <activity
+            android:name=".activity.FinderActivity"
+            android:label="Buscador" >
         </activity>
     </application>
 

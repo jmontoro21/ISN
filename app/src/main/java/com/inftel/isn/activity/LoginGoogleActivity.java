@@ -152,7 +152,8 @@ public class LoginGoogleActivity extends Activity implements
         googleId = persona.getId();
         imgUrl = persona.getImage().getUrl();
 
-        SharedPreferences prefs = this.getSharedPreferences("MYPREFERENCES", Context.MODE_PRIVATE);
+        SharedPreferences prefs =
+                    this.getSharedPreferences("MYPREFERENCES", Context.MODE_PRIVATE);
         SharedPreferences.Editor e = prefs.edit();
         e.putString(USER_KEY, email);
         e.putString(USER_NAME, name);
@@ -178,7 +179,7 @@ public class LoginGoogleActivity extends Activity implements
             new RestServicePost(user).execute("http://" + IP + ":8080/InftelSocialNetwork-web/webresources/users/create");
 
             Intent i = new Intent(this, MenuActivity.class);
-           // Intent i = new Intent(this, JoseActivity.class);
+
             startActivity(i);
 
 
