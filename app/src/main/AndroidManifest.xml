@@ -94,6 +94,10 @@
             android:name=".activity.CommentGroupActivity"
             android:label="Comentarios del grupo" >
         </activity>
+        <activity
+            android:name=".activity.FinderActivity"
+            android:label="Buscador" >
+        </activity>
     </application>
 
 </manifest>
