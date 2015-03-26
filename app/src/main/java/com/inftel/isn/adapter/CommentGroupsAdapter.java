@@ -9,12 +9,16 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.inftel.isn.R;
 import com.inftel.isn.activity.CreateCommentActivity;
 import com.inftel.isn.model.Comment;
+import com.inftel.isn.model.GroupComments;
+import com.inftel.isn.request.DeleteCommentGroupRequest;
 import com.inftel.isn.request.DownloadImageTask;
 
 import java.text.SimpleDateFormat;
@@ -28,10 +32,12 @@ import java.util.List;
 public class CommentGroupsAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<Comment> objects;
+    private GroupComments groupComments;
 
-    public CommentGroupsAdapter(ArrayList<Comment> objetos, Context context) {
+    public CommentGroupsAdapter(ArrayList<Comment> objetos, Context context, GroupComments groupComments) {
         this.context = context;
         this.objects= objetos;
+        this.groupComments= groupComments;
     }
 
     @Override
@@ -50,7 +56,7 @@ public class CommentGroupsAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater mInflater = (LayoutInflater)
                     context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
@@ -70,7 +76,7 @@ public class CommentGroupsAdapter extends BaseAdapter {
         textDescription.setText(objects.get(position).getText());
 
         if(objects.get(position).getImageUrl() != null  && !objects.get(position).getImageUrl().isEmpty()) {
-            ImageView imgComentario = (ImageView) convertView.findViewById(R.id.imgComment);
+            ImageView imgComentario = (ImageView) convertView.findViewById(R.id.imgCommentgroup);
             new DownloadImageTask(imgComentario).execute(objects.get(position).getImageUrl(), "");
         }
 
@@ -91,6 +97,17 @@ public class CommentGroupsAdapter extends BaseAdapter {
             viedoComentario.loadData(html, "text/html", null);
 
         }
+        ImageButton buttonDelete = (ImageButton) convertView.findViewById(R.id.btnDeleteComments);
+
+       buttonDelete.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                new DeleteCommentGroupRequest(objects.get(position), groupComments.getGroup().getAdmin(),groupComments.getGroup().getName()).execute();
+                Toast.makeText(context, "Comentario eliminado " , Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return convertView;
     }

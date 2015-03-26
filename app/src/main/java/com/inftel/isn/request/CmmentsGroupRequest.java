@@ -53,7 +53,7 @@ public class CmmentsGroupRequest extends AsyncTask<String, Integer, GroupComment
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        //HttpGet httpGet = new HttpGet("http://192.168.183.61:8080/InftelSocialNetwork-web/webresources/group/email/yo");
+
 
         try {
             // Execute HTTP Get Request

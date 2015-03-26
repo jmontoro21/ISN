@@ -43,7 +43,7 @@ public class CommentGroupActivity extends Activity {
 
 
     public void loadListView (GroupComments comments) {
-        CommentGroupsAdapter adapter = new CommentGroupsAdapter(comments.getCommentsList(), CommentGroupActivity.this);
+        CommentGroupsAdapter adapter = new CommentGroupsAdapter(comments.getCommentsList(), CommentGroupActivity.this,comments);
         listView.setAdapter(adapter);
     }
 
