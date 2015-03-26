@@ -16,17 +16,18 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FollowListAdapter extends BaseAdapter {
+public class FollowerListAdapter extends BaseAdapter {
     LayoutInflater inflater;
-    List<Following> objects;
+    List<User> objects;
     Activity activity;
     public ArrayList<User> selectedIds = new ArrayList<>();
 
-    public FollowListAdapter(List<Following> objetos, Activity activity) {
+    public FollowerListAdapter(List<User> objetos, Activity activity) {
         this.activity = activity;
         inflater = LayoutInflater.from(activity);
         this.objects = objetos;
     }
+
 
     @Override
     public int getCount() {
@@ -51,8 +52,8 @@ public class FollowListAdapter extends BaseAdapter {
         ImageView imageView = (ImageView) itemView.findViewById(R.id.userImg);
 
         Picasso.with(activity).load(R.drawable.user).into(imageView);
-        textTitulo.setText(objects.get(position).getUser().getName());
-        textDescription.setText(objects.get(position).getUser().getEmail());
+        textTitulo.setText(objects.get(position).getName());
+        textDescription.setText(objects.get(position).getEmail());
         return itemView;
     }
 }

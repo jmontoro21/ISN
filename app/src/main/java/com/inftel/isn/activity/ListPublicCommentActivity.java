@@ -14,24 +14,30 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.inftel.isn.R;
 import com.inftel.isn.adapter.PublicsUsersCommentsListAdapter;
+import com.inftel.isn.adapter.UsersAddedListAdapter;
 import com.inftel.isn.model.Comment;
+import com.inftel.isn.model.Following;
 import com.inftel.isn.model.ProfileComments;
 import com.inftel.isn.model.User;
 import com.inftel.isn.request.DownloadImageTask;
 import com.inftel.isn.request.RestServiceGet;
 import com.inftel.isn.request.RestServicePost;
 
+
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
@@ -39,22 +45,20 @@ import java.util.concurrent.ExecutionException;
 public class ListPublicCommentActivity extends Activity {
 
     public static final String EMAIL_USER_PROFILE = "es.inftel.isn.user.google.id.nameUser";
-    public static final String IP = "192.168.183.24";
+    public static final String IP = "192.168.1.123";
 
     private TextView userName;
     private ImageView imgProfile;
-    private String emailProfile;
-    private String emailLogin;
+    private  String emailProfile;
+    private  String emailLogin;
 
     private ListView listView;
     private PublicsUsersCommentsListAdapter adapter;
     private ProfileComments perfil;
     private ImageButton btnSeguir;
     private ImageButton btnDSeguir;
+    private ImageButton compartir;
 
-
-    private TextView email1;
-    private TextView email2;
 
 
     @Override
@@ -84,6 +88,8 @@ public class ListPublicCommentActivity extends Activity {
         if (prefs.contains(LoginGoogleActivity.USER_KEY)) {
             emailLogin = prefs.getString(LoginGoogleActivity.USER_KEY, "");
         }
+
+
 
         userName = (TextView) this.findViewById(R.id.PublicCommentNameProfile);
         imgProfile = (ImageView) this.findViewById(R.id.PublicCommentImgProfile);
@@ -122,6 +128,9 @@ public class ListPublicCommentActivity extends Activity {
         }
         else {
             try {
+
+
+                System.out.println("dentro perfilffff  " );
                 String formatEmail = emailProfile.replaceAll("\\.", "___");
                 String userGet = new RestServiceGet().execute("http://"+IP+":8080/InftelSocialNetwork-web/webresources/users/" + formatEmail).get();
 
@@ -152,6 +161,13 @@ public class ListPublicCommentActivity extends Activity {
 
 
                 }
+                else
+                {
+
+                }
+
+
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
@@ -201,6 +217,7 @@ public class ListPublicCommentActivity extends Activity {
                     JSONObject object = null;
 
                     object = nuevo.getJSONObject(i);
+
 
                     //perfil = gson.fromJson(respJSON, ProfileComments.class);
                 }
@@ -321,6 +338,9 @@ public class ListPublicCommentActivity extends Activity {
     {
         try {
 
+
+
+
             String emaillogin = emailLogin.replaceAll("\\.", "___");
             String emaolprofile = emailProfile.replaceAll("\\.", "___");
 
@@ -355,6 +375,41 @@ public class ListPublicCommentActivity extends Activity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    public void shareItems(View v)
+    {
+
+
+        ImageButton botonCompartir =  (ImageButton) v.findViewById(R.id.btnShare);
+        botonCompartir.getTag((int) v.getTag());
+
+
+
+        botonCompartir.setVisibility(View.INVISIBLE);
+
+
+        Gson gson = new Gson();
+
+        String json = gson.toJson(perfil.getComment((int) v.getTag()),Comment.class);
+
+        json = json.replaceAll("creationDate\":\".*?\"","creationDate\":1426701282429");
+
+        JSONObject  comenatrio = null;
+        try {
+            comenatrio = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        String formatEmail = emailLogin.replaceAll("\\.", "___");
+
+        new RestServicePost(comenatrio).execute("http://"+IP+":8080/InftelSocialNetwork-web/webresources/profilecomments/share?userEmail=" + formatEmail);
+
+        Toast data = Toast.makeText(this, "Comment Share", Toast.LENGTH_LONG);
+        data.show();
+        //adapter.notifyDataSetChanged();
     }
 }
 

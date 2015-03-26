@@ -1,4 +1,5 @@
 <resources>
+    <string name="IP">192.168.183.24</string>
     <string name="app_name">Inftel Social Network</string>
     <string name="title_activity_create_post">CreatePostActivity</string>
     <string name="hello_world">Hello world!</string>

@@ -2,12 +2,18 @@ package com.inftel.isn.activity;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
@@ -102,6 +108,8 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
         switch (item.getItemId()) {
+
+
             case R.id.action_search:
                 intent = new Intent(this, UserSearchActivity.class);
                 startActivity(intent);
@@ -119,7 +127,7 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
 
             case R.id.seguidos:
                 intent = new Intent(this, FollowedActivity.class);
-                intent.putExtra("user", user);
+                intent.putExtra("email", user.getEmail());
                 startActivity(intent);
                 return true;
 
@@ -219,6 +227,37 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
         }
     }
 
+    private static AlertDialog showDialog(final Activity act, CharSequence title, CharSequence message, CharSequence buttonYes, CharSequence buttonNo) {
+        AlertDialog.Builder downloadDialog = new AlertDialog.Builder(act);
+        downloadDialog.setTitle(title);
+        downloadDialog.setMessage(message);
+        downloadDialog.setPositiveButton(buttonYes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Uri uri = Uri.parse("market://details?id=" + "com.google.zxing.client.android");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                try {
+                    act.startActivity(intent);
+                } catch (ActivityNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        downloadDialog.setNegativeButton(buttonNo, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
+        return downloadDialog.show();
+    }
 
-
+    //Devolución del programa
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if (requestCode == 0) {
+            if (resultCode == RESULT_OK) {
+                String loginEmail = intent.getStringExtra("SCAN_RESULT");
+                //Buscar usuario por email en BBDD pasando "loginEmail".
+                //Si alguno concuerda, logearse con dicho email
+                //Si no, volver al LoginActivity
+            }
+        }
+    }
 }

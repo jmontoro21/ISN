@@ -443,7 +443,8 @@ public class CreateCommentActivity extends Activity {
         if (view.getId() == R.id.espacio) {
             content.setText(content.getText().toString() + " ");
         }
-        if (view.getId() == R.id.enviarcomentario) {
+        if (view.getId() == R.id.enviarcomentario ||
+                view.getId() == R.id.enviarcomentarionormal) {
             intent = getIntent();
             doPost();
         }

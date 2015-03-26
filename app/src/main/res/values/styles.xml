@@ -1,5 +1,5 @@
 <resources>
-    <style name="WhiteTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="WhiteTheme" parent="android:Theme.Holo.Light">
         <item name="android:windowNoTitle">false</item>
         <item name="android:windowActionBar">true</item>
     </style>
