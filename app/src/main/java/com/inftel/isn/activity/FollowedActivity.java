@@ -1,6 +1,8 @@
 package com.inftel.isn.activity;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ListView;
 
@@ -25,8 +27,8 @@ public class FollowedActivity extends Activity {
 
 
     private ListView listView;
+    private String emailLogin;
     private User user;
-
 
     private ArrayList<User> users = new ArrayList<>();
 
@@ -34,20 +36,24 @@ public class FollowedActivity extends Activity {
 
     private List<Following> requestFollowedBBDD(){
         try {
-            String respStr = new RestServiceGet().execute("http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/following/").get();///email/"+user.getEmail()
+
+            String respStr = new RestServiceGet().execute("http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/following/followed?email="+emailLogin).get();///email/"+user.getEmail()
             System.out.println("respuesta es: "+ respStr);
-            List<Following> seguidores = new ArrayList<>();
-            JSONArray respJSON = new JSONArray(respStr);
-            Gson gson = new Gson();
+            if(!respStr.isEmpty() && (respStr != null)){
+                List<Following> seguidores = new ArrayList<>();
+                JSONArray respJSON = new JSONArray(respStr);
+                Gson gson = new Gson();
 
-            if (respJSON.length() != 0) {
-                for (int i = 0; i < respJSON.length(); i++) {
+                if (respJSON.length() != 0) {
+                    for (int i = 0; i < respJSON.length(); i++) {
 
-                    JSONObject object = respJSON.getJSONObject(i);
-                    seguidores.add(gson.fromJson(object.toString(), Following.class));
+                        JSONObject object = respJSON.getJSONObject(i);
+                        seguidores.add(gson.fromJson(object.toString(), Following.class));
+                    }
                 }
+                return seguidores;
+
             }
-            return seguidores;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -58,11 +64,20 @@ public class FollowedActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_followed);
+
+        SharedPreferences prefs = this.getSharedPreferences("MYPREFERENCES", Context.MODE_PRIVATE);
+        if (prefs.contains(LoginGoogleActivity.USER_KEY)) {
+            emailLogin = prefs.getString(LoginGoogleActivity.USER_KEY, "");
+        }
+
         user = getIntent().getExtras().getParcelable("user");
         List<Following> followings = requestFollowedBBDD();
         listView = (ListView)findViewById(R.id.list_followed);
 
-        listView.setAdapter(new FollowListAdapter(followings.get(0).getFollowing(), this));
+        if(!followings.isEmpty()){
+            listView.setAdapter(new FollowListAdapter(followings, this));
+        }
+
 
 
     }

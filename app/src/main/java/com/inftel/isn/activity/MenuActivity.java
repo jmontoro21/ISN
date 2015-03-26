@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -67,6 +68,7 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
         actionbar.addTab(actionbar.newTab().setText("Inicio").setTabListener(this));
         actionbar.addTab(actionbar.newTab().setText("Grupos").setTabListener(this));
         actionbar.addTab(actionbar.newTab().setText("Notas").setTabListener(this));
+
         viewpager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
@@ -135,7 +137,7 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
 
             case R.id.seguidos:
                 intent = new Intent(this, FollowedActivity.class);
-                intent.putExtra("user", user);
+                intent.putExtra("email", user.getEmail());
                 startActivity(intent);
                 return true;
 

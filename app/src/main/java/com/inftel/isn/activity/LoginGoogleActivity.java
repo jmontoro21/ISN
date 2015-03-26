@@ -43,7 +43,7 @@ public class LoginGoogleActivity extends Activity implements
     private static final String KEY_IN_RESOLUTION = "is_in_resolution";
 
 
-    public static final String IP = "192.168.183.24";
+    public static final String IP = "192.168.1.123";
 
     /**
      * Request code for auto Google Play Services error resolution.
@@ -178,6 +178,7 @@ public class LoginGoogleActivity extends Activity implements
             new RestServicePost(user).execute("http://" + IP + ":8080/InftelSocialNetwork-web/webresources/users/create");
 
             Intent i = new Intent(this, MenuActivity.class);
+           // Intent i = new Intent(this, JoseActivity.class);
             startActivity(i);
 
 

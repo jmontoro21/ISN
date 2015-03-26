@@ -31,6 +31,9 @@ public class RestServicePost extends AsyncTask<String, Integer, String> {
             httpPost.setHeader("Content-type", "application/json");
 
             httpClient.execute(httpPost);
+
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }

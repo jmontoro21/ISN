@@ -29,6 +29,7 @@ import com.inftel.isn.model.User;
 import com.inftel.isn.request.DownloadImageTask;
 import com.inftel.isn.request.RestServiceGet;
 import com.inftel.isn.request.RestServicePost;
+import com.inftel.isn.request.RestServicePostWithResp;
 
 
 import org.json.JSONArray;
@@ -45,7 +46,7 @@ import java.util.concurrent.ExecutionException;
 public class ListPublicCommentActivity extends Activity {
 
     public static final String EMAIL_USER_PROFILE = "es.inftel.isn.user.google.id.nameUser";
-    public static final String IP = "192.168.1.117";
+    public static final String IP = "192.168.1.123";
 
     private TextView userName;
     private ImageView imgProfile;
@@ -57,10 +58,8 @@ public class ListPublicCommentActivity extends Activity {
     private ProfileComments perfil;
     private ImageButton btnSeguir;
     private ImageButton btnDSeguir;
+    private ImageButton compartir;
 
-
-    private TextView email1;
-    private TextView email2;
 
 
     @Override
@@ -377,6 +376,41 @@ public class ListPublicCommentActivity extends Activity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    public void shareItems(View v)
+    {
+
+
+        ImageButton botonCompartir =  (ImageButton) v.findViewById(R.id.btnShare);
+        botonCompartir.getTag((int) v.getTag());
+
+
+
+        botonCompartir.setVisibility(View.INVISIBLE);
+
+
+        Gson gson = new Gson();
+
+        String json = gson.toJson(perfil.getComment((int) v.getTag()),Comment.class);
+
+        json = json.replaceAll("creationDate\":\".*?\"","creationDate\":1426701282429");
+
+        JSONObject  comenatrio = null;
+        try {
+            comenatrio = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        String formatEmail = emailLogin.replaceAll("\\.", "___");
+
+        new RestServicePost(comenatrio).execute("http://"+IP+":8080/InftelSocialNetwork-web/webresources/profilecomments/share?userEmail=" + formatEmail);
+
+        Toast data = Toast.makeText(this, "Comment Share", Toast.LENGTH_LONG);
+        data.show();
+        //adapter.notifyDataSetChanged();
     }
 }
 
