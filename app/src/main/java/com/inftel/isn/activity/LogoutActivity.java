@@ -188,6 +188,8 @@ public class LogoutActivity extends Activity implements
                     });
         }
 
+
+
         Intent i = new Intent(this, LoginSelectionActivity.class);
         startActivity(i);
     }

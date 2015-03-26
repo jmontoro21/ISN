@@ -79,10 +79,6 @@
             android:label="@string/title_activity_user_search"
             android:launchMode="singleInstance" >
         </activity>
-        <activity
-            android:name=".activity.JoseActivity"
-            android:label="@string/title_activity_jose" >
-        </activity>
         <activity android:name=".activity.SearchGroupsActivity"
             android:label="Mis grupos">
         </activity>
