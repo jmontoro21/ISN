@@ -26,7 +26,7 @@
             android:configChanges="orientation|keyboard"
             android:launchMode="singleTask" >
             <intent-filter>
-                <data android:scheme="db-byvhrgmt4snnfz0" />
+                <data android:scheme="db-wzigz2im1ndkffy" />
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -90,7 +90,8 @@
             android:name=".activity.JoseActivity"
             android:label="@string/title_activity_jose" >
         </activity>
-        <activity android:name=".activity.SearchGroupsActivity" android:label="Mis grupos">
+        <activity android:name=".activity.SearchGroupsActivity"
+            android:label="Mis grupos">
 
         </activity>
         <activity
@@ -99,7 +100,7 @@
         </activity>
         <activity
             android:name=".activity.CommentGroupActivity"
-            android:label="@string/title_activity_logout" >
+            android:label="Comentarios del grupo" >
         </activity>
     </application>
 

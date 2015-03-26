@@ -3,7 +3,6 @@ package com.inftel.isn.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -115,7 +114,6 @@ public class Group implements Parcelable {
         this.user.add(user);
     }
 
-
     public void removeUserFromList(User user) { this.user.remove(user);}
 
 
@@ -125,7 +123,7 @@ public class Group implements Parcelable {
         name = in.readString();
         imageUrl = in.readString();
         if (in.readByte() == 0x01) {
-            user = new ArrayList<User>();
+            user = new ArrayList<>();
             in.readList(user, User.class.getClassLoader());
         } else {
             user = null;

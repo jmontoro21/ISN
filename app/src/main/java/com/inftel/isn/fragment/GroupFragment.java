@@ -28,7 +28,7 @@ public class GroupFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_search_groups, container, false);
+        View v = inflater.inflate(R.layout.fragment_group, container, false);
         listView = (ListView) v.findViewById(R.id.listview_droup);
 
         SharedPreferences prefs = getActivity().getSharedPreferences("MYPREFERENCES", Context.MODE_PRIVATE);
@@ -37,6 +37,7 @@ public class GroupFragment extends Fragment {
         email=email.replaceAll("\\.","___");
 
         new GroupsRequest(GroupFragment.this).execute();
+
         return  v;
     }
 
@@ -61,13 +62,9 @@ public class GroupFragment extends Fragment {
 
     }
 
-
-
     public void changeActivity(Group group) {
         Intent intent = new Intent(getActivity(), CommentGroupActivity.class);
         intent.putExtra("group", group);
-        //intent.putExtra("admin", group.getAdmin());
-        // intent.putExtra("name", group.getName());
         startActivity(intent);
     }
 

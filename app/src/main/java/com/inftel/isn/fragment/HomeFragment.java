@@ -101,9 +101,6 @@ public class HomeFragment extends Fragment {
 
                     Gson gson = builder.create();
 
-
-                    System.out.println("------comentario--------- " + respJSON);
-
                     perfil = gson.fromJson(respJSON, ProfileComments.class);
 
                     Collections.reverse(perfil.getCommentsList());
