@@ -16,6 +16,7 @@ import com.inftel.isn.R;
 import com.inftel.isn.activity.LoginGoogleActivity;
 import com.inftel.isn.model.Group;
 import com.inftel.isn.request.DownloadImageTask;
+import com.inftel.isn.request.RestServiceDeleteGroup;
 import com.inftel.isn.request.RestServiceExitGroup;
 
 import java.text.SimpleDateFormat;
@@ -84,7 +85,8 @@ public class GroupAdapter extends BaseAdapter {
             @Override
             public void onClick(View v)
             {
-
+                new RestServiceDeleteGroup(group).execute(email);
+                Toast.makeText(context, "Has eliminado el grupo " + group.getName(), Toast.LENGTH_SHORT).show();
             }
         });
 

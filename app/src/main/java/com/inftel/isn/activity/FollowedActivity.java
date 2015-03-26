@@ -62,8 +62,9 @@ public class FollowedActivity extends Activity {
         List<Following> followings = requestFollowedBBDD();
         listView = (ListView)findViewById(R.id.list_followed);
 
-        listView.setAdapter(new FollowListAdapter(followings.get(0).getFollowing(), this));
-
+        if(!followings.equals("")){
+            listView.setAdapter(new FollowListAdapter(followings.get(0).getFollowing(), this));
+        }
 
     }
 }
