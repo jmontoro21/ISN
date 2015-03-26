@@ -52,9 +52,7 @@ public class GroupFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 Group group= (Group)parent.getAdapter().getItem(position);
-
                 changeActivity(group);
 
             }

@@ -117,7 +117,6 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
                 startActivity(intent);
                 return true;
 
-
             case R.id.seguidos:
                 intent = new Intent(this, FollowedActivity.class);
                 intent.putExtra("user", user);
