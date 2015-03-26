@@ -86,7 +86,7 @@ public class GroupAdapter extends BaseAdapter {
             public void onClick(View v)
             {
                 new RestServiceDeleteGroup(group).execute(email);
-              //  Toast.makeText(context, "Has eliminado el grupo " + group.getName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Has eliminado el grupo " + group.getName(), Toast.LENGTH_SHORT).show();
             }
         });
 
