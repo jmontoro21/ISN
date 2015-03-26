@@ -119,8 +119,8 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
                 startActivity(intent);
                 return true;
 
-            case R.id.loginGoogle:
-                intent = new Intent(this, LoginGoogleActivity.class);
+            case R.id.logout:
+                intent = new Intent(this, LogoutActivity.class);
                 startActivity(intent);
                 return true;
 
@@ -136,8 +136,8 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
                 startActivity(intent);
                 return true;
 
-            case R.id.logout:
-                intent = new Intent(this, LogoutActivity.class);
+            case R.id.perfil:
+                intent = new Intent(this, ListPublicCommentActivity.class);
                 startActivity(intent);
                 return true;
 
