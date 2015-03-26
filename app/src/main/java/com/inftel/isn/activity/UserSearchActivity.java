@@ -1,7 +1,9 @@
 package com.inftel.isn.activity;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -25,7 +27,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class UserSearchActivity extends ListActivity {
-
+    public static final String IP = "192.168.183.24";
     private Group group;
     int textlength=0;
     private ArrayList<User> array_sort;
@@ -40,7 +42,6 @@ public class UserSearchActivity extends ListActivity {
         setContentView(R.layout.activity_user_search);
 
         users = new ArrayList<>();
-
         requestUsersBBDD();
 
         Gson gson = new Gson();
@@ -52,7 +53,7 @@ public class UserSearchActivity extends ListActivity {
         listView = (ListView)findViewById(android.R.id.list);
         editText = (EditText)findViewById(R.id.editText3);
 
-        array_sort=new ArrayList<> (users);
+        array_sort = new ArrayList<> (users);
 
         setListAdapter(new UsersListAdapter(array_sort, listUsersGroup, UserSearchActivity.this));
 
@@ -115,10 +116,15 @@ public class UserSearchActivity extends ListActivity {
             String respStr = new RestServiceGet().execute("http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/users").get();
             JSONArray respJSON = new JSONArray(respStr);
             Gson gson = new Gson();
+            User user;
+            SharedPreferences prefs = getSharedPreferences("MYPREFERENCES", Context.MODE_PRIVATE);
+            String email = prefs.getString(LoginGoogleActivity.USER_KEY, "");
             if (respJSON.length() != 0) {
                 for (int i = 0; i < respJSON.length(); i++) {
                     JSONObject object = respJSON.getJSONObject(i);
-                    users.add(gson.fromJson(object.toString(), User.class));
+                    user = gson.fromJson(object.toString(), User.class);
+                    if(!user.getEmail().equals(email))
+                        users.add(gson.fromJson(object.toString(), User.class));
                 }
             }
         } catch (Exception e) {

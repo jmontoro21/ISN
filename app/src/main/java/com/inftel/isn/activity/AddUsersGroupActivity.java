@@ -12,13 +12,16 @@ import com.inftel.isn.R;
 import com.inftel.isn.adapter.UsersAddedListAdapter;
 import com.inftel.isn.model.Group;
 import com.inftel.isn.model.User;
+import com.inftel.isn.request.RestServiceGet;
 import com.inftel.isn.request.RestServicePost;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class AddUsersGroupActivity extends Activity{
+import java.util.concurrent.ExecutionException;
 
+public class AddUsersGroupActivity extends Activity{
+    public static final String IP = "192.168.183.24";
     private Group group;
     private ListView listView;
     private UsersAddedListAdapter adapter;
@@ -55,6 +58,10 @@ public class AddUsersGroupActivity extends Activity{
     public void intentCreated(View v) {
         try {
             Gson gson = new Gson();
+            String respStr = new RestServiceGet().execute("http://"+IP+":8080/InftelSocialNetwork-web/webresources/users/email?email=" + group.getAdmin()).get();
+            User user = gson.fromJson(respStr, User.class);
+            group.addUserToList(user);
+            gson = new Gson();
             String json = gson.toJson(group, Group.class);
             JSONObject group = new JSONObject(json);
             new RestServicePost(group).execute("http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/group/create");
@@ -62,6 +69,10 @@ public class AddUsersGroupActivity extends Activity{
             startActivity(intent);
         } catch (JSONException eq) {
             eq.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
 
         for(User user: group.getUser()) {
