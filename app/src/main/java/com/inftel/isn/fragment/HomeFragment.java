@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +45,31 @@ public class HomeFragment extends Fragment {
     private ProfileComments perfil;
     private ListView eventListView;
     private Activity act;
+
+    private Handler handler;
+    private Runnable runnable;
+
+    @Override
+    public void onPause(){
+        handler.removeCallbacks(runnable);
+        super.onPause();
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                loadCommentsList(emailLogin);
+                handler.postDelayed(this, 30000);
+            }
+        };
+        handler = new Handler();
+        handler.postDelayed(runnable, 30000);
+
+
+    }
 
 
     @Override

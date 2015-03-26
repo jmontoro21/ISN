@@ -44,4 +44,14 @@ public class PrivateComments {
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
     }
+
+    public void removecommentsList(int position) {
+        this.commentsList.remove(position);
+    }
+
+
+    public Comment getComment(int position)
+    {
+        return this.commentsList.get(position);
+    }
 }
