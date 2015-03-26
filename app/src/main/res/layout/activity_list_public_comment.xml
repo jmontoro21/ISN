@@ -8,12 +8,13 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="75dp">
+            android:layout_height="130dp"
+            android:background="#ffccefff">
 
             <ImageView
-                android:layout_width="80dp"
+                android:layout_width="90dp"
                 android:scaleType="centerCrop"
-                android:layout_height="80dp"
+                android:layout_height="90dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/PublicCommentImgProfile"/>
@@ -28,17 +29,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:textSize="20sp"
-                    android:textIsSelectable="true"
+                    android:textIsSelectable="false"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
                     android:id="@+id/PublicCommentNameProfile"
                     android:gravity="left|center"
-                    android:layout_marginRight="20dp" />
+                    android:layout_marginRight="20dp"
+                    android:textStyle="bold" />
 
                 <ImageButton
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:text="@string/DSeguir"
                     android:id="@+id/DejarDeSeguir"
                     android:layout_marginRight="20dp"
@@ -50,8 +52,8 @@
 
                 <ImageButton
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:text="@string/Seguir"
                     android:id="@+id/Seguir"
                     android:layout_gravity="right"
@@ -77,8 +79,7 @@
             android:layout_height="wrap_content"
             android:padding="4dp"
             android:scrollbars="none"
-            android:drawSelectorOnTop="true"
-            android:layout_marginTop="10dp" />
+            android:drawSelectorOnTop="true" />
     </FrameLayout>
 
 </LinearLayout>

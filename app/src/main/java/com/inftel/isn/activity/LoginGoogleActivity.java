@@ -179,7 +179,7 @@ public class LoginGoogleActivity extends Activity implements
             new RestServicePost(user).execute("http://" + IP + ":8080/InftelSocialNetwork-web/webresources/users/create");
 
             Intent i = new Intent(this, MenuActivity.class);
-          // Intent i = new Intent(this, ListPublicCommentActivity.class);
+
             startActivity(i);
 
 
