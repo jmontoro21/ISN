@@ -15,7 +15,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
 import java.lang.reflect.Type;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
@@ -40,12 +39,6 @@ public class GroupsRequest  extends AsyncTask<String, Integer, List<Group>> {
             httpGet = new HttpGet(new URL("http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/group/email/"+ source.getEmail()).toString());
             httpGet.setHeader("Accept", "application/json");
             httpGet.setHeader("Content-type", "application/json");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        //HttpGet httpGet = new HttpGet("http://192.168.183.61:8080/InftelSocialNetwork-web/webresources/group/email/yo");
-
-        try {
             // Execute HTTP Get Request
             HttpResponse response = httpclient.execute(httpGet);
             String json = EntityUtils.toString(response.getEntity(), "UTF-8");
@@ -55,9 +48,8 @@ public class GroupsRequest  extends AsyncTask<String, Integer, List<Group>> {
             List<Group> groups = gson.fromJson(json, listType);
             return groups;
         } catch (Exception e) {
-            Log.e("MainActivity", e.getMessage(),e);
+            Log.e("Error", e.getMessage(),e);
         }
-
         return null;
     }
 

@@ -11,7 +11,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
 import com.inftel.isn.activity.CommentGroupActivity;
-import com.inftel.isn.model.Comment;
 import com.inftel.isn.model.GroupComments;
 
 import org.apache.http.HttpResponse;
@@ -23,9 +22,7 @@ import org.apache.http.util.EntityUtils;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by loubna on 23/03/2015.
@@ -36,13 +33,10 @@ public class CmmentsGroupRequest extends AsyncTask<String, Integer, GroupComment
      private String name;
     private  String admin;
 
-
-
     public CmmentsGroupRequest(CommentGroupActivity source, String admin, String name) {
         this.source = source;
         this.name= name;
         this.admin= admin;
-        ;
     }
     @Override
     protected  GroupComments doInBackground(String... urls) {
@@ -51,7 +45,7 @@ public class CmmentsGroupRequest extends AsyncTask<String, Integer, GroupComment
         HttpClient httpclient = new DefaultHttpClient();
         HttpGet httpGet = null;
         try {
-            String url = new URL("http://192.168.183.61:8080/InftelSocialNetwork-web/webresources/groupcomment/admin/"+ admin + "/name/" + name).toString();
+            String url = new URL("http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/groupcomment/admin/"+ admin + "/name/" + name).toString();
             Log.i("URL", url);
             httpGet = new HttpGet(url);
             httpGet.setHeader("Accept", "application/json");
@@ -67,11 +61,8 @@ public class CmmentsGroupRequest extends AsyncTask<String, Integer, GroupComment
             String json = EntityUtils.toString(response.getEntity(), "UTF-8");
             Log.d("JSON", json);
 
-
             // Creates the json object which will manage the information received
             GsonBuilder builder = new GsonBuilder();
-
-// Register an adapter to manage the date types as long values
             builder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
                 public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
                     return new Date(json.getAsJsonPrimitive().getAsLong());
@@ -91,12 +82,7 @@ public class CmmentsGroupRequest extends AsyncTask<String, Integer, GroupComment
     }
 
     @Override
-    public void onProgressUpdate(Integer... progress) {
-
-    }
-
-    @Override
-    protected void onPostExecute( GroupComments object) {
+    protected void onPostExecute(GroupComments object) {
         (source).loadListView(object);
     }
 }
