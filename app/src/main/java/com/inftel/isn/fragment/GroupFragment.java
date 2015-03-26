@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,31 @@ public class GroupFragment extends Fragment {
     private ListView listView;
     private String email;
     EditText title;
+
+    private Handler handler;
+    private Runnable runnable;
+
+    @Override
+    public void onPause(){
+        handler.removeCallbacks(runnable);
+        super.onPause();
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                new GroupsRequest(GroupFragment.this).execute();
+                handler.postDelayed(this, 3000);
+            }
+        };
+        handler = new Handler();
+        handler.postDelayed(runnable, 3000);
+
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
