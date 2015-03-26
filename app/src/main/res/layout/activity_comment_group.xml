@@ -26,7 +26,7 @@ android:layout_height="match_parent">
         android:scaleType="centerInside"
         android:layout_gravity="right|bottom"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
         <ImageView
@@ -41,10 +41,22 @@ android:layout_height="match_parent">
             android:layout_height="wrap_content"
             android:text="Descripcion de la foto"
             android:id="@+id/textView_titulo"
-            android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:textSize="20dp" />
-    </LinearLayout>
+            android:textSize="20dp"
+            android:layout_alignTop="@+id/imageView"
+            android:layout_toEndOf="@+id/imageView"
+            android:layout_toStartOf="@+id/btnUsersGroup" />
+
+        <ImageButton
+            android:id="@+id/btnUsersGroup"
+            android:layout_width="@dimen/fab_button_diameter"
+            android:layout_height="@dimen/fab_button_diameter"
+            android:background="@drawable/group"
+            android:onClick="editGroup"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20dp" />
+    </RelativeLayout>
 </FrameLayout>
 

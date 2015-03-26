@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.inftel.isn.R;
 import com.inftel.isn.adapter.CommentGroupsAdapter;
 import com.inftel.isn.model.Group;
@@ -49,6 +50,13 @@ public class CommentGroupActivity extends Activity {
     public void createCommentGroup(View view ){
         Intent intent = new Intent (this, CreateCommentActivity.class);
         intent.putExtra("GRUPO", group);
+        startActivity(intent);
+    }
+
+    public void editGroup(View view ){
+        Gson gson = new Gson();
+        Intent intent = new Intent(this, AddUsersGroupActivity.class);
+        intent.putExtra("usersGroup", gson.toJson(group));
         startActivity(intent);
     }
 

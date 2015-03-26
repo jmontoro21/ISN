@@ -1,6 +1,7 @@
 package com.inftel.isn.adapter;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +19,13 @@ public class UsersListAdapter extends BaseAdapter {
     LayoutInflater inflater;
     ArrayList<User> objects;
     Activity activity;
-    public ArrayList<User> selectedIds = new ArrayList<>();
+    public ArrayList<User> listUsersGroup = new ArrayList<>();
 
-    public UsersListAdapter(ArrayList<User> objetos, Activity activity) {
+    public UsersListAdapter(ArrayList<User> objetos, ArrayList<User> listUsersGroup, Activity activity) {
         this.activity = activity;
         inflater = LayoutInflater.from(activity);
         this.objects = objetos;
+        this.listUsersGroup = listUsersGroup;
     }
 
     @Override
@@ -47,6 +49,10 @@ public class UsersListAdapter extends BaseAdapter {
         TextView textTitulo = (TextView) itemView.findViewById(R.id.name);
         TextView textDescription = (TextView) itemView.findViewById(R.id.description);
         ImageView imageView = (ImageView) itemView.findViewById(R.id.userImg);
+
+        if(listUsersGroup.contains(objects.get(position))){
+            itemView.setBackgroundColor(Color.parseColor("#81F781"));
+        }
 
         Picasso.with(activity).load(R.drawable.user).into(imageView);
         textTitulo.setText(objects.get(position).getName());

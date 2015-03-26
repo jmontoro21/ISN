@@ -26,29 +26,13 @@ import java.util.ArrayList;
 
 public class UserSearchActivity extends ListActivity {
 
-    private Group group;
+    private Group group=null;
     int textlength=0;
     private ArrayList<User> array_sort;
     private EditText editText;
     private ListView listView;
     private ArrayList<User> users = new ArrayList<>();
-    public ArrayList<User> selectedIds = new ArrayList<>();
-
-    private void requestUsersBBDD(){
-        try {
-            String respStr = new RestServiceGet().execute("http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/users").get();
-            JSONArray respJSON = new JSONArray(respStr);
-            Gson gson = new Gson();
-            if (respJSON.length() != 0) {
-                for (int i = 0; i < respJSON.length(); i++) {
-                    JSONObject object = respJSON.getJSONObject(i);
-                    users.add(gson.fromJson(object.toString(), User.class));
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+    public ArrayList<User> listUsersGroup = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +45,14 @@ public class UserSearchActivity extends ListActivity {
         String strObj = getIntent().getStringExtra("group");
         group = gson.fromJson(strObj, Group.class);
 
+        listUsersGroup = (ArrayList) group.getUser();
+
         listView = (ListView)findViewById(android.R.id.list);
         editText = (EditText)findViewById(R.id.editText3);
 
         array_sort=new ArrayList<> (users);
 
-        setListAdapter(new UsersListAdapter(array_sort, UserSearchActivity.this));
+        setListAdapter(new UsersListAdapter(array_sort, listUsersGroup, UserSearchActivity.this));
 
         editText.addTextChangedListener(new TextWatcher()
         {
@@ -89,29 +75,43 @@ public class UserSearchActivity extends ListActivity {
                         }
                     }
                 }
-                setListAdapter(new UsersListAdapter(array_sort, UserSearchActivity.this));
+                setListAdapter(new UsersListAdapter(array_sort, listUsersGroup, UserSearchActivity.this));
             }
         });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3)
             {
-                if(selectedIds.contains(array_sort.get(position)))
+                if(listUsersGroup.contains(array_sort.get(position)))
                 {
-                    selectedIds.remove(array_sort.get(position));
                     group.removeUserFromList(array_sort.get(position));
                     arg1.setBackgroundColor(Color.TRANSPARENT);
                     Toast.makeText(getApplicationContext(), array_sort.get(position).getName()+" eliminado", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
-                    selectedIds.add(array_sort.get(position));
                     group.addUserToList(array_sort.get(position));
                     arg1.setBackgroundColor(Color.parseColor("#81F781"));
                     Toast.makeText(getApplicationContext(), array_sort.get(position).getName()+" añadido", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    private void requestUsersBBDD(){
+        try {
+            String respStr = new RestServiceGet().execute("http://192.168.183.24:8080/InftelSocialNetwork-web/webresources/users").get();
+            JSONArray respJSON = new JSONArray(respStr);
+            Gson gson = new Gson();
+            if (respJSON.length() != 0) {
+                for (int i = 0; i < respJSON.length(); i++) {
+                    JSONObject object = respJSON.getJSONObject(i);
+                    users.add(gson.fromJson(object.toString(), User.class));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void intentUsersGroup(View v) {

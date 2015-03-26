@@ -83,6 +83,6 @@ public class CmmentsGroupRequest extends AsyncTask<String, Integer, GroupComment
 
     @Override
     protected void onPostExecute(GroupComments object) {
-        (source).loadListView(object);
+        if(object!=null) (source).loadListView(object);
     }
 }
