@@ -152,7 +152,8 @@ public class LoginGoogleActivity extends Activity implements
         googleId = persona.getId();
         imgUrl = persona.getImage().getUrl();
 
-        SharedPreferences prefs = this.getSharedPreferences("MYPREFERENCES", Context.MODE_PRIVATE);
+        SharedPreferences prefs =
+                    this.getSharedPreferences("MYPREFERENCES", Context.MODE_PRIVATE);
         SharedPreferences.Editor e = prefs.edit();
         e.putString(USER_KEY, email);
         e.putString(USER_NAME, name);
