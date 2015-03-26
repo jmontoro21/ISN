@@ -34,6 +34,7 @@ import com.inftel.isn.request.DownloadImageTask;
 import com.inftel.isn.request.RestServiceGet;
 import com.inftel.isn.request.RestServicePost;
 //import com.inftel.isn.request.RestServicePostWithResp;
+import com.inftel.isn.request.RestServicePostWithResp;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -150,7 +151,7 @@ public class PublicsUsersCommentsListAdapter extends BaseAdapter {
 
 
             String formatEmail = emailGoogle.replaceAll("\\.", "___");
-         //   new RestServicePostWithResp(coment,botonCompartir,position).execute("http://" + IP + ":8080/InftelSocialNetwork-web/webresources/profilecomments/isShare?userEmail=" +formatEmail);
+           new RestServicePostWithResp(coment,botonCompartir,position).execute("http://" + IP + ":8080/InftelSocialNetwork-web/webresources/profilecomments/isShare?userEmail=" +formatEmail);
 
 
 
