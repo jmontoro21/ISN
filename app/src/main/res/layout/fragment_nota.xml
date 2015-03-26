@@ -25,7 +25,7 @@
             android:dividerHeight="5.0sp"/>
 
         <ImageButton
-            android:id="@+id/fab_image_button"
+            android:id="@+id/fab_image_button_nota"
             android:layout_width="@dimen/fab_button_diameter"
             android:layout_height="@dimen/fab_button_diameter"
             android:layout_alignParentRight="true"
