@@ -29,7 +29,6 @@ import com.inftel.isn.model.User;
 import com.inftel.isn.request.DownloadImageTask;
 import com.inftel.isn.request.RestServiceGet;
 import com.inftel.isn.request.RestServicePost;
-import com.inftel.isn.request.RestServicePostWithResp;
 
 
 import org.json.JSONArray;
