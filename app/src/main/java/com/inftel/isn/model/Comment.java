@@ -9,11 +9,11 @@ import java.util.Objects;
 public class Comment {
 
     private String text;
-
+    private Date creationDate;
     private User author;
     private String imageUrl;
     private String videoUrl;
-    private Date creationDate;
+
 
     public Comment() {
     }

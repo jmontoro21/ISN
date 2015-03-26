@@ -13,8 +13,8 @@ import com.dropbox.client2.session.TokenPair;
 
 public class DropboxConnection {
     private final static String DROPBOX_NAME = "dropbox_prefs";
-    private final static String ACCESS_KEY = "nzborwue2amvznk";
-    private final static String ACCESS_SECRET = "dxj9ib463ebmwz9";
+    private final static String ACCESS_KEY = "wzigz2im1ndkffy";
+    private final static String ACCESS_SECRET = "cn7a0p21k5y80yz";
     private Context context;
     private DropboxAPI<AndroidAuthSession> dropbox;
 

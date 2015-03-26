@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="1"
+    android:padding="5dp"
+    android:descendantFocusability="blocksDescendants">
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/itemImg"
+        android:scaleType="centerCrop"
+        android:contentDescription="Imagen info"
+        android:layout_marginRight="5dp"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/itemImg"
+        android:layout_toLeftOf="@+id/deleteImg"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/titulo_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha: "
+                android:textSize="10dp"/>
+            <TextView
+                android:id="@+id/fecha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10dp"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/descripcion_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="35dp"
+        android:id="@+id/exitImg"
+        android:contentDescription="Exit group"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/exitgroup"
+        android:layout_alignParentEnd="true"
+        android:baselineAlignBottom="false"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentBottom="false"
+        android:layout_centerVertical="true" />
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="35dp"
+        android:id="@+id/deleteImg"
+        android:contentDescription="Delete group"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/delete_group"
+        android:layout_alignParentEnd="true"
+        android:baselineAlignBottom="false"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentBottom="false"
+        android:layout_centerVertical="true" />
+</RelativeLayout>

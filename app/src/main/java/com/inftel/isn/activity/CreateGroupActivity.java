@@ -2,8 +2,10 @@ package com.inftel.isn.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -220,7 +222,10 @@ public class CreateGroupActivity extends Activity implements DownloadDropboxTask
         Group group = new Group();
         group.setName(editText.getText().toString());
         if(urlImage!=null) group.setImageUrl(urlImage);
-        group.setAdmin("currentLogin");
+
+        SharedPreferences prefs = getSharedPreferences("MYPREFERENCES", Context.MODE_PRIVATE);
+        String emailLogged = prefs.getString(LoginGoogleActivity.USER_KEY, "");
+        group.setAdmin(emailLogged);
 
         Gson gson = new Gson();
         Intent intent = new Intent(this, UserSearchActivity.class);

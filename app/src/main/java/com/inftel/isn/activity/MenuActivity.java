@@ -68,7 +68,6 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
         actionbar.addTab(actionbar.newTab().setText("Inicio").setTabListener(this));
         actionbar.addTab(actionbar.newTab().setText("Grupos").setTabListener(this));
         actionbar.addTab(actionbar.newTab().setText("Notas").setTabListener(this));
-
         viewpager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
@@ -203,7 +202,10 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
     private void generateQR() {
         QRCodeWriter writer = new QRCodeWriter();
         try {
-            BitMatrix bitMatrix = writer.encode("emailLoginplussecurityCode", BarcodeFormat.QR_CODE, 512, 512);
+            SharedPreferences prefs = this.getSharedPreferences("MYPREFERENCES", Context.MODE_PRIVATE);
+            String emailLogin = prefs.getString(LoginGoogleActivity.USER_KEY, "");
+
+            BitMatrix bitMatrix = writer.encode(emailLogin, BarcodeFormat.QR_CODE, 512, 512);
             int width = bitMatrix.getWidth();
             int height = bitMatrix.getHeight();
             Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
