@@ -63,7 +63,6 @@ public class GroupsRequest  extends AsyncTask<String, Integer, List<Group>> {
 
     @Override
     public void onProgressUpdate(Integer... progress) {
-
     }
 
     @Override

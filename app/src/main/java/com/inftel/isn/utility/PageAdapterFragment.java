@@ -23,24 +23,16 @@ private String email;
 	public Fragment getItem(int arg0) {
 		switch (arg0) {
 		case 0:
-
-
             Bundle bundle = new Bundle();
             bundle.putString("emailGoogle", email);
-
-// set Fragmentclass Arguments
-
             HomeFragment fragobj = new HomeFragment();
             fragobj.setArguments(bundle);
             fragobj.setEmailLogin(email);
-
-
-
-			   return fragobj;
+			return fragobj;
 		case 1:
-			   return new GroupFragment();
+			return new GroupFragment();
 		case 2:
-			  return new NotaFragment();
+			return new NotaFragment();
 		default:
 			break;
 		}

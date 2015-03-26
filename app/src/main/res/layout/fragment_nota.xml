@@ -4,13 +4,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Lista de mensajes"
-        android:textSize="25dp"
-        android:textIsSelectable="true"
-        android:layout_marginLeft="10dp" />
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,7 +18,7 @@
             android:dividerHeight="5.0sp"/>
 
         <ImageButton
-            android:id="@+id/fab_image_button"
+            android:id="@+id/fab_image_button_nota"
             android:layout_width="@dimen/fab_button_diameter"
             android:layout_height="@dimen/fab_button_diameter"
             android:layout_alignParentRight="true"
